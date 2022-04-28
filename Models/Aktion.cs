@@ -7,6 +7,6 @@ namespace HOFORTaskPlanner.Models
 {
     public class Aktion
     {
-
+        public int UserId { get; set; }
     }
 }
