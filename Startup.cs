@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HOFORTaskPlanner.Services;
 
 namespace HOFORTaskPlanner
 {
@@ -25,6 +26,7 @@ namespace HOFORTaskPlanner
         {
             services.AddRazorPages();
             services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddTransient<AktionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
