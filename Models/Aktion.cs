@@ -72,6 +72,22 @@ namespace HOFORTaskPlanner.Models
         [Required]
         public DateTime LastUpdated { get; set; }
 
+        public Aktion()
+        {
+        }
 
+        public Aktion(int userId, string username, string password, string firstName, string lastName, string displayName, UserTypes userType, UserRoles userRole, UserDepartments userDepartment, DateTime lastUpdated)
+        {
+            UserId = userId;
+            Username = username;
+            Password = password;
+            FirstName = firstName;
+            LastName = lastName;
+            DisplayName = displayName;
+            UserType = userType;
+            UserRole = userRole;
+            UserDepartment = userDepartment;
+            LastUpdated = lastUpdated;
+        }
     }
 }
