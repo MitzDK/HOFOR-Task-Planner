@@ -1,0 +1,69 @@
+﻿@page
+@model HOFORTaskPlanner.Pages.TestPages.GetAktionsModel
+@{
+}
+<a asp-page="CreateAktion"><h4>Create a new Aktion</h4></a>
+@if (Model.AktionList.Count != 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    UserID
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    DisplayName
+                </th>
+                <th>
+                    UserType
+                </th>
+                <th>
+                    UserRole
+                </th>
+                <th>
+                    UserDepartment
+                </th>
+                <th>
+                    LastUpdated
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var aktion in Model.AktionList)
+            {
+                <tr>
+                    <td>
+                        @aktion.UserId
+                    </td>
+                    <td>
+                        @aktion.FirstName
+                    </td>
+                    <td>
+                        @aktion.LastName
+                    </td>
+                    <td>
+                        @aktion.DisplayName
+                    </td>
+                    <td>
+                        @aktion.UserType
+                    </td>
+                    <td>
+                        @aktion.UserRole
+                    </td>
+                    <td>
+                        @aktion.UserDepartment
+                    </td>
+                    <td>
+                        @aktion.LastUpdated
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

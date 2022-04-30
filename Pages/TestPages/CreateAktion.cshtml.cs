@@ -11,8 +11,11 @@ namespace HOFORTaskPlanner.Pages.TestPages
 {
     public class CreateAktionModel : PageModel
     {
-        public List<Aktion> AktionList;
         private AktionService _aktionService;
+        [BindProperty] public Aktion NewAktion { get; set; }
+        [BindProperty] public Aktion.UserDepartments UserDepartments { get; set; }
+        [BindProperty] public Aktion.UserRoles UserRoles { get; set; }
+        [BindProperty] public Aktion.UserTypes UserTypes { get; set; }
 
         public CreateAktionModel(AktionService aktionService)
         {
@@ -20,7 +23,21 @@ namespace HOFORTaskPlanner.Pages.TestPages
         }
         public void OnGet()
         {
-            AktionList = _aktionService.GetAktions();
+        }
+
+        public IActionResult OnPost()
+        {
+            NewAktion.UserDepartment = UserDepartments;
+            NewAktion.UserRole = UserRoles;
+            NewAktion.UserType = UserTypes;
+            NewAktion.LastUpdated = DateTime.Now;
+            //TEMPOARY SOLUTION TILL WE HOOKUP A DATABASE
+            //Once we use a database entityframework will automatically generate a userId, till then
+            //We do it like this :)
+            NewAktion.UserId = _aktionService.GetAktions().Count + 1;
+
+            _aktionService.AddAktion(NewAktion);
+            return RedirectToPage("GetAktions");
         }
     }
 }

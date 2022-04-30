@@ -1,68 +1,53 @@
 ﻿@page
+@using HOFORTaskPlanner.Models
 @model HOFORTaskPlanner.Pages.TestPages.CreateAktionModel
 @{
 }
-@if (Model.AktionList.Count != 0)
-{
-    <table>
-        <thead>
-        <tr>
-            <th>
-                UserID
-            </th>
-            <th>
-                First Name
-            </th>
-            <th>
-                Last Name
-            </th>
-            <th>
-                DisplayName
-            </th>
-            <th>
-                UserType
-            </th>
-            <th>
-                UserRole
-            </th>
-            <th>
-                UserDepartment
-            </th>
-            <th>
-                LastUpdated
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var aktion in Model.AktionList)
-        {
-            <tr>
-                <td>
-                    @aktion.UserId
-                </td>
-                <td>
-                    @aktion.FirstName
-                </td>
-                <td>
-                    @aktion.LastName
-                </td>
-                <td>
-                    @aktion.DisplayName
-                </td>
-                <td>
-                    @aktion.UserType
-                </td>
-                <td>
-                    @aktion.UserRole
-                </td>
-                <td>
-                    @aktion.UserDepartment
-                </td>
-                <td>
-                    @aktion.LastUpdated
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-}
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="NewAktion.Username"></label>:<br />
+                <input asp-for="NewAktion.Username" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewAktion.Password"></label>:<br />
+                <input asp-for="NewAktion.Password" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewAktion.FirstName"></label>:<br />
+                <input asp-for="NewAktion.FirstName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewAktion.LastName"></label>:<br />
+                <input asp-for="NewAktion.LastName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewAktion.DisplayName"></label>:<br />
+                <input asp-for="NewAktion.DisplayName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewAktion.UserType"></label>:<br />
+                <select asp-for="UserTypes" asp-items="Html.GetEnumSelectList<Aktion.UserTypes>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewAktion.UserRole"></label>:<br />
+                <select asp-for="UserRoles" asp-items="Html.GetEnumSelectList<Aktion.UserRoles>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewAktion.UserDepartment"></label>:<br />
+                <select asp-for="UserDepartments" asp-items="Html.GetEnumSelectList<Aktion.UserDepartments>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Create!</button>
+            </div>
+            
+        </form>
+    </div>
+</div>

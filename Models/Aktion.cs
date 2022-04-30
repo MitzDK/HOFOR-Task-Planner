@@ -11,44 +11,44 @@ namespace HOFORTaskPlanner.Models
     {
         public enum UserTypes
         {
-            Admin,
-            User
+            Admin = 1,
+            User = 2
         }
 
         public enum UserRoles
         {
-            Implementering,
-            Tovholder,
-            Projektleder,
-            D365Platform,
-            D365Ce,
-            D365Fo,
-            Udvikler,
-            Koordinator,
-            Bi,
-            Web,
-            Isdm,
-            Løsningsdesign,
-            Klient,
-            Netværk,
-            Server,
-            Azure,
-            Sikkerhed,
-            Dba,
-            Lcm,
-            Support,
-            Støttefunktion,
-            Leder,
-            Xprojektleder
+            Implementering = 1,
+            Tovholder = 2,
+            Projektleder = 3,
+            D365Platform = 4,
+            D365Ce = 5,
+            D365Fo = 6,
+            Udvikler = 7,
+            Koordinator = 8,
+            Bi = 9,
+            Web = 10,
+            Isdm = 11,
+            Løsningsdesign = 12,
+            Klient = 13,
+            Netværk = 14,
+            Server = 15,
+            Azure = 16,
+            Sikkerhed = 17,
+            Dba = 18,
+            Lcm = 19,
+            Support = 20,
+            Støttefunktion = 21,
+            Leder = 22,
+            Xprojektleder = 23
         }
 
         public enum UserDepartments
         {
-            Implementering,
-            Udvikling,
-            Infrastruktur,
-            Digitalisering,
-            Service
+            Implementering = 1,
+            Udvikling = 2,
+            Infrastruktur = 3,
+            Digitalisering = 4,
+            Service = 5
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

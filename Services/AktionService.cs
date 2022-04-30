@@ -19,5 +19,10 @@ namespace HOFORTaskPlanner.Services
         {
             return _aktionList;
         }
+
+        public void AddAktion(Aktion newAktion)
+        {
+            _aktionList.Add(newAktion);
+        }
     }
 }
