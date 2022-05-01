@@ -10,7 +10,7 @@ namespace HOFORTaskPlanner.MockData
     {
         private static List<Aktion> _aktions = new List<Aktion>()
         {
-            new Aktion(1, "Testuser", "123", "John", "Johnson", "JOHN", Aktion.UserTypes.Admin, Aktion.UserRoles.Leder, Aktion.UserDepartments.Udvikling, DateTime.Now)
+            new Aktion("Testuser", "123", "John", "Johnson", "JOHN", Aktion.UserTypes.Admin, Aktion.UserRoles.Leder, Aktion.UserDepartments.Udvikling, DateTime.Now)
         };
 
         public static List<Aktion> GetAktions()

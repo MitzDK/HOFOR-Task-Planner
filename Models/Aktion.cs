@@ -50,7 +50,7 @@ namespace HOFORTaskPlanner.Models
             Digitalisering = 4,
             Service = 5
         }
-
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         [Required] 
@@ -76,9 +76,8 @@ namespace HOFORTaskPlanner.Models
         {
         }
 
-        public Aktion(int userId, string username, string password, string firstName, string lastName, string displayName, UserTypes userType, UserRoles userRole, UserDepartments userDepartment, DateTime lastUpdated)
+        public Aktion(string username, string password, string firstName, string lastName, string displayName, UserTypes userType, UserRoles userRole, UserDepartments userDepartment, DateTime lastUpdated)
         {
-            UserId = userId;
             Username = username;
             Password = password;
             FirstName = firstName;

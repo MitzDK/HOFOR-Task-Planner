@@ -25,18 +25,19 @@ namespace HOFORTaskPlanner.Pages.TestPages
         {
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             NewAktion.UserDepartment = UserDepartments;
             NewAktion.UserRole = UserRoles;
             NewAktion.UserType = UserTypes;
             NewAktion.LastUpdated = DateTime.Now;
+
             //TEMPOARY SOLUTION TILL WE HOOKUP A DATABASE
             //Once we use a database entityframework will automatically generate a userId, till then
             //We do it like this :)
-            NewAktion.UserId = _aktionService.GetAktions().Count + 1;
+            //NewAktion.UserId = _aktionService.GetAktions().Count + 1;
 
-            _aktionService.AddAktion(NewAktion);
+            await _aktionService.AddAktionAsync(NewAktion);
             return RedirectToPage("GetAktions");
         }
     }
