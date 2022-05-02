@@ -14,5 +14,6 @@ namespace HOFORTaskPlanner.Models
                 @"Data Source=mssql14.unoeuro.com;User ID=boddelboys_dk;Password=EbR5dmpyz4F6;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
         public DbSet<Aktion> Aktions { get; set; }
+
     }
 }
