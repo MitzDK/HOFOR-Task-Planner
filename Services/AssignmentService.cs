@@ -29,7 +29,7 @@ namespace HOFORTaskPlanner.Services
             await DbService.AddObjectAsync(newAssigment);
         }
 
-        public async Task<Assignment> GetAssigmnentByIdAsync(int id)
+        public async Task<Assignment> GetAssignmentByIdAsync(int id)
         {
             return await DbService.GetObjectByIdAsync(id);
         }
