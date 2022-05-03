@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,19 +29,38 @@ namespace HOFORTaskPlanner.Models
             Kontinuær = 5,
             Udvikling = 6
         }
-
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssignmentId { get; set; }
+        [Required]
         public AssignmentStatus Status { get; set; }
+        [Required]
         public AssignmentType Type { get; set; }
+        [Required]
+
         public string Area { get; set; }
+        [Required]
+
         public string Contact { get; set; }
+        [Required]
+
         public string Description { get; set; }
+        [Required]
+
         public int Estimate { get; set; }
+        [Required]
         public DateTime StartDate { get; set; }
+        [Required]
         public DateTime EndDate { get; set; }
+        [Required]
+
         public string Comment { get; set; }
+        [Required]
+        public int AktionUserId { get; set; }
+        [Required]
+        public int ControlUserId { get; set; }
 
         public User Aktion { get; set; }
+
         public User Control { get; set; }
 
         public Assignment()
