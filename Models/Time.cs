@@ -12,8 +12,8 @@ namespace HOFORTaskPlanner.Models
         public int Month { get; set; }
 
         public int Hours { get; set; }
-        //public User User { get; set; }
-        //public Assignment Assignment { get; set; )
+        public User User { get; set; }
+        public Assignment Assignment { get; set; }
 
         public Time()
         {
@@ -21,12 +21,12 @@ namespace HOFORTaskPlanner.Models
             Month = DateTime.Now.Month;
         }
 
-        //public Time(User user, Assignment assignment)
-        //{
-        //    Year = DateTime.Now.Year;
-        //    Month = DateTime.Now.Month;
-        //    User = user;
-        //    Assignment = assignment;
-        //}
+        public Time(User user, Assignment assignment)
+        {
+            Year = DateTime.Now.Year;
+            Month = DateTime.Now.Month;
+            User = user;
+            Assignment = assignment;
+        }
     }
 }

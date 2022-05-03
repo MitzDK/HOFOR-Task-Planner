@@ -39,15 +39,15 @@ namespace HOFORTaskPlanner.Models
         public DateTime EndDate { get; set; }
         public string Comment { get; set; }
 
-        //public User Aktion { get; set; }
-        //public User Control { get; set; }
+        public User Aktion { get; set; }
+        public User Control { get; set; }
 
         public Assignment()
         {
             
         }
         //Skal lige laves igen efter merge.
-        public Assignment(int assignmentId, AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment)
+        public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, User aktion, User control)
         {
             Status = status;
             Type = type;
@@ -58,6 +58,8 @@ namespace HOFORTaskPlanner.Models
             StartDate = startDate;
             EndDate = endDate;
             Comment = comment;
+            Aktion = aktion;
+            Control = control;
         }
     }
 }
