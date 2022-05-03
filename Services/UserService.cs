@@ -32,6 +32,18 @@ namespace HOFORTaskPlanner.Services
             return _users.Find(Us => Us.UserId == id);
 
         }
+        public User GetUserByUsername(string username)
+        {
+            foreach (var user in _users)
+            {
+                if (user.UserName.ToLower().Equals(username))
+                {
+                    return user;
+                }
+            }
+
+            return null;
+        }
 
         public List<User> GetUsers()
         {
