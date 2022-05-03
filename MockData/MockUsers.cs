@@ -21,6 +21,10 @@ namespace HOFORTaskPlanner.MockData
 
         public static List<User> GetUsers()
         {
+            _users[0].LastUpdated = DateTime.Now;
+            _users[1].LastUpdated = DateTime.Now;
+            _users[2].LastUpdated = DateTime.Now;
+            _users[3].LastUpdated = DateTime.Now;
             return _users;
         }
     }

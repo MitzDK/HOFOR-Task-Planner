@@ -11,11 +11,12 @@ namespace HOFORTaskPlanner.Services
     public class UserService
     {
         private readonly List<User> _users;
-        private readonly DbGenericService<User> _dbService;
+        private DbGenericService<User> DbService { get; set; }
 
         public UserService(DbGenericService<User> dbService)
         {
-            _dbService = dbService;
+            DbService = dbService;
+            
             _users = MockUsers.GetUsers();
             // _users = _dbService.GetObjectsAsync().Result.ToList();
         }
@@ -23,13 +24,13 @@ namespace HOFORTaskPlanner.Services
         public async Task AddUserAsync(User user)
         {
             _users.Add(user);
-            await _dbService.AddObjectAsync(user);
+            await DbService.AddObjectAsync(user);
         }
 
         public User GetUserById(int id)
         {
-            return  _users.Find(Us => Us.UserId == id);
-             
+            return _users.Find(Us => Us.UserId == id);
+
         }
 
         public List<User> GetUsers()
@@ -41,13 +42,13 @@ namespace HOFORTaskPlanner.Services
         {
             if (user != null)
             {
-                 await _dbService.UpdateObjectAsync(user);
+                await DbService.UpdateObjectAsync(user);
             }
         }
         public async Task DeleteUserAsync(User user)
         {
             _users.Remove(user);
-            await _dbService.DeleteObjectAsync(user);
+            await DbService.DeleteObjectAsync(user);
         }
 
     }

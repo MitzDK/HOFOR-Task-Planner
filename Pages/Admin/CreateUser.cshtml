@@ -1,0 +1,53 @@
+﻿@page
+@using HOFORTaskPlanner.Models
+@model HOFORTaskPlanner.Pages.Admin.CreateUserModel
+@{
+}
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="NewUser.UserName"></label>:<br />
+                <input asp-for="NewUser.UserName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewUser.Password"></label>:<br />
+                <input asp-for="NewUser.Password" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewUser.FirstName"></label>:<br />
+                <input asp-for="NewUser.FirstName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewUser.LastName"></label>:<br />
+                <input asp-for="NewUser.LastName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewUser.DisplayName"></label>:<br />
+                <input asp-for="NewUser.DisplayName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NewUser.UserType"></label>:<br />
+                <select asp-for="UserTypes" asp-items="Html.GetEnumSelectList<User.UserTypes>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewUser.UserRole"></label>:<br />
+                <select asp-for="UserRoles" asp-items="Html.GetEnumSelectList<User.UserRoles>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewUser.UserDepartment"></label>:<br />
+                <select asp-for="UserDepartments" asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Create!</button>
+            </div>
+
+        </form>
+    </div>
+</div>

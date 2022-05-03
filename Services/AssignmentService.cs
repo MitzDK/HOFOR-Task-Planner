@@ -9,7 +9,7 @@ namespace HOFORTaskPlanner.Services
     public class AssignmentService
     {
         private List<Assignment> _assignments;
-        private DbGenericService<Assignment> DbService;
+        private DbGenericService<Assignment> DbService { get; set; }
 
         public AssignmentService(DbGenericService<Assignment> dbService)
         {

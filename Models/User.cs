@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -9,24 +10,6 @@ namespace HOFORTaskPlanner.Models
 {
     public class User
     {
-        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-        public enum UserTypes
-        {
-            Admin = 1,
-            User = 2
-        }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
-        [Required] 
-        public string UserName { get; set; }
-        [Required][DataType(DataType.Password)]
-        public string Password { get; set; }
-        // Skal være uppercase
-        [Required][StringLength(20)]
-        public string DisplayName { get; set; }
         public enum UserDepartments
         {
             Implementering = 1,
@@ -61,12 +44,31 @@ namespace HOFORTaskPlanner.Models
             Leder = 22,
             Xprojektleder = 23
         }
-
+        public enum UserTypes
+        {
+            Admin = 1,
+            User = 2
+        }
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
         [Required]
-        public UserRoles UserRole { get; set; }
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required] 
+        public string UserName { get; set; }
+        [Required][DataType(DataType.Password)]
+        public string Password { get; set; }
+        // Skal være uppercase
+        [Required][StringLength(20)]
+        public string DisplayName { get; set; }
+
+
+        [Required] public UserRoles UserRole { get; set; }
 
         [Required] public UserTypes UserType { get; set; }
         [Required] public UserDepartments UserDepartment { get; set; }
+        [Required] public DateTime LastUpdated { get; set; }
         public User()
         {
             
