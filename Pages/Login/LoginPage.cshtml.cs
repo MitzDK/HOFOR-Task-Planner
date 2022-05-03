@@ -59,13 +59,5 @@ namespace HOFORTaskPlanner.Pages.Login
             Message = "Invalid attempt";
             return Page();
         }
-
-
-
-
-
-        public void OnGet()
-        {
-        }
     }
 }
