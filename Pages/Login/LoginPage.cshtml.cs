@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
+using HOFORTaskPlanner.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -17,12 +18,12 @@ namespace HOFORTaskPlanner.Pages.Login
     {
         public static User LoggedInUser { get; set; }
 
-        //private UserService _userService;
+        private UserService _userService;
 
-        //public LoginPageModel(userService userService)
-        //{
-        //    _userService = userService;
-        //}
+        public LoginPageModel(UserService userService)
+        {
+            _userService = userService;
+        }
         [BindProperty] 
         public string Username { get; set; } 
 
@@ -33,7 +34,7 @@ namespace HOFORTaskPlanner.Pages.Login
 
         public async Task<IActionResult> OnPost()
         {
-            List<User> users = _userService.Users;
+            List<User> users = _userService.GetUsers();
             foreach (User user in users)
             {
                 var passwordHasher = new PasswordHasher<string>();
