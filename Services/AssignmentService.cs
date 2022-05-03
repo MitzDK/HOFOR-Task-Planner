@@ -14,21 +14,22 @@ namespace HOFORTaskPlanner.Services
         public AssignmentService(DbGenericService<Assignment> dbService)
         {
             DbService = dbService;
-            _assignments = DbService.GetObjectsAsync().Result.ToList();
+            //_assignments = DbService.GetObjectsAsync().Result.ToList();
+            _assignments = MockData.MockAssignments.GetMockAssignments();
         }
 
-        public List<Assignment> GetAssigments()
+        public List<Assignment> GetAssignments()
         {
             return _assignments;
         }
 
-        public async Task AddAssigmentAsync(Assignment newAssigment)
+        public async Task AddAssignmentAsync(Assignment newAssigment)
         {
             _assignments.Add(newAssigment);
             await DbService.AddObjectAsync(newAssigment);
         }
 
-        public async Task<Assignment> GetAssigmentByIdAsync(int id)
+        public async Task<Assignment> GetAssigmnentByIdAsync(int id)
         {
             return await DbService.GetObjectByIdAsync(id);
         }
