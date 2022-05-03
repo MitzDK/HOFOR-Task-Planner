@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
 using HOFORTaskPlanner.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace HOFORTaskPlanner
 {
@@ -29,6 +31,23 @@ namespace HOFORTaskPlanner
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddTransient<AktionService>();
             services.AddTransient<DbGenericService<Aktion>>();
+            //services.AddSingleton<UserService, UserService>();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieOptions =>
+            {
+                CookieOptions.LoginPath = "/Login/LoginPage";
+            });
+
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AuthorizeFolder("/Index");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
