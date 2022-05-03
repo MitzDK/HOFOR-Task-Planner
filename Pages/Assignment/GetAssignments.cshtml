@@ -1,0 +1,92 @@
+﻿@page
+@model HOFORTaskPlanner.Pages.Assignment.GetAssignmentsModel
+@{
+}
+@if (Model.AssignmentList.Count != 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    AssignmentId
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Area
+                </th>
+                <th>
+                    Contact
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Estimate
+                </th>
+                <th>
+                    StartDate
+                </th>
+                <th>
+                    EndDate
+                </th>
+                <th>
+                    Comment
+                </th>
+                <th>
+                    Aktion User Id
+                </th>
+                <th>
+                    Control User Id
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var assignment in Model.AssignmentList)
+            {
+                <tr>
+                    <td>
+                        @assignment.AssignmentId
+                    </td>
+                    <td>
+                        @assignment.Status
+                    </td>
+                    <td>
+                        @assignment.Type
+                    </td>
+                    <td>
+                        @assignment.Area
+                    </td>
+                    <td>
+                        @assignment.Contact
+                    </td>
+                    <td>
+                        @assignment.Description
+                    </td>
+                    <td>
+                        @assignment.Estimate
+                    </td>
+                    <td>
+                        @assignment.StartDate
+                    </td>
+                    <td>
+                        @assignment.EndDate
+                    </td>
+                    <td>
+                        @assignment.Comment
+                    </td>
+                    <td>
+                        @assignment.AktionUserId
+                    </td>
+                    <td>
+                        @assignment.ControlUserId
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

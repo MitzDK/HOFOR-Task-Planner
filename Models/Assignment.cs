@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -54,21 +55,16 @@ namespace HOFORTaskPlanner.Models
         [Required]
 
         public string Comment { get; set; }
-        [Required]
+
         public int AktionUserId { get; set; }
-        [Required]
         public int ControlUserId { get; set; }
-
-        public User Aktion { get; set; }
-
-        public User Control { get; set; }
 
         public Assignment()
         {
             
         }
 
-        public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, User aktion, User control)
+        public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, int aktionUserId, int controlUserId)
         {
             Status = status;
             Type = type;
@@ -79,8 +75,8 @@ namespace HOFORTaskPlanner.Models
             StartDate = startDate;
             EndDate = endDate;
             Comment = comment;
-            Aktion = aktion;
-            Control = control;
+            AktionUserId = aktionUserId;
+            ControlUserId = controlUserId;
         }
     }
 }

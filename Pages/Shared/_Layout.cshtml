@@ -20,13 +20,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/CreateAssignment">Create Assignment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/GetAssignments">Get Assignment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/TestPages/GetAktions">Test Button</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/User/GetUsers">Get Users</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -41,6 +41,7 @@
                             {
                                 <li class="nav-item nav-link mr-3">
                                     User: @LoginPageModel.LoggedInUser.UserName
+                                    ID: @LoginPageModel.LoggedInUser.UserId
                                 </li>
 
                                 <li class="nav-item">

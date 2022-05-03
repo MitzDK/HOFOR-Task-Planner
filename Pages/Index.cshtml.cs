@@ -48,8 +48,8 @@ namespace HOFORTaskPlanner.Pages
 
         public async Task<IActionResult> OnPost()
         {
-            List<User> users = _userService.GetUsers();
-            foreach (User user in users)
+            List<Models.User> users = _userService.GetUsers();
+            foreach (Models.User user in users)
             {
                 if (user.UserName.ToLower().Equals(Username.ToLower()))
                 {

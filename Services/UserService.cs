@@ -16,9 +16,14 @@ namespace HOFORTaskPlanner.Services
         public UserService(DbGenericService<User> dbService)
         {
             DbService = dbService;
-            
-            _users = MockUsers.GetUsers();
-            // _users = _dbService.GetObjectsAsync().Result.ToList();
+
+            //_users = MockUsers.GetUsers();
+            //foreach (var user in _users)
+            //{
+            //    DbService.AddObjectAsync(user);
+            //}
+
+            _users = DbService.GetObjectsAsync().Result.ToList();
         }
 
         public async Task AddUserAsync(User user)

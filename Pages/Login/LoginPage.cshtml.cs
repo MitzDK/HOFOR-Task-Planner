@@ -16,6 +16,6 @@ namespace HOFORTaskPlanner.Pages.Login
 {
     public class LoginPageModel : PageModel
     {
-        public static User LoggedInUser { get; set; }
+        public static Models.User LoggedInUser { get; set; }
     }
 }

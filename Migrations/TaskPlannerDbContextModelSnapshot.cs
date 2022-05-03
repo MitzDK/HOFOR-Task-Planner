@@ -70,22 +70,26 @@ namespace HOFORTaskPlanner.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AktionUserId")
+                    b.Property<int>("AktionUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Area")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contact")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ControlUserId")
+                    b.Property<int>("ControlUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
@@ -104,10 +108,6 @@ namespace HOFORTaskPlanner.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("AssignmentId");
-
-                    b.HasIndex("AktionUserId");
-
-                    b.HasIndex("ControlUserId");
 
                     b.ToTable("Assignments");
                 });
@@ -155,21 +155,6 @@ namespace HOFORTaskPlanner.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("HOFORTaskPlanner.Models.Assignment", b =>
-                {
-                    b.HasOne("HOFORTaskPlanner.Models.User", "Aktion")
-                        .WithMany()
-                        .HasForeignKey("AktionUserId");
-
-                    b.HasOne("HOFORTaskPlanner.Models.User", "Control")
-                        .WithMany()
-                        .HasForeignKey("ControlUserId");
-
-                    b.Navigation("Aktion");
-
-                    b.Navigation("Control");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,14 +11,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
     public class CreateAssignmentModel : PageModel
     {
         private AssignmentService _assignmentService;
-        private UserService _userService;
 
         [BindProperty] public Models.Assignment Assignment { get; set; }
 
-        public CreateAssignmentModel(AssignmentService assignmentService, UserService userService)
+        public CreateAssignmentModel(AssignmentService assignmentService)
         {
             _assignmentService = assignmentService;
-            _userService = userService;
         }
 
 
@@ -35,9 +33,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
 
             Assignment.AktionUserId = LoginPageModel.LoggedInUser.UserId;
-            Assignment.Aktion = _userService.GetUserById(Assignment.AktionUserId);
             Assignment.ControlUserId = LoginPageModel.LoggedInUser.UserId;
-            Assignment.Control = _userService.GetUserById(Assignment.ControlUserId);
             await _assignmentService.AddAssignmentAsync(Assignment);
             return RedirectToPage("../Index");
         }
