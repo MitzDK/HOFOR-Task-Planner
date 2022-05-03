@@ -26,9 +26,9 @@ namespace HOFORTaskPlanner.Services
         public async Task AddAktionAsync(Aktion newAktion)
         {
             _aktionList.Add(newAktion);
-            foreach (var VARIABLE in _aktionList)
+            foreach (var akt in _aktionList)
             {
-                await DbService.AddObjectAsync(VARIABLE);
+                await DbService.AddObjectAsync(akt);
             }
             
         }
