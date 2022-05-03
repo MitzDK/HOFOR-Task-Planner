@@ -32,9 +32,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 return Page();
             }
-
+            //Assignment.Aktion = GetUserByName(HttpContext.User.Identity.Name);
             await _assignmentService.AddAssignmentAsync(Assignment);
-            return RedirectToPage("Index");
+            return RedirectToPage("../Index");
         }
     }
 }

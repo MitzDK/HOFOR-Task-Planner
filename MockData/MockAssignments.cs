@@ -11,13 +11,13 @@ namespace HOFORTaskPlanner.MockData
         private static List<Assignment> _assignments = new List<Assignment>()
         {
             new Assignment(Assignment.AssignmentStatus.Active, Assignment.AssignmentType.Implementering, "IT",
-                "Placeholder", "Nyt projekt", 30, new DateTime(2022, 5, 1), new DateTime(2022, 5, 21), "blank",
+                "Placeholder", "Nyt projekt", 30, DateTime.Now, DateTime.Now, "blank",
                 new User(), new User()),
             new Assignment(Assignment.AssignmentStatus.Active, Assignment.AssignmentType.Implementering, "IT",
-                "Placeholder", "Stort projekt", 30, new DateTime(2022, 6, 1), new DateTime(2022, 6, 30), "Gentages årligt",
+                "Placeholder", "Stort projekt", 30, DateTime.Now, DateTime.Now, "Gentages årligt",
                 new User(), new User()),
             new Assignment(Assignment.AssignmentStatus.Finished, Assignment.AssignmentType.Udvikling, "IT",
-                "Janika", "Udvikling af bæredygtig IT-design", 100, new DateTime(2022, 1, 1), new DateTime(2022, 4, 31), "",
+                "Janika", "Udvikling af bæredygtig IT-design", 100, DateTime.Now, DateTime.Now, "",
                 new User(), new User()),
 
 
