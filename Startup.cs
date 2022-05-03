@@ -31,7 +31,12 @@ namespace HOFORTaskPlanner
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddTransient<AktionService>();
             services.AddTransient<DbGenericService<Aktion>>();
-            //services.AddSingleton<UserService, UserService>();
+
+            services.AddTransient<AssignmentService>();
+            services.AddTransient<DbGenericService<Assignment>>();
+
+            services.AddTransient<UserService>();
+            services.AddTransient<DbGenericService<UserService>>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -39,14 +44,15 @@ namespace HOFORTaskPlanner
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieOptions =>
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions =>
             {
-                CookieOptions.LoginPath = "/Login/LoginPage";
+                cookieOptions.LoginPath = "/Login/LoginPage";
             });
 
             services.AddMvc().AddRazorPagesOptions(options =>
             {
-                options.Conventions.AuthorizeFolder("/Index");
+                //Når vi har mere struktur lavet, tilføj diverse side-mapper hertil!
+                //options.Conventions.AuthorizeFolder("/Index");
             });
         }
 
