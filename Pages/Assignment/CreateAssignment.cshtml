@@ -2,3 +2,49 @@
 @model HOFORTaskPlanner.Pages.Assignment.CreateAssignmentModel
 @{
 }
+<form method="post">
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Status"></label>
+        <input asp-for="@Model.Assignment.Status" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Type" class="control-lable"></label>
+        <input asp-for="@Model.Assignment.Type" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Area"></label>
+        <input asp-for="@Model.Assignment.Area" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Contact"></label>
+        <input asp-for="@Model.Assignment.Contact" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Description"></label>
+        <input asp-for="@Model.Assignment.Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Estimate"></label>
+        <input asp-for="@Model.Assignment.Estimate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.StartDate"></label>
+        <input asp-for="@Model.Assignment.StartDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.EndDate"></label>
+        <input asp-for="@Model.Assignment.EndDate" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Comment"></label>
+        <input asp-for="@Model.Assignment.Comment" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Assignment.Control"></label>
+        <input asp-for="@Model.Assignment.Control" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Crate Assignment" class="btn btn-primary" />
+    </div>
+
+</form>
