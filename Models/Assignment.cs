@@ -46,7 +46,7 @@ namespace HOFORTaskPlanner.Models
         {
             
         }
-        //Skal lige laves igen efter merge.
+
         public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, User aktion, User control)
         {
             Status = status;
