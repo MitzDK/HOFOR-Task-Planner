@@ -11,6 +11,11 @@ namespace HOFORTaskPlanner.Models
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
+        public enum UserTypes
+        {
+            Admin = 1,
+            User = 2
+        }
         [Required]
         public string FirstName { get; set; }
         [Required]
@@ -22,6 +27,14 @@ namespace HOFORTaskPlanner.Models
         // Skal være uppercase
         [Required][StringLength(20)]
         public string DisplayName { get; set; }
+        public enum UserDepartments
+        {
+            Implementering = 1,
+            Udvikling = 2,
+            Infrastruktur = 3,
+            Digitalisering = 4,
+            Service = 5
+        }
         public enum UserRoles
         {
             Implementering = 1,
@@ -52,12 +65,14 @@ namespace HOFORTaskPlanner.Models
         [Required]
         public UserRoles UserRole { get; set; }
 
+        [Required] public UserTypes UserType { get; set; }
+        [Required] public UserDepartments UserDepartment { get; set; }
         public User()
         {
             
         }
 
-        public User(string firstName, string lastName, string userName, string password, string displayName, UserRoles userRole)
+        public User(string firstName, string lastName, string userName, string password, string displayName, UserRoles userRole, UserTypes userType, UserDepartments userDepartment)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -65,6 +80,8 @@ namespace HOFORTaskPlanner.Models
             Password = password;
             DisplayName = displayName;
             UserRole = userRole;
+            UserType = userType;
+            UserDepartment = userDepartment;
         }
     }
 }
