@@ -37,22 +37,22 @@ namespace HOFORTaskPlanner.Pages.Login
             List<User> users = _userService.GetUsers();
             foreach (User user in users)
             {
-                var passwordHasher = new PasswordHasher<string>();
-                if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
+                if (user.UserName.ToLower().Equals(Username.ToLower()))
                 {
-                    LoggedInUser = user;
-                    var claims = new List<Claim>
+                    var passwordHasher = new PasswordHasher<string>();
+                    if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
                     {
-                        new Claim(ClaimTypes.Name, Username)
-                    };
-
-                    if (Username == "admin") claims.Add(new Claim(ClaimTypes.Role, "admin"));
-
-                    var claimsIdentity =
-                        new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        LoggedInUser = user;
+                        var claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, Username)
+                        };
+                        if (user.UserType == Models.User.UserTypes.Admin) claims.Add(new Claim(ClaimTypes.Role, "admin"));
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity));
                     return RedirectToPage("/Index");
+                    }
                 }
             }
 
