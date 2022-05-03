@@ -12,13 +12,13 @@ namespace HOFORTaskPlanner.MockData
         {
             new Assignment(Assignment.AssignmentStatus.Active, Assignment.AssignmentType.Implementering, "IT",
                 "Placeholder", "Nyt projekt", 30, DateTime.Now, DateTime.Now, "blank",
-                new User(), new User()),
+                MockUsers.GetUsers()[1], MockUsers.GetUsers()[1]),
             new Assignment(Assignment.AssignmentStatus.Active, Assignment.AssignmentType.Implementering, "IT",
                 "Placeholder", "Stort projekt", 30, DateTime.Now, DateTime.Now, "Gentages årligt",
-                new User(), new User()),
+                MockUsers.GetUsers()[1], MockUsers.GetUsers()[1]),
             new Assignment(Assignment.AssignmentStatus.Finished, Assignment.AssignmentType.Udvikling, "IT",
                 "Janika", "Udvikling af bæredygtig IT-design", 100, DateTime.Now, DateTime.Now, "",
-                new User(), new User()),
+                MockUsers.GetUsers()[1], MockUsers.GetUsers()[1]),
 
 
         };

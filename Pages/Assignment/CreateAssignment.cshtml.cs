@@ -1,6 +1,7 @@
 using System;using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HOFORTaskPlanner.Pages.Login;
 using HOFORTaskPlanner.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,14 +11,14 @@ namespace HOFORTaskPlanner.Pages.Assignment
     public class CreateAssignmentModel : PageModel
     {
         private AssignmentService _assignmentService;
-        private List<Models.Assignment> _assignments;
+        private UserService _userService;
 
         [BindProperty] public Models.Assignment Assignment { get; set; }
 
-        public CreateAssignmentModel(AssignmentService assignmentService)
+        public CreateAssignmentModel(AssignmentService assignmentService, UserService userService)
         {
             _assignmentService = assignmentService;
-            _assignments = _assignmentService.GetAssignments().ToList();
+            _userService = userService;
         }
 
 
@@ -32,7 +33,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 return Page();
             }
-            //Assignment.Aktion = GetUserByName(HttpContext.User.Identity.Name);
+
+            Assignment.AktionUserId = LoginPageModel.LoggedInUser.UserId;
+            Assignment.Aktion = _userService.GetUserById(Assignment.AktionUserId);
+            Assignment.ControlUserId = LoginPageModel.LoggedInUser.UserId;
+            Assignment.Control = _userService.GetUserById(Assignment.ControlUserId);
             await _assignmentService.AddAssignmentAsync(Assignment);
             return RedirectToPage("../Index");
         }
