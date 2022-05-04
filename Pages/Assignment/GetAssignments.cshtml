@@ -8,7 +8,7 @@
         <thead class="table-dark">
             <tr>
                 <th>
-                    AssignmentId
+                    Id
                 </th>
                 <th>
                     Status
@@ -17,31 +17,31 @@
                     Type
                 </th>
                 <th>
-                    Area
+                    Område
                 </th>
                 <th>
-                    Contact
+                    Kontakt
                 </th>
                 <th>
-                    Description
+                    Beskrivelse
                 </th>
                 <th>
-                    Estimate
+                    Estimat
                 </th>
                 <th>
-                    StartDate
+                    Start
                 </th>
                 <th>
-                    EndDate
+                    Slut
                 </th>
                 <th>
-                    Comment
+                    Kommentar
                 </th>
                 <th>
-                    Aktion User Id
+                    Aktion
                 </th>
                 <th>
-                    Control User Id
+                    Styring
                 </th>
             </tr>
         </thead>
@@ -80,10 +80,10 @@
                         @assignment.Comment
                     </td>
                     <td>
-                        @assignment.AktionUserId
+                        @Model.AssignmentUser(assignment.AktionUserId).DisplayName
                     </td>
                     <td>
-                        @assignment.ControlUserId
+                        @Model.AssignmentUser(assignment.ControlUserId).DisplayName
                     </td>
                 </tr>
             }
