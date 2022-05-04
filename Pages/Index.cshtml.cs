@@ -19,6 +19,7 @@ namespace HOFORTaskPlanner.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private UserService _userService;
 
         public IndexModel(ILogger<IndexModel> logger, UserService userService)
         {
@@ -33,10 +34,6 @@ namespace HOFORTaskPlanner.Pages
                 HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
         }
-
-        
-
-        private UserService _userService;
 
         [BindProperty]
         public string Username { get; set; }
