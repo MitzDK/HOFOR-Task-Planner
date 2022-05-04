@@ -48,44 +48,51 @@
         <tbody>
             @foreach (var assignment in Model.AssignmentList)
             {
-                <tr>
-                    <td>
-                        @assignment.AssignmentId
-                    </td>
-                    <td>
-                        @assignment.Status
-                    </td>
-                    <td>
-                        @assignment.Type
-                    </td>
-                    <td>
-                        @assignment.Area
-                    </td>
-                    <td>
-                        @assignment.Contact
-                    </td>
-                    <td>
-                        @assignment.Description
-                    </td>
-                    <td>
-                        @assignment.Estimate
-                    </td>
-                    <td>
-                        @assignment.StartDate
-                    </td>
-                    <td>
-                        @assignment.EndDate
-                    </td>
-                    <td>
-                        @assignment.Comment
-                    </td>
-                    <td>
-                        @Model.AssignmentUser(assignment.AktionUserId).DisplayName
-                    </td>
-                    <td>
-                        @Model.AssignmentUser(assignment.ControlUserId).DisplayName
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @assignment.AssignmentId
+                </td>
+                <td>
+                    @assignment.Status
+                </td>
+                <td>
+                    @assignment.Type
+                </td>
+                <td>
+                    @assignment.Area
+                </td>
+                <td>
+                    @assignment.Contact
+                </td>
+                <td>
+                    @assignment.Description
+                </td>
+                <td>
+                    @assignment.Estimate
+                </td>
+                <td>
+                    @assignment.StartDate
+                </td>
+                <td>
+                    @assignment.EndDate
+                </td>
+                <td>
+                    @assignment.Comment
+                </td>
+                <td>
+                    @Model.AssignmentUser(assignment.AktionUserId).DisplayName
+                </td>
+                <td>
+                    @Model.AssignmentUser(assignment.ControlUserId).DisplayName
+                </td>
+                <td>
+                    <ul>
+                        <li class="list-inline-item">
+                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-edit"></i></a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

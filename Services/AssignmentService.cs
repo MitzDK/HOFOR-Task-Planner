@@ -16,10 +16,10 @@ namespace HOFORTaskPlanner.Services
             DbService = dbService;
 
             //_assignments = MockData.MockAssignments.GetMockAssignments();
-            //foreach (var assign in _assignments)
-            //{
-            //    DbService.AddObjectAsync(assign);
-            //}
+            ////foreach (var assign in _assignments)
+            ////{
+            ////    DbService.AddObjectAsync(assign);
+            ////}
 
             _assignments = DbService.GetObjectsAsync().Result.ToList();
         }
@@ -35,6 +35,17 @@ namespace HOFORTaskPlanner.Services
             await DbService.AddObjectAsync(newAssigment);
         }
 
+        public Assignment GetAssignmentById(int id)
+        {
+            foreach (var assignment in _assignments)
+            {
+                if (assignment.AssignmentId == id)
+                {
+                    return assignment;
+                }
+            }
+            return null;
+        }
         public async Task<Assignment> GetAssignmentByIdAsync(int id)
         {
             return await DbService.GetObjectByIdAsync(id);
@@ -61,8 +72,24 @@ namespace HOFORTaskPlanner.Services
 
         public async Task UpdateAssignmentAsync(Assignment assignment)
         {
+
             if (assignment != null)
             {
+                foreach (Assignment ass in _assignments)
+                {
+                    if (ass.AssignmentId == assignment.AssignmentId)
+                    {
+                        ass.Status = assignment.Status;
+                        ass.Type = assignment.Type;
+                        ass.Area = assignment.Area;
+                        ass.Contact = assignment.Contact;
+                        ass.Description = assignment.Description;
+                        ass.Estimate = assignment.Estimate;
+                        ass.StartDate = assignment.StartDate;
+                        ass.EndDate = assignment.EndDate;
+                        ass.Comment = ass.Comment;
+                    }
+                }
                 await DbService.UpdateObjectAsync(assignment);
             }
         }
