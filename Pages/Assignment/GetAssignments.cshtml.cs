@@ -12,10 +12,17 @@ namespace HOFORTaskPlanner.Pages.Assignment
     {
         public List<Models.Assignment> AssignmentList;
         private AssignmentService _assignmentService;
+        private UserService _userService;
 
-        public GetAssignmentsModel(AssignmentService assignmentService)
+        public Models.User AssignmentUser(int userId)
+        {
+            return _userService.GetUserById(userId);
+        }
+
+        public GetAssignmentsModel(AssignmentService assignmentService, UserService userService)
         {
             _assignmentService = assignmentService;
+            _userService = userService;
         }
         public void OnGet()
         {
