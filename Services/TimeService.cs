@@ -21,7 +21,7 @@ namespace HOFORTaskPlanner.Services
         {
             return _times;
         }
-        public async Task AddUserAsync(Time time)
+        public async Task AddTimeAsync(Time time)
         {
             _times.Add(time);
             await DbService.AddObjectAsync(time);
@@ -32,14 +32,17 @@ namespace HOFORTaskPlanner.Services
             return _times.Find(time => time.TimeId.Equals(id));
         }
 
-
-
         public async Task UpdateTimeAsync(Time time)
         {
             if (time != null)
             {
                 await DbService.UpdateObjectAsync(time);
             }
+        }
+
+        public List<Time> GetTimeByYear(int year)
+        {
+            return GetTimes().FindAll(time => time.Year.Equals(year));
         }
     }
 }

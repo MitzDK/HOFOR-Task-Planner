@@ -46,6 +46,7 @@ namespace HOFORTaskPlanner.Services
             }
             return null;
         }
+
         public async Task<Assignment> GetAssignmentByIdAsync(int id)
         {
             return await DbService.GetObjectByIdAsync(id);
