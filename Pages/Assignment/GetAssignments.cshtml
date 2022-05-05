@@ -43,6 +43,9 @@
                 <th>
                     Styring
                 </th>
+                <th>
+                    Rediger
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -86,11 +89,9 @@
                     @Model.AssignmentUser(assignment.ControlUserId).DisplayName
                 </td>
                 <td>
-                    <ul>
-                        <li class="list-inline-item">
-                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-edit"></i></a>
-                        </li>
-                    </ul>
+                    <li class="list-inline-item">
+                        <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId">Edit</a>
+                    </li>
                 </td>
             </tr>
             }
