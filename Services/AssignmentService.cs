@@ -47,6 +47,10 @@ namespace HOFORTaskPlanner.Services
             return null;
         }
 
+        public List<Assignment> GetAssignmentsByUserId(int id)
+        {
+            return _assignments.FindAll(assignment => assignment.AktionUserId.Equals(id));
+        }
         public async Task<Assignment> GetAssignmentByIdAsync(int id)
         {
             return await DbService.GetObjectByIdAsync(id);

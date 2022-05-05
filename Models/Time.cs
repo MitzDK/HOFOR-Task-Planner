@@ -52,5 +52,13 @@ namespace HOFORTaskPlanner.Models
         {
             Assignment = assignment;
         }
+
+        public Time(int year, MonthName month, int hours, int assignmentId)
+        {
+            Year = year;
+            Month = month;
+            Hours = hours;
+            AssignmentId = assignmentId;
+        }
     }
 }

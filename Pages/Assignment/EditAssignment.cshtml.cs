@@ -28,13 +28,21 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _userService = userService;
         }
 
+        public string UserDisplayName(int userId)
+        {
+            if (_userService.GetUserById(userId) != null)
+            {
+                return _userService.GetUserById(userId).DisplayName;
+            }
+            return "N/A";
+        }
         public IActionResult OnGet(int id)
         {
             Assignment = _assignmentService.GetAssignmentById(id);
             Users = _userService.GetUsers();
             return Page();
         }
-
+        
         public async Task<IActionResult> OnPost(int id)
         {
             Assignment.AssignmentId = id;

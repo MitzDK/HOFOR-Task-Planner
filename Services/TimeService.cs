@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HOFORTaskPlanner.MockData;
 using HOFORTaskPlanner.Models;
 
 namespace HOFORTaskPlanner.Services
@@ -14,7 +15,8 @@ namespace HOFORTaskPlanner.Services
         public TimeService(DbGenericService<Time> dbService)
         {
             DbService = dbService;
-            _times = DbService.GetObjectsAsync().Result.ToList();
+            _times = MockTimes.GetTimes();
+            //_times = DbService.GetObjectsAsync().Result.ToList();
         }
 
         public List<Time> GetTimes()
@@ -27,9 +29,27 @@ namespace HOFORTaskPlanner.Services
             await DbService.AddObjectAsync(time);
         }
 
+        public int TotalTimeForAssignmentPlanned(int id)
+        {
+            if (GetTimeByAssignmentId(id) != null)
+            {
+                return GetTimeByAssignmentId(id).Sum(tim => tim.Hours);
+            }
+            return 0;
+        }
+
+        public List<Time> GetTimeByAssignmentId(int id)
+        {
+            if (GetTimes() != null)
+            {
+                var newList = GetTimes().FindAll(time => time.AssignmentId.Equals(id));
+                return newList;
+            }
+            return null;
+        }
         public Time GetTimeById(int id)
         {
-            return _times.Find(time => time.TimeId.Equals(id));
+            return GetTimes().Find(time => time.TimeId.Equals(id));
         }
 
         public async Task UpdateTimeAsync(Time time)
@@ -42,7 +62,25 @@ namespace HOFORTaskPlanner.Services
 
         public List<Time> GetTimeByYear(int year)
         {
-            return GetTimes().FindAll(time => time.Year.Equals(year));
+            if (_times != null)
+            {
+                var newList = GetTimes().FindAll(time => time.Year.Equals(year));
+                return newList;
+            }
+            return null;
+        }
+
+        public List<Time> GetTimeByYearAndAssignmentId(int year, int id)
+        {
+
+            if (GetTimes() != null)
+            {
+                var newList = GetTimes().FindAll(time => time.AssignmentId.Equals(id))
+                    .FindAll(time => time.Year.Equals(year));
+                return newList;
+            }
+
+            return null;
         }
     }
 }

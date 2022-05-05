@@ -1,75 +1,62 @@
-﻿@page
+﻿@page "{id:int}"
 @model HOFORTaskPlanner.Pages.Assignment.DetailsModel
 @{
 }
-<table>
-    <thead>
-        <tr>
-            <th>
-                AssignmentStuff
-            </th>
-            <th>
-                Kalender - År
-            </th>
-        </tr>
-        <tr>
-            <th>
-                Status
-            </th>
-            <th>
-                Beskrivelse
-            </th>
-            <th>
-                Start
-            </th>
-            <th>
-                Slut
-            </th>
-            <th>
-                Estimat
-            </th>
-            <th>
-                Rest
-            </th>
-            <th>
-                Jan
-            </th>
-            <th>
-                Feb
-            </th>
-            <th>
-                Mar
-            </th>
-            <th>
-                Apr
-            </th>
-            <th>
-                Maj
-            </th>
-            <th>
-                Jun
-            </th>
-            <th>
-                Jul
-            </th>
-            <th>
-                Aug
-            </th>
-            <th>
-                Sep
-            </th>
-            <th>
-                Okt
-            </th>
-            <th>
-                Nov
-            </th>
-            <th>
-                Dec
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    
-    </tbody>
+<table class="table table-bordered table-striped">
+    <colgroup span="6"></colgroup>
+    <colgroup span="12"></colgroup>
+    <tr class="table-dark align-content-center">
+        <th colspan="6" scope="colgroup">AssignmentDetails</th>
+        <th colspan="12" scope="colgroup">Year</th>
+    </tr>
+    <tr>
+        <th scope="col">Status</th>
+        <th scope="col">Beskrivelse</th>
+        <th scope="col">Start</th>
+        <th scope="col">Slut</th>
+        <th scope="col">Estimat</th>
+        <th scope="col">Rest</th>
+        <th scope="col">Jan</th>
+        <th scope="col">Feb</th>
+        <th scope="col">Mar</th>
+        <th scope="col">Apr</th>
+        <th scope="col">Maj</th>
+        <th scope="col">Jun</th>
+        <th scope="col">Jul</th>
+        <th scope="col">Aug</th>
+        <th scope="col">Sep</th>
+        <th scope="col">Okt</th>
+        <th scope="col">Nov</th>
+        <th scope="col">Dec</th>
+    </tr>
+    @if (Model.Assignments.Count != 0)
+    {
+        foreach (var assignment in Model.Assignments)
+        {
+            <tr>
+                <td>@assignment.Status</td>
+                <td>@assignment.Description</td>
+                <td>@assignment.StartDate.Day/@assignment.StartDate.Month/@assignment.StartDate.Year</td>
+                <td>@assignment.EndDate.Day/@assignment.EndDate.Month/@assignment.EndDate.Year</td>
+                <td>@assignment.Estimate</td>
+                <td>@(assignment.Estimate-Model.TotalTimer(assignment.AssignmentId))</td>
+                @if (@Model.ShowList(Model.Year, assignment.AssignmentId) != null)
+                {
+                    <td>@Model.TimeByMonth(1, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(2, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(3, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(4, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(5, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(6, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(7, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(8, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(9, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(10, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(11, Model.Year, assignment.AssignmentId)</td>
+                    <td>@Model.TimeByMonth(12, Model.Year, assignment.AssignmentId)</td>
+                }
+
+            </tr>
+        }
+    }
 </table>

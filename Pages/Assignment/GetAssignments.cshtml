@@ -83,30 +83,20 @@
                     @assignment.Comment
                 </td>
                 <td>
-                    @if (assignment.AktionUserId != 0)
-                    {
-                        @Model.AssignmentUser(assignment.AktionUserId).DisplayName
-                    }
-                    else
-                    {
-                    <div>N/A</div>
-                    }
-                    
+                    @Model.UserDisplayName(assignment.AktionUserId)
                 </td>
                 <td>
-                    @if (assignment.ControlUserId != 0)
-                    {
-                        @Model.AssignmentUser(assignment.ControlUserId).DisplayName
-                    }
-                    else
-                    {
-                    <div>N/A</div>
-                    }
+                    @Model.UserDisplayName(assignment.ControlUserId)
                 </td>
                 <td>
-                    <li class="list-inline-item">
-                        <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId">Edit</a>
-                    </li>
+                    <ul>
+                        <li class="list-inline-item">
+                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Details" asp-page="Details" asp-route-id="@assignment.AktionUserId">Details</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId">Edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
             }
