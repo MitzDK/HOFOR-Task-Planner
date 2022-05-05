@@ -14,8 +14,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
         private AssignmentService _assignmentService;
         [BindProperty] public Models.Assignment Assignment { get; set; }
         public Models.Assignment AssignmentToBeUpdated { get; set; }
-        public int AktionUserId { get; set; }
-        public int ControlUserId { get; set; }
 
         public EditAssignmentModel(AssignmentService assignmentService)
         {
@@ -24,8 +22,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
         public IActionResult OnGet(int id)
         {
-            Assignment =  _assignmentService.GetAssignmentById(id);
-            Assignment.AssignmentId = id;
+            Assignment = _assignmentService.GetAssignmentById(id);
             return Page();
         }
 
