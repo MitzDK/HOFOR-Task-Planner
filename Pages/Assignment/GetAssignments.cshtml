@@ -74,19 +74,34 @@
                     @assignment.Estimate
                 </td>
                 <td>
-                    @assignment.StartDate
+                    @assignment.StartDate.Day/@assignment.StartDate.Month/@assignment.StartDate.Year
                 </td>
                 <td>
-                    @assignment.EndDate
+                    @assignment.EndDate.Day/@assignment.EndDate.Month/@assignment.EndDate.Year
                 </td>
                 <td>
                     @assignment.Comment
                 </td>
                 <td>
-                    @Model.AssignmentUser(assignment.AktionUserId).DisplayName
+                    @if (assignment.AktionUserId != 0)
+                    {
+                        @Model.AssignmentUser(assignment.AktionUserId).DisplayName
+                    }
+                    else
+                    {
+                    <div>Ingen Aktion</div>
+                    }
+                    
                 </td>
                 <td>
-                    @Model.AssignmentUser(assignment.ControlUserId).DisplayName
+                    @if (assignment.ControlUserId != 0)
+                    {
+                        @Model.AssignmentUser(assignment.ControlUserId).DisplayName
+                    }
+                    else
+                    {
+                    <div>Ingen Styring</div>
+                    }
                 </td>
                 <td>
                     <li class="list-inline-item">

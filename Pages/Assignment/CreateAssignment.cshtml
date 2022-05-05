@@ -2,6 +2,10 @@
 @model HOFORTaskPlanner.Pages.Assignment.CreateAssignmentModel
 @{
 }
+<head>
+    <link rel="stylesheet" href="~/css/select.css" />
+    <script src="js/select.js" type=”module”></script>
+</head>
 <form method="post">
     <div class="form-group">
         <label asp-for="@Model.Assignment.Status"></label>
@@ -28,7 +32,7 @@
         <input asp-for="@Model.Assignment.Estimate" class="form-control" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Assignment.StartDate" ></label>
+        <label asp-for="@Model.Assignment.StartDate"></label>
         <input asp-for="@Model.Assignment.StartDate" type="date" class="form-control" />
     </div>
     <div class="form-group">
@@ -39,10 +43,34 @@
         <label asp-for="@Model.Assignment.Comment"></label>
         <input asp-for="@Model.Assignment.Comment" class="form-control" />
     </div>
+    <div class="form-group">
+        <label asp-for="AktionSearch"></label><br />
+        <input type="text" list="datalist" asp-for="AktionSearch">
+        <datalist id="datalist">
+            <optgroup label="DisplayName / First & Last Name">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.DisplayName">@user.FirstName @user.LastName</option>
+                }
+            </optgroup>
+        </datalist>
+    </div>
+    <div class="form-group">
+        <label asp-for="ControllerSearch"></label><br />
+        <input type="text" list="datalist" asp-for="ControllerSearch">
+        <datalist id="datalist">
+            <optgroup label="DisplayName / First & Last Name">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.DisplayName">@user.FirstName @user.LastName</option>
+                }
+            </optgroup>
+        </datalist>
+    </div>
     @*<div class="form-group">
-        <label asp-for="@Model.Assignment.ControlUserId"></label>
-        <input asp-for="@Model.Assignment.ControlUserId" class="form-control" />
-    </div>*@
+            <label asp-for="@Model.Assignment.ControlUserId"></label>
+            <input asp-for="@Model.Assignment.ControlUserId" class="form-control" />
+        </div>*@
     <div class="form-group">
         <input type="submit" value="Create Assignment" class="btn btn-primary" />
     </div>
