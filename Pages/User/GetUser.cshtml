@@ -20,6 +20,9 @@
                     <div class="profile-userpic">
                         <img src="https://avatars.githubusercontent.com/u/90028853?v=4" class="img-responsive" alt="">
                     </div>
+                    <td>
+                        <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="../Admin/EditUser" asp-route-id="@Model.User.UserId"><i class="fa fa-edit"></i></a>
+                    </td>
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name"> @Model.User.FirstName @Model.User.LastName </div>
                         <div class="profile-usertitle-job"> @Model.User.UserRole </div>

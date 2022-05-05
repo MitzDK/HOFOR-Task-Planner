@@ -47,6 +47,7 @@ namespace HOFORTaskPlanner.Pages.Admin
             user.DisplayName = DisplayName;
             user.UserRole = UserRoles;
             user.UserDepartment = UserDepartments;
+
             if (!ModelState.IsValid)
             {
                 return Page();
