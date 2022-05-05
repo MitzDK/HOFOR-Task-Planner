@@ -1,0 +1,143 @@
+﻿@page
+@model HOFORTaskPlanner.Pages.User.IndexModel
+@{
+}
+<link rel="stylesheet" href="~/css/GetUser.css" />
+
+<head>
+    <meta charset="utf-8">
+    <title>User Support Tickets Profile - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+    <br>
+    <div class="container bootdey">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="portlet light profile-sidebar-portlet bordered">
+                    <div class="profile-userpic">
+                        <img src="https://avatars.githubusercontent.com/u/90028853?v=4" class="img-responsive" alt="">
+                    </div>
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name"> @Model.User.FirstName @Model.User.LastName </div>
+                        <div class="profile-usertitle-job"> @Model.User.UserRole </div>
+                        <div>Antal opgaver: @Model.Assignments.Count()</div>
+                        <div>Timer estimeret for @Models.Time.CurrentMonth(): @Model.Hours</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="portlet light bordered">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption caption-md">
+                            <i class="icon-globe theme-font hide"></i>
+                            <span class="caption-subject font-blue-madison bold uppercase">Assignments</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Beskrivelse</th>
+                                    <th>Estimat</th>
+                                    <th>Aktuel</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var assignment in Model.Assignments)
+                            {
+                                <tr class="active">
+                                    <th scope="row">@assignment.Status</th>
+                                    <td>@assignment.Description</td>
+                                    <td>@assignment.Estimate</td>
+                                    <td>@assignment.</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*@if (Model.User != null)
+    {
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    @Model.User.UserId
+                </th>
+                <th>
+                    @Model.User.FirstName
+                </th>
+                <th>
+                    @Model.User.LastName
+                </th>
+                <th>
+                    @Model.User.DisplayName
+                </th>
+                <th>
+                    @Model.User.UserType
+                </th>
+                <th>
+                    @Model.User.UserRole
+                </th>
+                <th>
+                    @Model.User.UserDepartment
+                </th>
+                <th>
+                    @Model.User.LastUpdated
+                </th>
+                <th>
+                    <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="../Admin/EditUser" asp-route-id="@Model.User.UserId"><i class="fa fa-edit"></i></a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Assignments != null)
+            {
+            @foreach (var var in @Model.Assignments)
+            {
+            <tr class="btn-secondary">
+                <td>
+                    @var.Area
+                </td>
+                <td>
+                    @var.AssignmentId
+                </td>
+                <td>
+                    @var.Comment
+                </td>
+                <td>
+                    @var.Contact
+                </td>
+                <td>
+                    @var.ControlUserId
+                </td>
+                <td>
+                    @var.Description
+                </td>
+                <td>
+                    @var.StartDate
+                </td>
+                <td>
+                    @var.EndDate
+                </td>
+                <td>
+                    @var.Estimate
+                </td>
+                <td>
+                    @var.Status
+                </td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+
+    }*@
