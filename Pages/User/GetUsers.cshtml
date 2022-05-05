@@ -31,35 +31,41 @@
             <th>
                 LastUpdated
             </th>
+            <th>
+                Action
+            </th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var aktion in Model.UserList)
+        @foreach (var user in Model.UserList)
         {
             <tr>
                 <td>
-                    @aktion.UserId
+                    @user.UserId
                 </td>
                 <td>
-                    @aktion.FirstName
+                    @user.FirstName
                 </td>
                 <td>
-                    @aktion.LastName
+                    @user.LastName
                 </td>
                 <td>
-                    @aktion.DisplayName
+                    @user.DisplayName
                 </td>
                 <td>
-                    @aktion.UserType
+                    @user.UserType
                 </td>
                 <td>
-                    @aktion.UserRole
+                    @user.UserRole
                 </td>
                 <td>
-                    @aktion.UserDepartment
+                    @user.UserDepartment
                 </td>
                 <td>
-                    @aktion.LastUpdated
+                    @user.LastUpdated.Day/@user.LastUpdated.Month/@user.LastUpdated.Year
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="GetUser" asp-route-id="@user.UserId"><i class="fa fa-edit"></i></a>
                 </td>
             </tr>
         }

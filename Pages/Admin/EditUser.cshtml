@@ -1,0 +1,37 @@
+﻿@page
+@model HOFORTaskPlanner.Pages.Admin.EditUserModel
+@{
+}
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="FirstName"></label>:<br />
+                <input asp-for="FirstName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>:<br />
+                <input asp-for="LastName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DisplayName"></label>:<br />
+                <input asp-for="DisplayName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.UserRoles"></label>:<br />
+                <select asp-for="UserRoles" asp-items="Html.GetEnumSelectList<Models.User.UserRoles>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.UserDepartments"></label>:<br />
+                <select asp-for="UserDepartments" asp-items="Html.GetEnumSelectList<Models.User.UserDepartments>()">
+                    <option>Choose a department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
