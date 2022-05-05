@@ -2,7 +2,7 @@
 @model HOFORTaskPlanner.Pages.Assignment.EditAssignmentModel
 @{
 }
-<form method="post">
+@*<form method="post">
     <div class="form-group">
         <label asp-for="@Model.Assignment.Status"></label>
         <input asp-for="@Model.Assignment.Status" />
@@ -10,34 +10,92 @@
     <div class="form-group">
         <label asp-for="@Model.Assignment.Type" class="control-lable"></label>
         <input asp-for="@Model.Assignment.Type" class="form-control" />
+    </div>*@
+<head>
+    <link rel="stylesheet" href="~/css/select.css" />
+    <script src="js/select.js" type=”module”></script>
+</head>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Assignment.Status"></label>:<br />
+        <select asp-for="Assignment.Status" asp-items="Html.GetEnumSelectList<Models.Assignment.AssignmentStatus>()">
+            <option>Choose a Status</option>
+        </select>
+        <span asp-validation-for="Assignment.Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Assignment.Type"></label>:<br />
+        <select asp-for="Assignment.Type" asp-items="Html.GetEnumSelectList<Models.Assignment.AssignmentType>()">
+            <option>Choose a Type</option>
+        </select>
+        <span asp-validation-for="Assignment.Type" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.Area"></label>
         <input asp-for="@Model.Assignment.Area" class="form-control" />
+        <span asp-validation-for="Assignment.Area" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.Contact"></label>
         <input asp-for="@Model.Assignment.Contact" class="form-control" />
+        <span asp-validation-for="Assignment.Contact" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.Description"></label>
         <input asp-for="@Model.Assignment.Description" class="form-control" />
+        <span asp-validation-for="Assignment.Description" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.Estimate"></label>
         <input asp-for="@Model.Assignment.Estimate" class="form-control" />
+        <span asp-validation-for="Assignment.Estimate" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.StartDate"></label>
         <input asp-for="@Model.Assignment.StartDate" type="date" class="form-control" />
+        <span asp-validation-for="Assignment.StartDate" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.EndDate"></label>
         <input asp-for="@Model.Assignment.EndDate" type="date" class="form-control" />
+        <span asp-validation-for="Assignment.EndDate" class="text-danger"></span>
+
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.Comment"></label>
         <input asp-for="@Model.Assignment.Comment" class="form-control" />
+        <span asp-validation-for="Assignment.Comment" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="AktionSearch"></label><br />
+        <input type="text" list="datalist" asp-for="AktionSearch">
+        <datalist id="datalist">
+            <optgroup label="DisplayName / First & Last Name">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.DisplayName">@user.FirstName @user.LastName</option>
+                }
+            </optgroup>
+        </datalist>
+    </div>
+    <div class="form-group">
+        <label asp-for="ControllerSearch"></label><br />
+        <input type="text" list="datalist" asp-for="ControllerSearch">
+        <datalist id="datalist">
+            <optgroup label="DisplayName / First & Last Name">
+                @foreach (var user in Model.Users)
+                {
+                    <option value="@user.DisplayName">@user.FirstName @user.LastName</option>
+                }
+            </optgroup>
+        </datalist>
     </div>
     @*<div class="form-group">
             <label asp-for="@Model.Assignment.ControlUserId"></label>
