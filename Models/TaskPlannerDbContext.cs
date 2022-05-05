@@ -16,6 +16,7 @@ namespace HOFORTaskPlanner.Models
         public DbSet<Aktion> Aktions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<Time> Times { get; set; }
 
     }
 }
