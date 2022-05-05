@@ -39,8 +39,6 @@ namespace HOFORTaskPlanner.Models
         public MonthName Month { get; set; }
         [Required]
         public int Hours { get; set; }
-        [Required] public int UserId { get; set; }
-        public User User { get; set; }
         [Required] public int AssignmentId { get; set; }
         public Assignment Assignment { get; set; }
         
@@ -49,9 +47,8 @@ namespace HOFORTaskPlanner.Models
         {
         }
 
-        public Time(User user, Assignment assignment)
+        public Time(Assignment assignment)
         {
-            User = user;
             Assignment = assignment;
         }
     }

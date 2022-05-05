@@ -12,7 +12,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
     public class DetailsModel : PageModel
     {
         private TimeService _timeService;
-        private List<Time> _times;
         public DetailsModel(TimeService timeService)
         {
             _timeService = timeService;
