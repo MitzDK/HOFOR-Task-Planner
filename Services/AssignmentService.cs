@@ -87,7 +87,9 @@ namespace HOFORTaskPlanner.Services
                         ass.Estimate = assignment.Estimate;
                         ass.StartDate = assignment.StartDate;
                         ass.EndDate = assignment.EndDate;
-                        ass.Comment = ass.Comment;
+                        ass.Comment = assignment.Comment;
+                        ass.AktionUserId = assignment.AktionUserId;
+                        ass.ControlUserId = assignment.ControlUserId;
                     }
                 }
                 await DbService.UpdateObjectAsync(assignment);
