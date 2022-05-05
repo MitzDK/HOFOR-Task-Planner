@@ -8,12 +8,16 @@
 </head>
 <form method="post">
     <div class="form-group">
-        <label asp-for="@Model.Assignment.Status"></label>
-        <input asp-for="@Model.Assignment.Status" />
+        <label asp-for="Assignment.Status"></label>:<br />
+        <select asp-for="Assignment.Status" asp-items="Html.GetEnumSelectList<Models.Assignment.AssignmentStatus>()">
+            <option>Choose a Status</option>
+        </select>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Assignment.Type" class="control-lable"></label>
-        <input asp-for="@Model.Assignment.Type" class="form-control" />
+        <label asp-for="Assignment.Type"></label>:<br />
+        <select asp-for="Assignment.Type" asp-items="Html.GetEnumSelectList<Models.Assignment.AssignmentType>()">
+            <option>Choose a Type</option>
+        </select>
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.Area"></label>
