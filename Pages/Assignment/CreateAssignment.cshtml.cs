@@ -37,6 +37,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
         public async Task<IActionResult> OnPost()
         {
+            Users = _userService.GetUsers();
             if (!ModelState.IsValid)
             {
                 return Page();
