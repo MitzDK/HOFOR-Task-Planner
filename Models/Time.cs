@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using Microsoft.VisualBasic;
 
 namespace HOFORTaskPlanner.Models
@@ -28,24 +31,26 @@ namespace HOFORTaskPlanner.Models
         {
             return (MonthName) DateTime.Now.Month;
         }
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TimeId { get; set; }
+        [Required][Range(2000, 3000)]
         public int Year { get; set; }
-        public int Month { get; set; }
-
+        [Required]
+        public MonthName Month { get; set; }
+        [Required]
         public int Hours { get; set; }
+        [Required] public int UserId { get; set; }
         public User User { get; set; }
+        [Required] public int AssignmentId { get; set; }
         public Assignment Assignment { get; set; }
         
 
         public Time()
         {
-            Year = DateTime.Now.Year;
-            Month = DateTime.Now.Month;
         }
 
         public Time(User user, Assignment assignment)
         {
-            Year = DateTime.Now.Year;
-            Month = DateTime.Now.Month;
             User = user;
             Assignment = assignment;
         }

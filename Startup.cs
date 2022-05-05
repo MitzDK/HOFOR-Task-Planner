@@ -38,6 +38,9 @@ namespace HOFORTaskPlanner
             services.AddTransient<UserService>();
             services.AddTransient<DbGenericService<User>>();
 
+            services.AddTransient<TimeService>();
+            services.AddTransient<DbGenericService<Time>>();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
