@@ -33,13 +33,14 @@ namespace HOFORTaskPlanner.Models
         }
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TimeId { get; set; }
-        [Required][Range(2000, 3000)]
+        [Required][Range(2000, 3000)] 
         public int Year { get; set; }
-        [Required]
+        [Required] 
         public MonthName Month { get; set; }
-        [Required]
+        [Required] 
         public int Hours { get; set; }
-        [Required] public int AssignmentId { get; set; }
+        [Required] 
+        public int AssignmentId { get; set; }
         public Assignment Assignment { get; set; }
         
 
@@ -50,6 +51,14 @@ namespace HOFORTaskPlanner.Models
         public Time(Assignment assignment)
         {
             Assignment = assignment;
+        }
+
+        public Time(int year, MonthName month, int hours, int assignmentId)
+        {
+            Year = year;
+            Month = month;
+            Hours = hours;
+            AssignmentId = assignmentId;
         }
     }
 }

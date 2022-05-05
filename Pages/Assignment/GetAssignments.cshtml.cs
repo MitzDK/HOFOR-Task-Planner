@@ -18,7 +18,14 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             return _userService.GetUserById(userId);
         }
-
+        public string UserDisplayName(int userId)
+        {
+            if (_userService.GetUserById(userId) != null)
+            {
+                return _userService.GetUserById(userId).DisplayName;
+            }
+            return "N/A";
+        }
         public GetAssignmentsModel(AssignmentService assignmentService, UserService userService)
         {
             _assignmentService = assignmentService;

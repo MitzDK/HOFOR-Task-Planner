@@ -34,7 +34,7 @@ namespace HOFORTaskPlanner.Services
 
         public User GetUserById(int id)
         {
-            return _users.Find(Us => Us.UserId == id);
+            return _users.Find(us => us.UserId.Equals(id));
         }
 
         public User GetUserByDisplayName(string displayName)
