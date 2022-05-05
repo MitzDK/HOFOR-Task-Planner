@@ -75,23 +75,6 @@ namespace HOFORTaskPlanner.Services
 
             if (assignment != null)
             {
-                foreach (Assignment ass in _assignments)
-                {
-                    if (ass.AssignmentId == assignment.AssignmentId)
-                    {
-                        ass.Status = assignment.Status;
-                        ass.Type = assignment.Type;
-                        ass.Area = assignment.Area;
-                        ass.Contact = assignment.Contact;
-                        ass.Description = assignment.Description;
-                        ass.Estimate = assignment.Estimate;
-                        ass.StartDate = assignment.StartDate;
-                        ass.EndDate = assignment.EndDate;
-                        ass.Comment = assignment.Comment;
-                        ass.AktionUserId = assignment.AktionUserId;
-                        ass.ControlUserId = assignment.ControlUserId;
-                    }
-                }
                 await DbService.UpdateObjectAsync(assignment);
             }
         }
