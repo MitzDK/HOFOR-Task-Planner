@@ -12,13 +12,13 @@ namespace HOFORTaskPlanner.Models
     {
         public enum AssignmentStatus
         {
-            Waiting = 1,
-            Archived = 2,
-            Hold = 3,
-            Active = 4,
-            New = 5,
+            Active = 1,
+            New = 2,
+            Waiting = 3,
+            Hold = 4,
+            Finished = 5,
             Portfolio = 6,
-            Finished = 7
+            Archived = 7
         }
 
         public enum AssignmentType
@@ -30,29 +30,35 @@ namespace HOFORTaskPlanner.Models
             Kontinuær = 5,
             Udvikling = 6
         }
-        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssignmentId { get; set; }
         [Required]
+        [Display(Name = "Status")]
         public AssignmentStatus Status { get; set; }
         [Required]
+        [Display(Name = "Type")]
         public AssignmentType Type { get; set; }
         [Required]
-
+        [Display(Name = "Område")]
         public string Area { get; set; }
         [Required]
-
+        [Display(Name = "Kontakt")]
         public string Contact { get; set; }
         [Required]
-
+        [Display(Name = "Beskrivelse")]
         public string Description { get; set; }
         [Required]
-
+        [Display(Name = "Estimat")]
         public int Estimate { get; set; }
         [Required]
+        [Display(Name = "Startdato")]
         public DateTime StartDate { get; set; }
         [Required]
+        [Display(Name = "Slutdato")]
         public DateTime EndDate { get; set; }
         [Required]
+        [Display(Name = "Kommentar")]
 
         public string Comment { get; set; }
 
@@ -61,7 +67,7 @@ namespace HOFORTaskPlanner.Models
 
         public Assignment()
         {
-            
+
         }
 
         public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, int aktionUserId, int controlUserId)

@@ -37,11 +37,11 @@
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.StartDate"></label>
-        <input asp-for="@Model.Assignment.StartDate" type="date" class="form-control" />
+        <input min="@(DateTime.Today.Year-3)-01-01" max="@(DateTime.Today.Year+3)-12-31" asp-for="@Model.Assignment.StartDate" type="date" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.EndDate"></label>
-        <input asp-for="@Model.Assignment.EndDate" type="date" class="form-control" />
+        <input min="@(DateTime.Today.Year-3)-01-01" max="@(DateTime.Today.Year+10)-12-31" asp-for="@Model.Assignment.EndDate" type="date" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="@Model.Assignment.Comment"></label>
