@@ -20,7 +20,17 @@ namespace HOFORTaskPlanner.Models
         [Required][DataType(DataType.EmailAddress)][EmailAddress][Display(Name = "E-mail")]
         public string Email { get; set; }
 
+        public Contact()
+        {
+            
+        }
 
-
+        public Contact(string firstName, string lastName, string phoneNumber, string email)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Email = email;
+        }
     }
 }
