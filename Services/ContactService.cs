@@ -28,5 +28,10 @@ namespace HOFORTaskPlanner.Services
             _contacts.Add(contact);
             await DbService.AddObjectAsync(contact);
         }
+
+        public async Task UpdateContactAsync(Contact contact)
+        {
+            await DbService.UpdateObjectAsync(contact);
+        }
     }
 }
