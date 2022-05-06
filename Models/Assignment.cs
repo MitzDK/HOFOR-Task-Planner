@@ -33,31 +33,31 @@ namespace HOFORTaskPlanner.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssignmentId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Du skal vælge Status")]
         [Display(Name = "Status")]
         public AssignmentStatus Status { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Du skal vælge Type")]
         [Display(Name = "Type")]
         public AssignmentType Type { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Område skal udfyldes")]
         [Display(Name = "Område")]
         public string Area { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Indtast en kontakt")]
         [Display(Name = "Kontakt")]
         public string Contact { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Indtast en beskrivelse")]
         [Display(Name = "Beskrivelse")]
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Indtast et estimat")]
         [Display(Name = "Estimat")]
         public int Estimate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Indtast en startdato for opgaven")]
         [Display(Name = "Startdato")]
         public DateTime StartDate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Indtast en slutdato for opgaven")]
         [Display(Name = "Slutdato")]
         public DateTime EndDate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Indtast en kommentar")]
         [Display(Name = "Kommentar")]
 
         public string Comment { get; set; }
