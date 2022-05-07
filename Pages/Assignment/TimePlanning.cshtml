@@ -24,67 +24,52 @@
     </tr>
     </tbody>
 </table>
-<table class="table table-bordered table-striped text-center">
-    <thead>
-        <tr>
-            <th></th>
-            <th scope="col" class="@(Model.IsCurrentMonth(1) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jan</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(2) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Feb</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(3) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Mar</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(4) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Apr</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(5) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Maj</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(6) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jun</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(7) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jul</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(8) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Aug</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(9) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Sep</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(10) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Okt</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(11) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Nov</th>
-            <th scope="col" class="@(Model.IsCurrentMonth(12) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Dec</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (@Model.ShowList(Model.Year, Model.Assignment.AssignmentId) != null)
-        {
-            int i = Model.Assignment.StartDate.Year;
-            Model.TimeHours = Model.PopulateTable(Model.Assignment);
-            //foreach (var varint in Model.PopulateTable(Model.Assignment))
-            for (int newint = 0; newint < Model.TimeHours.Count;)
+<form method="post">
+    <table class="table table-bordered table-striped text-center">
+        <thead>
+            <tr>
+                <th></th>
+                <th scope="col" class="@(Model.IsCurrentMonth(1) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jan</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(2) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Feb</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(3) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Mar</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(4) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Apr</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(5) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Maj</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(6) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jun</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(7) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jul</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(8) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Aug</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(9) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Sep</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(10) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Okt</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(11) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Nov</th>
+                <th scope="col" class="@(Model.IsCurrentMonth(12) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Dec</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (@Model.ShowList(Model.Year, Model.Assignment.AssignmentId) != null)
             {
-                Model.TimeHours[0] = 20;
-                Model.TimeHours[5] = 20;
-                Model.TimeHours[8] = 20;
-                Model.TimeHours[10] = 20;
-                Model.TimeHours[11] = 20;
-        <tr>
-            <td>@i</td>
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-            <td><input asp-for="TimeHours[newint]" /></td>
-            @(newint++)
-        </tr>
-                i++;
+                int i = Model.Assignment.StartDate.Year;
+                Model.TimeHours = Model.PopulateTable(Model.Assignment);
+                //foreach (var varint in Model.PopulateTable(Model.Assignment))
+                for (int newint = 0; newint < Model.TimeHours.Count; newint += 12)
+                {<tr>
+                        <td>@i</td>
+                        <td><input asp-for="TimeHours[newint]" /></td>
+                        <td><input asp-for="TimeHours[1 + newint]" /></td>
+                        <td><input asp-for="TimeHours[2 + newint]" /></td>
+                        <td><input asp-for="TimeHours[3 + newint]" /></td>
+                        <td><input asp-for="TimeHours[4 + newint]" /></td>
+                        <td><input asp-for="TimeHours[5 + newint]" /></td>
+                        <td><input asp-for="TimeHours[6 + newint]" /></td>
+                        <td><input asp-for="TimeHours[7 + newint]" /></td>
+                        <td><input asp-for="TimeHours[8 + newint]" /></td>
+                        <td><input asp-for="TimeHours[9 + newint]" /></td>
+                        <td><input asp-for="TimeHours[10 + newint]" /></td>
+                        <td><input asp-for="TimeHours[11 + newint]" /></td>
+                    </tr>
+                    i++;
+                }
             }
-        }
 
-    </tbody>
+        </tbody>
     </table>
+    <button type="submit" class="btn btn-primary">Opdater</button>
+</form>

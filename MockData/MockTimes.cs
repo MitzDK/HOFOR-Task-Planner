@@ -10,6 +10,26 @@ namespace HOFORTaskPlanner.MockData
     {
         private static List<TimeReg> _times = new List<TimeReg>()
         {
+            new TimeReg(2020, TimeReg.MonthName.Januar, 20, 1),
+            //new Time(2022, Time.MonthName.Februar, 20, 1),
+            new TimeReg(2020, TimeReg.MonthName.Marts, 20, 1),
+            new TimeReg(2020, TimeReg.MonthName.April, 20, 1),
+            //new Time(2022, Time.MonthName.Maj, 20, 1),
+            new TimeReg(2020, TimeReg.MonthName.Juni, 20, 1),
+            new TimeReg(2020, TimeReg.MonthName.Juli, 20, 1),
+            //new Time(2022, Time.MonthName.August, 20, 1),
+            new TimeReg(2020, TimeReg.MonthName.September, 20, 1),
+            new TimeReg(2020, TimeReg.MonthName.Oktober, 20, 1),
+            new TimeReg(2021, TimeReg.MonthName.Januar, 20, 1),
+            //new Time(2022, Time.MonthName.Februar, 20, 1),
+            new TimeReg(2021, TimeReg.MonthName.Marts, 20, 1),
+            new TimeReg(2021, TimeReg.MonthName.April, 20, 1),
+            //new Time(2022, Time.MonthName.Maj, 20, 1),
+            new TimeReg(2021, TimeReg.MonthName.Juni, 20, 1),
+            new TimeReg(2021, TimeReg.MonthName.Juli, 20, 1),
+            //new Time(2022, Time.MonthName.August, 20, 1),
+            new TimeReg(2021, TimeReg.MonthName.September, 20, 1),
+            new TimeReg(2021, TimeReg.MonthName.Oktober, 20, 1),
             new TimeReg(2022, TimeReg.MonthName.Januar, 20, 1),
             //new Time(2022, Time.MonthName.Februar, 20, 1),
             new TimeReg(2022, TimeReg.MonthName.Marts, 20, 1),
@@ -20,8 +40,17 @@ namespace HOFORTaskPlanner.MockData
             //new Time(2022, Time.MonthName.August, 20, 1),
             new TimeReg(2022, TimeReg.MonthName.September, 20, 1),
             new TimeReg(2022, TimeReg.MonthName.Oktober, 20, 1),
-            //new Time(2022, Time.MonthName.November, 20, 1),
-            new TimeReg(2022, TimeReg.MonthName.December, 20, 1),
+            new TimeReg(2023, TimeReg.MonthName.Januar, 20, 1),
+            //new Time(2022, Time.MonthName.Februar, 20, 1),
+            new TimeReg(2023, TimeReg.MonthName.Marts, 20, 1),
+            new TimeReg(2023, TimeReg.MonthName.April, 20, 1),
+            //new Time(2022, Time.MonthName.Maj, 20, 1),
+            new TimeReg(2023, TimeReg.MonthName.Juni, 20, 1),
+            new TimeReg(2023, TimeReg.MonthName.Juli, 20, 1),
+            //new Time(2022, Time.MonthName.August, 20, 1),
+            new TimeReg(2023, TimeReg.MonthName.September, 20, 1),
+            new TimeReg(2023, TimeReg.MonthName.Oktober, 20, 1),
+
         };
 
         public static List<TimeReg> GetTimes()

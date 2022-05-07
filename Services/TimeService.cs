@@ -23,6 +23,7 @@ namespace HOFORTaskPlanner.Services
         {
             return _times;
         }
+
         public async Task AddTimeAsync(TimeReg time)
         {
             _times.Add(time);
@@ -35,6 +36,7 @@ namespace HOFORTaskPlanner.Services
             {
                 return GetTimeByAssignmentId(id).Sum(tim => tim.Hours);
             }
+
             return 0;
         }
 
@@ -45,8 +47,10 @@ namespace HOFORTaskPlanner.Services
                 var newList = GetTimes().FindAll(time => time.AssignmentId.Equals(id));
                 return newList;
             }
+
             return null;
         }
+
         public TimeReg GetTimeById(int id)
         {
             return GetTimes().Find(time => time.TimeId.Equals(id));
@@ -67,6 +71,7 @@ namespace HOFORTaskPlanner.Services
                 var newList = GetTimes().FindAll(time => time.Year.Equals(year));
                 return newList;
             }
+
             return null;
         }
 
@@ -82,11 +87,40 @@ namespace HOFORTaskPlanner.Services
 
             return null;
         }
+        public TimeReg GetTimeByYearAndMonthAndAssignmentId(int year, int month, int id)
+        {
+            if (_times.Exists(time =>
+                time.AssignmentId == id && time.Year == year &&
+                time.Month == (TimeReg.MonthName) month))
+            {
+                return _times.Find(time =>
+                    time.AssignmentId == id && time.Year == year &&
+                    time.Month == (TimeReg.MonthName) month);
+            }
+            return new TimeReg();
+        }
 
         public bool IsCurrentMonth(int input)
         {
-            if (Models.TimeReg.CurrentMonth() == (TimeReg.MonthName)input) return true;
+            if (Models.TimeReg.CurrentMonth() == (TimeReg.MonthName) input) return true;
             return false;
+        }
+
+        public async Task AddAndUpdateTimes(List<TimeReg> timeList)
+        {
+            _times = DbService.GetObjectsAsync().Result.ToList();
+            foreach (var time in timeList)
+            {
+                if (_times.Exists(tim =>
+                    tim.Year == time.Year && tim.Month == time.Month && tim.AssignmentId == time.AssignmentId))
+                {
+                    await DbService.UpdateObjectAsync(time);
+                }
+                else
+                {
+                    await DbService.AddObjectAsync(time);
+                }
+            }
         }
     }
 }
