@@ -39,7 +39,7 @@ namespace HOFORTaskPlanner
             services.AddTransient<DbGenericService<User>>();
 
             services.AddTransient<TimeService>();
-            services.AddTransient<DbGenericService<Time>>();
+            services.AddTransient<DbGenericService<TimeReg>>();
 
             services.AddTransient<ContactService>();
             services.AddTransient<DbGenericService<Contact>>();

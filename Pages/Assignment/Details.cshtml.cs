@@ -11,20 +11,38 @@ namespace HOFORTaskPlanner.Pages.Assignment
 {
     public class DetailsModel : PageModel
     {
-        private TimeService _timeService;
+        public TimeService TimeService { get; set; }
         private AssignmentService _assignmentService;
         private UserService _userService;
         public List<Models.Assignment> Assignments { get; set; }
-        public List<Models.Time> Times { get; set; }
+        public List<Models.TimeReg> Times { get; set; }
         public int Year { get; set; } = DateTime.Now.Year;
 
 
         public DetailsModel(TimeService timeService, AssignmentService assignmentService, UserService userService)
         {
-            _timeService = timeService;
+            TimeService = timeService;
             _assignmentService = assignmentService;
             _userService = userService;
         }
+
+        public void OnGet(int id)
+        {
+            Assignments = _assignmentService.GetAssignmentsByUserId(id);
+        }
+
+
+        public bool IsCurrentMonth(int input)
+        {
+            return TimeService.IsCurrentMonth(input);
+        }
+
+        public string GetClassForCurrentMonth(bool isLast)
+        {
+            if (isLast) return "IsCurrentMonthBottom";
+            return "IsCurrentMonthMiddle";
+        }
+
         public Models.User AssignmentUser(int userId)
         {
             return _userService.GetUserById(userId);
@@ -38,12 +56,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return "N/A";
         }
 
-        public List<Time> ShowList(int year, int id)
+        public List<TimeReg> ShowList(int year, int id)
         {
-            List<Time> newList = new List<Time>();
-            if (_timeService.GetTimeByYearAndAssignmentId(year, id) != null)
+            List<TimeReg> newList = new List<TimeReg>();
+            if (TimeService.GetTimeByYearAndAssignmentId(year, id) != null)
             {
-                newList = _timeService.GetTimeByYearAndAssignmentId(year, id);
+                newList = TimeService.GetTimeByYearAndAssignmentId(year, id);
                 return newList;
             }
             return null;
@@ -54,20 +72,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
             if (ShowList(year, id) != null)
             {
                 var list = ShowList(year, id);
-                if (ShowList(year, id).Find(time => time.Month == (Time.MonthName)month) != null)
-                {
-                    return ShowList(year, id).Find(time => time.Month == (Time.MonthName)month).Hours;
-                }
+                if (ShowList(year, id).Find(time => time.Month == (TimeReg.MonthName)month) != null) return ShowList(year, id).Find(time => time.Month == (TimeReg.MonthName)month).Hours;
             }
             return 0;
         }
-        public int TotalTimer(int id)
-        {
-            return _timeService.TotalTimeForAssignmentPlanned(id);
-        }
-        public void OnGet(int id)
-        {
-            Assignments = _assignmentService.GetAssignmentsByUserId(id);
-        }
+
+        
     }
 }

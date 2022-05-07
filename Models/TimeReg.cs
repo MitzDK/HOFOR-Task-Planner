@@ -9,7 +9,7 @@ using Microsoft.VisualBasic;
 
 namespace HOFORTaskPlanner.Models
 {
-    public class Time
+    public class TimeReg
     {
         public enum MonthName
         {
@@ -29,7 +29,7 @@ namespace HOFORTaskPlanner.Models
 
         public static MonthName CurrentMonth()
         {
-            return (MonthName) DateTime.Now.Month;
+            return (MonthName)DateTime.Now.Month;
         }
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TimeId { get; set; }
@@ -44,16 +44,16 @@ namespace HOFORTaskPlanner.Models
         public Assignment Assignment { get; set; }
         
 
-        public Time()
+        public TimeReg()
         {
         }
 
-        public Time(Assignment assignment)
+        public TimeReg(Assignment assignment)
         {
             Assignment = assignment;
         }
 
-        public Time(int year, MonthName month, int hours, int assignmentId)
+        public TimeReg(int year, MonthName month, int hours, int assignmentId)
         {
             Year = year;
             Month = month;

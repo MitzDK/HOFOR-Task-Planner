@@ -2,12 +2,13 @@
 @model HOFORTaskPlanner.Pages.Assignment.DetailsModel
 @{
 }
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped text-center outlinedTable">
     <colgroup span="6"></colgroup>
     <colgroup span="12"></colgroup>
-    <tr class="table-dark align-content-center">
-        <th colspan="6" scope="colgroup">AssignmentDetails</th>
-        <th colspan="12" scope="colgroup">Year</th>
+    <tr class="table-dark">
+        <th colspan="6" scope="colgroup">Detaljer</th>
+        <th colspan="12" scope="colgroup">@Model.Year</th>
+        <th colspan="1" scope="colgroup"></th>
     </tr>
     <tr>
         <th scope="col">Status</th>
@@ -16,46 +17,49 @@
         <th scope="col">Slut</th>
         <th scope="col">Estimat</th>
         <th scope="col">Rest</th>
-        <th scope="col">Jan</th>
-        <th scope="col">Feb</th>
-        <th scope="col">Mar</th>
-        <th scope="col">Apr</th>
-        <th scope="col">Maj</th>
-        <th scope="col">Jun</th>
-        <th scope="col">Jul</th>
-        <th scope="col">Aug</th>
-        <th scope="col">Sep</th>
-        <th scope="col">Okt</th>
-        <th scope="col">Nov</th>
-        <th scope="col">Dec</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(1) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jan</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(2) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Feb</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(3) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Mar</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(4) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Apr</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(5) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Maj</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(6) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jun</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(7) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Jul</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(8) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Aug</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(9) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Sep</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(10) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Okt</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(11) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Nov</th>
+        <th scope="col" class="@(Model.IsCurrentMonth(12) ? "IsCurrentMonthHead" : "IsNotCurrentMonth")" )>Dec</th>
+
+        <th scope="col"></th>
     </tr>
     @if (Model.Assignments.Count != 0)
     {
-        foreach (var assignment in Model.Assignments)
+        @for (int i = 0; i < Model.Assignments.Count; i++)
         {
             <tr>
-                <td>@assignment.Status</td>
-                <td>@assignment.Description</td>
-                <td>@assignment.StartDate.Day/@assignment.StartDate.Month/@assignment.StartDate.Year</td>
-                <td>@assignment.EndDate.Day/@assignment.EndDate.Month/@assignment.EndDate.Year</td>
-                <td>@assignment.Estimate</td>
-                <td>@(assignment.Estimate-Model.TotalTimer(assignment.AssignmentId))</td>
-                @if (@Model.ShowList(Model.Year, assignment.AssignmentId) != null)
+                <td>@Model.Assignments[i].Status</td>
+                <td>@Model.Assignments[i].Description</td>
+                <td>@Model.Assignments[i].StartDate.Day/@Model.Assignments[i].StartDate.Month/@Model.Assignments[i].StartDate.Year</td>
+                <td>@Model.Assignments[i].EndDate.Day/@Model.Assignments[i].EndDate.Month/@Model.Assignments[i].EndDate.Year</td>
+                <td>@Model.Assignments[i].Estimate</td>
+                <td>@(Model.Assignments[i].Estimate - Model.TimeService.TotalTimeForAssignmentPlanned(Model.Assignments[i].AssignmentId))</td>
+                @if (@Model.ShowList(Model.Year, Model.Assignments[i].AssignmentId) != null)
                 {
-                    <td>@Model.TimeByMonth(1, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(2, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(3, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(4, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(5, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(6, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(7, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(8, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(9, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(10, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(11, Model.Year, assignment.AssignmentId)</td>
-                    <td>@Model.TimeByMonth(12, Model.Year, assignment.AssignmentId)</td>
+                    var lastIteration = (i == Model.Assignments.Count - 1);
+                    <td class="@(Model.IsCurrentMonth(1) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(1, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(2) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(2, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(3) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(3, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(4) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(4, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(5) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(5, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(6) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(6, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(7) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(7, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(8) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(8, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(9) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(9, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(10) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(10, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(11) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(11, Model.Year, Model.Assignments[i].AssignmentId)</td>
+                    <td class="@(Model.IsCurrentMonth(12) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(12, Model.Year, Model.Assignments[i].AssignmentId)</td>
                 }
-
+                <td><a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Time Registration" asp-page="TimePlanning" asp-route-id="@Model.Assignments[i].AssignmentId">Planlæg Tid</a></td>
             </tr>
         }
     }
