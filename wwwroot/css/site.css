@@ -69,3 +69,22 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.IsCurrentMonthHead {
+    border: 2px solid red !important;
+    border-bottom: 0px !important;
+}
+.IsCurrentMonthMiddle {
+    border: 2px solid red !important;
+    border-bottom: 0px !important;
+    border-top: 0px !important;
+}
+.IsCurrentMonthBottom {
+    border: 2px solid red !important;
+    border-bottom: 2px solid red !important;
+    border-top: 0px !important;
+}
+.IsNotCurrentMonth {
+    border: 0px;
+    border-bottom: 0px;
+}

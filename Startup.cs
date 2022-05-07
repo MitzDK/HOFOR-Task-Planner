@@ -39,7 +39,7 @@ namespace HOFORTaskPlanner
             services.AddTransient<DbGenericService<User>>();
 
             services.AddTransient<TimeService>();
-            services.AddTransient<DbGenericService<Time>>();
+            services.AddTransient<DbGenericService<TimeReg>>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

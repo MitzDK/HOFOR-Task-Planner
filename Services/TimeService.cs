@@ -9,21 +9,21 @@ namespace HOFORTaskPlanner.Services
 {
     public class TimeService
     {
-        private List<Time> _times;
-        private DbGenericService<Time> DbService;
+        private List<TimeReg> _times;
+        private DbGenericService<TimeReg> DbService;
 
-        public TimeService(DbGenericService<Time> dbService)
+        public TimeService(DbGenericService<TimeReg> dbService)
         {
             DbService = dbService;
             _times = MockTimes.GetTimes();
             //_times = DbService.GetObjectsAsync().Result.ToList();
         }
 
-        public List<Time> GetTimes()
+        public List<TimeReg> GetTimes()
         {
             return _times;
         }
-        public async Task AddTimeAsync(Time time)
+        public async Task AddTimeAsync(TimeReg time)
         {
             _times.Add(time);
             await DbService.AddObjectAsync(time);
@@ -38,7 +38,7 @@ namespace HOFORTaskPlanner.Services
             return 0;
         }
 
-        public List<Time> GetTimeByAssignmentId(int id)
+        public List<TimeReg> GetTimeByAssignmentId(int id)
         {
             if (GetTimes() != null)
             {
@@ -47,12 +47,12 @@ namespace HOFORTaskPlanner.Services
             }
             return null;
         }
-        public Time GetTimeById(int id)
+        public TimeReg GetTimeById(int id)
         {
             return GetTimes().Find(time => time.TimeId.Equals(id));
         }
 
-        public async Task UpdateTimeAsync(Time time)
+        public async Task UpdateTimeAsync(TimeReg time)
         {
             if (time != null)
             {
@@ -60,7 +60,7 @@ namespace HOFORTaskPlanner.Services
             }
         }
 
-        public List<Time> GetTimeByYear(int year)
+        public List<TimeReg> GetTimeByYear(int year)
         {
             if (_times != null)
             {
@@ -70,7 +70,7 @@ namespace HOFORTaskPlanner.Services
             return null;
         }
 
-        public List<Time> GetTimeByYearAndAssignmentId(int year, int id)
+        public List<TimeReg> GetTimeByYearAndAssignmentId(int year, int id)
         {
 
             if (GetTimes() != null)
@@ -81,6 +81,12 @@ namespace HOFORTaskPlanner.Services
             }
 
             return null;
+        }
+
+        public bool IsCurrentMonth(int input)
+        {
+            if (Models.TimeReg.CurrentMonth() == (TimeReg.MonthName)input) return true;
+            return false;
         }
     }
 }

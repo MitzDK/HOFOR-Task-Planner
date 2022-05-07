@@ -81,6 +81,7 @@ namespace HOFORTaskPlanner.Services
             if (assignment != null)
             {
                 await DbService.UpdateObjectAsync(assignment);
+                _assignments = DbService.GetObjectsAsync().Result.ToList();
             }
         }
     }

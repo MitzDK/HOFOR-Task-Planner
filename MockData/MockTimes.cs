@@ -8,23 +8,23 @@ namespace HOFORTaskPlanner.MockData
 {
     public class MockTimes
     {
-        private static List<Time> _times = new List<Time>()
+        private static List<TimeReg> _times = new List<TimeReg>()
         {
-            new Time(2022, Time.MonthName.Januar, 20, 1),
-            new Time(2022, Time.MonthName.Februar, 20, 1),
-            new Time(2022, Time.MonthName.Marts, 20, 1),
-            new Time(2022, Time.MonthName.April, 20, 1),
-            new Time(2022, Time.MonthName.Maj, 20, 1),
-            new Time(2022, Time.MonthName.Juni, 20, 1),
-            new Time(2022, Time.MonthName.Juli, 20, 1),
-            new Time(2022, Time.MonthName.August, 20, 1),
-            new Time(2022, Time.MonthName.September, 20, 1),
-            new Time(2022, Time.MonthName.Oktober, 20, 1),
-            new Time(2022, Time.MonthName.November, 20, 1),
-            new Time(2022, Time.MonthName.December, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.Januar, 20, 1),
+            //new Time(2022, Time.MonthName.Februar, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.Marts, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.April, 20, 1),
+            //new Time(2022, Time.MonthName.Maj, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.Juni, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.Juli, 20, 1),
+            //new Time(2022, Time.MonthName.August, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.September, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.Oktober, 20, 1),
+            //new Time(2022, Time.MonthName.November, 20, 1),
+            new TimeReg(2022, TimeReg.MonthName.December, 20, 1),
         };
 
-        public static List<Time> GetTimes()
+        public static List<TimeReg> GetTimes()
         {
             return _times;
         }
