@@ -36,7 +36,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             Assignment = _assignmentService.GetAssignmentById(id);
             await FinishUpdatingAsync();
-            return Page();
+            return RedirectToPage("GetAssignments");
         }
 
         public int TotalTimer(int id)
@@ -89,11 +89,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public async Task FinishUpdatingAsync()
         {
             var newList = new List<TimeReg>();
+            int indexer = 0;
             for (int yearCounter = Assignment.StartDate.Year; yearCounter < Assignment.EndDate.Year + 1; yearCounter++)
             {
                 for (int monthCounter = 1; monthCounter < 13; monthCounter++)
                 {
-                    int indexer = (((Assignment.EndDate.Year - Assignment.StartDate.Year + 1) * monthCounter) - 1);
                     if (TimeService.GetTimeByAssignmentId(Assignment.AssignmentId).Exists(time =>
                         time.AssignmentId == Assignment.AssignmentId && time.Year == yearCounter &&
                         time.Month == (TimeReg.MonthName) monthCounter))
@@ -103,10 +103,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
                                 Assignment.AssignmentId);
                         newtime.Hours = TimeHours[indexer];
                         newList.Add(newtime);
+                        indexer++;
                     }
                     else
                     {
                         newList.Add(new TimeReg(yearCounter, (TimeReg.MonthName)monthCounter, TimeHours[indexer], Assignment.AssignmentId));
+                        indexer++;
                     }
                 }
             }

@@ -15,11 +15,11 @@ namespace HOFORTaskPlanner.Services
         {
             DbService = dbService;
 
-            //_assignments = MockData.MockAssignments.GetMockAssignments();
-            ////foreach (var assign in _assignments)
-            ////{
-            ////    DbService.AddObjectAsync(assign);
-            ////}
+            _assignments = MockData.MockAssignments.GetMockAssignments();
+            //foreach (var assign in _assignments)
+            //{
+            //    DbService.AddObjectAsync(assign);
+            //}
 
             _assignments = DbService.GetObjectsAsync().Result.ToList();
         }

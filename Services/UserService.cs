@@ -17,7 +17,7 @@ namespace HOFORTaskPlanner.Services
         {
             DbService = dbService;
 
-            //_users = MockUsers.GetUsers();
+            _users = MockUsers.GetUsers();
             //foreach (var user in _users)
             //{
             //    DbService.AddObjectAsync(user);

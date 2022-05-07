@@ -52,7 +52,7 @@
                 for (int newint = 0; newint < Model.TimeHours.Count; newint += 12)
                 {<tr>
                         <td>@i</td>
-                        <td><input asp-for="TimeHours[newint]" /></td>
+                        <td><input asp-for="TimeHours[newint]" class=""/></td>
                         <td><input asp-for="TimeHours[1 + newint]" /></td>
                         <td><input asp-for="TimeHours[2 + newint]" /></td>
                         <td><input asp-for="TimeHours[3 + newint]" /></td>

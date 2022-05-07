@@ -16,7 +16,11 @@ namespace HOFORTaskPlanner.Services
         {
             DbService = dbService;
             _times = MockTimes.GetTimes();
-            //_times = DbService.GetObjectsAsync().Result.ToList();
+            //foreach (var time in _times)
+            //{
+            //    DbService.AddObjectAsync(time);
+            //}
+            _times = DbService.GetObjectsAsync().Result.ToList();
         }
 
         public List<TimeReg> GetTimes()

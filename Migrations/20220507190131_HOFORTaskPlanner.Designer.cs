@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HOFORTaskPlanner.Migrations
 {
     [DbContext(typeof(TaskPlannerDbContext))]
-    [Migration("20220503200713_HOFORTaskPlanner")]
+    [Migration("20220507190131_HOFORTaskPlanner")]
     partial class HOFORTaskPlanner
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,6 +114,60 @@ namespace HOFORTaskPlanner.Migrations
                     b.ToTable("Assignments");
                 });
 
+            modelBuilder.Entity("HOFORTaskPlanner.Models.Contact", b =>
+                {
+                    b.Property<int>("ContactId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ContactId");
+
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("HOFORTaskPlanner.Models.TimeReg", b =>
+                {
+                    b.Property<int>("TimeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AssignmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Hours")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("TimeId");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.ToTable("Times");
+                });
+
             modelBuilder.Entity("HOFORTaskPlanner.Models.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -157,6 +211,17 @@ namespace HOFORTaskPlanner.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("HOFORTaskPlanner.Models.TimeReg", b =>
+                {
+                    b.HasOne("HOFORTaskPlanner.Models.Assignment", "Assignment")
+                        .WithMany()
+                        .HasForeignKey("AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assignment");
                 });
 #pragma warning restore 612, 618
         }

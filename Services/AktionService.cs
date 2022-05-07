@@ -14,8 +14,8 @@ namespace HOFORTaskPlanner.Services
         public AktionService(DbGenericService<Aktion> dbService)
         {
             DbService = dbService;
-            //_aktionList = MockData.MockAktions.GetAktions();
-            _aktionList = DbService.GetObjectsAsync().Result.ToList();
+            _aktionList = MockData.MockAktions.GetAktions();
+            //_aktionList = DbService.GetObjectsAsync().Result.ToList();
         }
 
         public List<Aktion> GetAktions()

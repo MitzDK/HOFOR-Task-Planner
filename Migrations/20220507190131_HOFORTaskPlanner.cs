@@ -52,6 +52,22 @@ namespace HOFORTaskPlanner.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    ContactId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.ContactId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -71,6 +87,33 @@ namespace HOFORTaskPlanner.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Times",
+                columns: table => new
+                {
+                    TimeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Month = table.Column<int>(type: "int", nullable: false),
+                    Hours = table.Column<int>(type: "int", nullable: false),
+                    AssignmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Times", x => x.TimeId);
+                    table.ForeignKey(
+                        name: "FK_Times_Assignments_AssignmentId",
+                        column: x => x.AssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "AssignmentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Times_AssignmentId",
+                table: "Times",
+                column: "AssignmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -79,10 +122,16 @@ namespace HOFORTaskPlanner.Migrations
                 name: "Aktions");
 
             migrationBuilder.DropTable(
-                name: "Assignments");
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "Times");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Assignments");
         }
     }
 }
