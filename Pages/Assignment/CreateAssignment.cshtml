@@ -62,8 +62,8 @@
     </div>
     <div class="form-group">
         <label asp-for="AktionSearch"></label><br />
-        <input type="text" list="datalist" asp-for="AktionSearch">
-        <datalist id="datalist">
+        <input type="text" list="datalist1" asp-for="AktionSearch">
+        <datalist id="datalist1">
             <optgroup label="DisplayName / First & Last Name">
                 @foreach (var user in Model.Users)
                 {
@@ -74,8 +74,8 @@
     </div>
     <div class="form-group">
         <label asp-for="ControllerSearch"></label><br />
-        <input type="text" list="datalist" asp-for="ControllerSearch">
-        <datalist id="datalist">
+        <input type="text" list="datalist2" asp-for="ControllerSearch">
+        <datalist id="datalist2">
             <optgroup label="DisplayName / First & Last Name">
                 @foreach (var user in Model.Users)
                 {
@@ -86,8 +86,8 @@
     </div>
     <div class="form-group">
         <label asp-for="ContactSearch"></label><br />
-        <input type="text" list="datalist" asp-for="ContactSearch">
-        <datalist id="datalist">
+        <input type="text" list="datalist3" asp-for="ContactSearch">
+        <datalist id="datalist3">
             <optgroup label="Email / First & Last Name">
                 @foreach (var contact in Model.Contacts)
                 {
