@@ -15,7 +15,7 @@ namespace HOFORTaskPlanner.Services
         public TimeService(DbGenericService<TimeReg> dbService)
         {
             DbService = dbService;
-            _times = MockTimes.GetTimes();
+            //_times = MockTimes.GetTimes();
             //foreach (var time in _times)
             //{
             //    DbService.AddObjectAsync(time);
@@ -125,6 +125,11 @@ namespace HOFORTaskPlanner.Services
                     await DbService.AddObjectAsync(time);
                 }
             }
+        }
+
+        public int GetHoursByAssignmentId(int id)
+        {
+            return _times.FindAll(times => times.AssignmentId == id).Sum(time => time.Hours);
         }
     }
 }
