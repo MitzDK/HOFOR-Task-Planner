@@ -64,13 +64,14 @@ namespace HOFORTaskPlanner.Models
 
         public int AktionUserId { get; set; }
         public int ControlUserId { get; set; }
+        public int ContactId { get; set; }
 
         public Assignment()
         {
 
         }
 
-        public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, int aktionUserId, int controlUserId)
+        public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, int aktionUserId, int controlUserId, int contactId)
         {
             Status = status;
             Type = type;
@@ -83,6 +84,8 @@ namespace HOFORTaskPlanner.Models
             Comment = comment;
             AktionUserId = aktionUserId;
             ControlUserId = controlUserId;
+            ContactId = contactId;
+
         }
     }
 }

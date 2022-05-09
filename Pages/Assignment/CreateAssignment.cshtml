@@ -84,6 +84,18 @@
             </optgroup>
         </datalist>
     </div>
+    <div class="form-group">
+        <label asp-for="ContactSearch"></label><br />
+        <input type="text" list="datalist" asp-for="ContactSearch">
+        <datalist id="datalist">
+            <optgroup label="Email / First & Last Name">
+                @foreach (var contact in Model.Contacts)
+                {
+                    <option value="@contact.Email">@contact.FirstName @contact.LastName</option>
+                }
+            </optgroup>
+        </datalist>
+    </div>
     @*<div class="form-group">
             <label asp-for="@Model.Assignment.ControlUserId"></label>
             <input asp-for="@Model.Assignment.ControlUserId" class="form-control" />
