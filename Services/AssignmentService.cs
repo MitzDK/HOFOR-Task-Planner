@@ -16,14 +16,18 @@ namespace HOFORTaskPlanner.Services
             DbService = dbService;
 
             //_assignments = MockData.MockAssignments.GetMockAssignments();
-            //foreach (var assign in _assignments)
-            //{
-            //    DbService.AddObjectAsync(assign);
-            //}
+            //InitializeDB();
 
             _assignments = DbService.GetObjectsAsync().Result.ToList();
         }
 
+        public async Task InitializeDB()
+        {
+            foreach (var assignment in _assignments)
+            {
+                await DbService.AddObjectAsync(assignment);
+            }
+        }
         public List<Assignment> GetAssignments()
         {
             return _assignments;
@@ -88,6 +92,15 @@ namespace HOFORTaskPlanner.Services
         public int AmountOfAssignmentsForUserId(int userId)
         {
             return _assignments.Count(assign => assign.AktionUserId.Equals(userId));
+        }
+        public int AmountOfAssignmentsForYearAndMonthAndUserId(int year, int month, int userId)
+        {
+            var dateTime = new DateTime(year, month, 1);
+            return _assignments
+                .Count(assign =>
+                    assign.AktionUserId.Equals(userId) &&
+                    assign.StartDate <= dateTime && assign.EndDate >= dateTime);
+
         }
     }
 }
