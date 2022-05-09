@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.MockData;
 using HOFORTaskPlanner.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace HOFORTaskPlanner.Services
 {
@@ -77,6 +79,39 @@ namespace HOFORTaskPlanner.Services
         {
             _users.Remove(user);
             await DbService.DeleteObjectAsync(user);
+        }
+
+        public List<User> FilterTeams(User.UserDepartments department)
+        {
+            List<User> results = new List<User>();
+            foreach (var VARIABLE in _users)
+            {
+                if (VARIABLE.UserDepartment == department)
+                {
+                    results.Add(VARIABLE);
+                }
+            }
+
+            if (results.Count != 0)
+            {
+                return results;
+            }
+
+            return _users;
+
+
+            //var hej = from user in _users
+            //    where (user.UserDepartment == department)
+            //          select user;
+            //if (hej != null)
+            //{
+            //    return hej;
+            //}
+
+
+
+
+
         }
 
     }

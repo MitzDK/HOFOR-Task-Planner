@@ -10,8 +10,11 @@ namespace HOFORTaskPlanner.Pages.User
 {
     public class GetUsersModel : PageModel
     {
-        public List<Models.User> UserList;
+        public IEnumerable<Models.User> UserList;
         private UserService _userService;
+        [BindProperty] public Models.User.UserDepartments UserDepartments { get; set; }
+
+        public Models.User User { get; set; }
 
         public GetUsersModel(UserService userService)
         {
@@ -20,6 +23,12 @@ namespace HOFORTaskPlanner.Pages.User
         public void OnGet()
         {
             UserList = _userService.GetUsers();
+        }
+
+        public IActionResult OnPost()
+        {
+            UserList = _userService.FilterTeams(UserDepartments);
+            return Page();
         }
     }
 }
