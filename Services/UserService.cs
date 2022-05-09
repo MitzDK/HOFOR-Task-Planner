@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using HOFORTaskPlanner.Services;
 using HOFORTaskPlanner.MockData;
 using HOFORTaskPlanner.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace HOFORTaskPlanner.Services
@@ -101,5 +104,16 @@ namespace HOFORTaskPlanner.Services
         {
             return _users.FindAll(user => user.UserDepartment == userDepartment);
         }
+        public async Task<List<User>> GetPaginatedResult(int currentPage, int pageSize = 10)
+        {
+            var data = _users;
+            return data.OrderBy(Us=>Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public async Task<int> GetCount()
+        {
+            return _users.Count;
+        }
+
     }
 }
