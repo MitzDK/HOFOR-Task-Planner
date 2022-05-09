@@ -15,12 +15,10 @@ namespace HOFORTaskPlanner.Pages.Admin
     {
         private UserService _userService;
         public Models.User User { get; set; }
-        public List<Models.User> Users { get; set; }
 
         public DeleteUserModel(UserService userService)
         {
             _userService = userService;
-            Users = _userService.GetUsers();
         }
 
         public void OnGet(int id)
