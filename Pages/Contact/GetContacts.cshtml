@@ -1,0 +1,60 @@
+﻿@page
+@model HOFORTaskPlanner.Pages.Contact.GetContactsModel
+@{
+}
+<a class="btn btn-primary" asp-page="CreateContact">Opret ny kontakt</a>
+
+@if (Model.Contacts.Count != 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    Fornavn
+                </th>
+                <th>
+                    Efternavn
+                </th>
+                <th>
+                    Telefon Nr.
+                </th>
+                <th>
+                    E-mail
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model.Contacts)
+            {
+                <tr>
+                    <td>
+                        @contact.FirstName
+                    </td>
+                    <td>
+                        @contact.LastName
+                    </td>
+                    <td>
+                        @contact.PhoneNumber
+                    </td>
+                    <td>
+                        @contact.Email
+                    </td>
+                    <td>
+                        <li class="list-inline-item">
+                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Details" asp-page="EditContact" asp-route-id="@contact.ContactId">Edit</a>
+                        </li>
+                        @*<ul>
+
+                            <li class="list-inline-item">
+                                <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@contact.AssignmentId">Edit</a>
+                            </li>
+                        </ul>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

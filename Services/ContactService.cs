@@ -37,5 +37,23 @@ namespace HOFORTaskPlanner.Services
         {
             await DbService.UpdateObjectAsync(contact);
         }
+
+        public List<Contact> GetContacts()
+        {
+           return _contacts;
+        }
+
+        public Contact GetContactById(int id)
+        {
+            foreach (var contact in _contacts)
+            {
+                if (id == contact.ContactId)
+                {
+                    return contact;
+                }
+            }
+
+            return null;
+        }
     }
 }
