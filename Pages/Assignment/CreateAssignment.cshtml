@@ -88,7 +88,7 @@
         <label asp-for="ContactSearch"></label><br />
         <input type="text" list="datalist3" asp-for="ContactSearch">
         <datalist id="datalist3">
-            <optgroup label="Email / First & Last Name">
+            <optgroup label="Email / First & Last Name /">
                 @foreach (var contact in Model.Contacts)
                 {
                     <option value="@contact.Email">@contact.FirstName @contact.LastName</option>

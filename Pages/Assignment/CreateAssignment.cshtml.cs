@@ -75,8 +75,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 Assignment.ContactId = 0;
             }
 
-
-            await _assignmentService.AddAssignmentAsync(Assignment);
+            _assignmentService.AddAssignment(Assignment);
+            //await _assignmentService.AddAssignmentAsync(Assignment);
             return RedirectToPage("../Index");
         }
     }

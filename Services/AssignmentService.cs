@@ -35,6 +35,11 @@ namespace HOFORTaskPlanner.Services
             await DbService.AddObjectAsync(newAssigment);
         }
 
+        public void AddAssignment(Assignment assignment)
+        {
+            _assignments.Add(assignment);
+        }
+
         public Assignment GetAssignmentById(int id)
         {
             foreach (var assignment in _assignments)
