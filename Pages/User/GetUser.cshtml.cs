@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HOFORTaskPlanner.Pages.User
 {
-    public class IndexModel : PageModel
+    public class GetUserModel : PageModel
     {
         private UserService _userService;
         private AssignmentService _assignmentService;
@@ -18,12 +19,13 @@ namespace HOFORTaskPlanner.Pages.User
 
         public int Hours { get; set; }
 
-        public IndexModel(UserService userService, AssignmentService assignmentService)
+        public GetUserModel(UserService userService, AssignmentService assignmentService)
         {
             _userService = userService;
             _assignmentService = assignmentService;
         }
 
+        
         public IActionResult OnGet(int id)
         {
             List<Models.User> users = _userService.GetUsers();

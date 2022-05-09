@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
 using HOFORTaskPlanner.Services;
@@ -52,7 +53,12 @@ namespace HOFORTaskPlanner
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions =>
             {
-                cookieOptions.LoginPath = "/Login/LoginPage";
+                cookieOptions.LoginPath = "/User/GetUsers";
+            });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", policy =>
+                    policy.RequireClaim(ClaimTypes.Role, "admin"));
             });
 
             services.AddMvc().AddRazorPagesOptions(options =>
@@ -80,7 +86,7 @@ namespace HOFORTaskPlanner
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

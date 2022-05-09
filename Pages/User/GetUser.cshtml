@@ -1,5 +1,6 @@
 ﻿@page
-@model HOFORTaskPlanner.Pages.User.IndexModel
+@using System.Security.Claims
+@model HOFORTaskPlanner.Pages.User.GetUserModel
 @{
 }
 <link rel="stylesheet" href="~/css/GetUser.css" />
@@ -21,13 +22,19 @@
                         <img src="https://avatars.githubusercontent.com/u/90028853?v=4" class="img-responsive" alt="">
                     </div>
                     <td>
-                        <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="../Admin/EditUser" asp-route-id="@Model.User.UserId"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-primary btn-sm" title="Edit" data-toggle="tooltip" asp-page="../Admin/EditUser" asp-route-id="@Model.User.UserId"><i class="fa fa-edit"></i></a>
                     </td>
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name"> @Model.User.FirstName @Model.User.LastName </div>
                         <div class="profile-usertitle-job"> @Model.User.UserRole </div>
                         <div>Antal opgaver: @Model.Assignments.Count()</div>
                         <div>Timer estimeret for @Models.TimeReg.CurrentMonth(): @Model.Hours</div>
+                        @if (User.HasClaim(ClaimTypes.Role, "admin"))
+                        {
+                            <div>
+                                <a class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete" asp-route-id="@Model.User.UserId" asp-page="../Admin/DeleteUser">Delete motherfucker</a>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
