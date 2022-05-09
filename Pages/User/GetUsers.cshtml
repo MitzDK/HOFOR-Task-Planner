@@ -5,8 +5,8 @@
 }
 @if (Model.UserList.Count() != 0)
 {
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
+    <table class="table table-striped ">
+        <thead class="table-hofor">
         <tr>
             <th>
                 UserID
@@ -27,16 +27,12 @@
                 UserRole
             </th>
             <th>
-                UserDepartment
                 <form method="post">
                     <div class="form-group">
-                        <label asp-for="@Model.User.UserDepartment"></label>:<br />
-                        <select asp-for="@Model.UserDepartments" asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
+                        <label asp-for="@Model.User.UserDepartment"></label><br />
+                        <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); "asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
                             <option>Choose a department</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-danger" type="submit">Search!</button>
                     </div>
                 </form>
 
