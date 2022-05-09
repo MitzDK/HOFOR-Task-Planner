@@ -2,9 +2,47 @@
 @model HOFORTaskPlanner.Pages.Assignment.DashboardModel
 @{
 }
+<table class="table table-bordered table-striped text-center">
+    <tr class="table-dark">
+        <th></th>
+        <th colspan="@(Model.Users.Count * 2)" scope="colgroup">@Model.UserDepartment</th>
+    </tr>
+    <tr>
+        <th></th>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th colspan="2">@user.UserRole</th>
+        }
+    </tr>
+    <tr>
+        <th></th>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th colspan="2">@user.DisplayName</th>
+        }
+    </tr>
+    <tr>
+        <th></th>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th scope="col">Opgaver</th>
+            <th scope="col">Timer</th>
+        }
+    </tr>
 
-<div>
-    @Model.GetTotalHoursByUserId(1)
-</div>
+    @for (int yearint = DateTime.Now.Year; yearint < DateTime.Now.Year + 2; yearint++)
+    {
+        @for (int i = 1; i < 13; i++)
+        {
+            <tr>
+                <th>@((Models.TimeReg.MonthName) i)-@yearint</th>
+                @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+                {
+                    <th scope="col">@Model.AmountOfAssignmentsForYearAndMonthAndUserId(yearint, i, user.UserId)</th>
+                    <th scope="col">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
+                }
+            </tr>
+        }
+    }
 
-
+</table>

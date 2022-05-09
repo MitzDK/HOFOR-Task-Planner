@@ -14,6 +14,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
     {
         private AssignmentService _assignmentService;
         private UserService _userService;
+        private UserService _userService;
         private ContactService _contactService;
 
         [BindProperty] public Models.Assignment Assignment { get; set; }
@@ -26,10 +27,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
         [BindProperty] public string ControllerSearch { get; set; }
         [Display(Name = "Kontakt til opgaven")]
         [BindProperty] public string ContactSearch { get; set; }
-
+        
         public EditAssignmentModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
         {
             _assignmentService = assignmentService;
+            _contactService = contactService;
             _userService = userService;
             _contactService = contactService;
         }
@@ -88,7 +90,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 Assignment.ContactId = 0;
             }
-
             //Assignment.AktionUserId = AssignmentToBeUpdated.AktionUserId;
             //Assignment.ControlUserId = AssignmentToBeUpdated.ControlUserId;
             await _assignmentService.UpdateAssignmentAsync(Assignment);
