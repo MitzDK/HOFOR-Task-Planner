@@ -15,12 +15,12 @@ namespace HOFORTaskPlanner.Services
         public ContactService(DbGenericService<Contact> dbService)
         {
             DbService = dbService;
-            //_contacts = MockContacts.GetMockContacts();
+            _contacts = MockContacts.GetMockContacts();
             //foreach (var contact in _contacts)
             //{
             //    DbService.AddObjectAsync(contact);
             //}
-            _contacts = DbService.GetObjectsAsync().Result.ToList();
+            //_contacts = DbService.GetObjectsAsync().Result.ToList();
         }
 
         public void AddContact(Contact contact)
@@ -50,6 +50,19 @@ namespace HOFORTaskPlanner.Services
                 if (id == contact.ContactId)
                 {
                     return contact;
+                }
+            }
+
+            return null;
+        }
+
+        public Contact GetContactByEmail(string email)
+        {
+            foreach (var contact in _contacts)
+            {
+                if (!string.IsNullOrEmpty(email))
+                {
+                    if (contact.Email.ToLower().Equals(email.ToLower())) return contact;
                 }
             }
 

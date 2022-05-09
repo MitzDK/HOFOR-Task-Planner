@@ -21,7 +21,7 @@ namespace HOFORTaskPlanner.Services
             //    DbService.AddObjectAsync(assign);
             //}
 
-            _assignments = DbService.GetObjectsAsync().Result.ToList();
+            //_assignments = DbService.GetObjectsAsync().Result.ToList();
         }
 
         public List<Assignment> GetAssignments()
