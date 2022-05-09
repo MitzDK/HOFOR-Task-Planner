@@ -68,8 +68,8 @@
     </div>
     <div class="form-group">
         <label asp-for="AktionSearch"></label><br />
-        <input type="text" list="datalist" asp-for="AktionSearch" value="@Model.UserDisplayName(Model.Assignment.AktionUserId)">
-        <datalist id="datalist">
+        <input type="text" list="datalist1" asp-for="AktionSearch" value="@Model.UserDisplayName(Model.Assignment.AktionUserId)">
+        <datalist id="datalist1">
             <optgroup label="DisplayName / First & Last Name">
                 @foreach (var user in Model.Users)
                 {
@@ -80,8 +80,8 @@
     </div>
     <div class="form-group">
         <label asp-for="ControllerSearch"></label><br />
-        <input type="text" list="datalist" asp-for="ControllerSearch" value="@Model.UserDisplayName(Model.Assignment.ControlUserId)">
-        <datalist id="datalist">
+        <input type="text" list="datalist2" asp-for="ControllerSearch" value="@Model.UserDisplayName(Model.Assignment.ControlUserId)">
+        <datalist id="datalist2">
             <optgroup label="DisplayName / First & Last Name">
                 @foreach (var user in Model.Users)
                 {
