@@ -50,6 +50,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 return Page();
             }
 
+            Assignment.Contact = "Blank";
             if (_userService.GetUserByDisplayName(AktionSearch) != null)
             {
                 Assignment.AktionUserId = _userService.GetUserByDisplayName(AktionSearch).UserId;
@@ -75,7 +76,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 Assignment.ContactId = 0;
             }
 
-
+            //_assignmentService.AddAssignment(Assignment);
             await _assignmentService.AddAssignmentAsync(Assignment);
             return RedirectToPage("../Index");
         }

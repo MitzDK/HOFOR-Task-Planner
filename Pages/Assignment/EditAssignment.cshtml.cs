@@ -13,11 +13,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
     public class EditAssignmentModel : PageModel
     {
         private AssignmentService _assignmentService;
-        private ContactService _contactService;
-        
         private UserService _userService;
+        private UserService _userService;
+        private ContactService _contactService;
+
         [BindProperty] public Models.Assignment Assignment { get; set; }
         public List<Models.User> Users { get; set; }
+        public List<Models.Contact> Contacts { get; set; }
         public Models.Assignment AssignmentToBeUpdated { get; set; }
         [Display(Name = "Aktion til opgaven")]
         [BindProperty] public string AktionSearch { get; set; }
@@ -25,11 +27,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
         [BindProperty] public string ControllerSearch { get; set; }
         [Display(Name = "Kontakt til opgaven")]
         [BindProperty] public string ContactSearch { get; set; }
-        public EditAssignmentModel(AssignmentService assignmentService, ContactService contactService, UserService userService)
+        
+        public EditAssignmentModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
         {
             _assignmentService = assignmentService;
             _contactService = contactService;
             _userService = userService;
+            _contactService = contactService;
         }
 
         public string UserDisplayName(int userId)
@@ -44,6 +48,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             Assignment = _assignmentService.GetAssignmentById(id);
             Users = _userService.GetUsers();
+            Contacts = _contactService.GetContacts();
             return Page();
         }
         
@@ -51,12 +56,15 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             Assignment.AssignmentId = id;
             Users = _userService.GetUsers();
+            Contacts = _contactService.GetContacts();
+
             //AssignmentToBeUpdated = _assignmentService.GetAssignmentByIdAsync(id).Result;
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            Assignment.Contact = "Blank";
 
             if (_userService.GetUserByDisplayName(AktionSearch) != null)
             {

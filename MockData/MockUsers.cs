@@ -73,7 +73,6 @@ namespace HOFORTaskPlanner.MockData
             new User("Svend", "Efternavn", "SVEND", _passwordHasher.HashPassword(null, "1234"), "SVEND", User.UserRoles.D365Platform, User.UserTypes.User, User.UserDepartments.Udvikling),
             new User("Platform", " ", "PLATFORM", _passwordHasher.HashPassword(null, "1234"), "PLATFORM", User.UserRoles.D365Platform, User.UserTypes.User, User.UserDepartments.Udvikling),
             new User("Ulrich", " ", "ULRICH", _passwordHasher.HashPassword(null, "1234"), "ULRICH", User.UserRoles.Bi, User.UserTypes.User, User.UserDepartments.Udvikling),
-
         };
 
         public static List<User> GetUsers()
