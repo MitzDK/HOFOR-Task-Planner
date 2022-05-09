@@ -107,5 +107,15 @@ namespace HOFORTaskPlanner.Services
                     assign.StartDate <= dateTime && assign.EndDate >= dateTime);
 
         }
+        public async Task<List<Assignment>> GetPaginatedResult(int currentPage, int pageSize = 10)
+        {
+            var data = _assignments;
+            return data.OrderBy(Us => Us.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public async Task<int> GetCount()
+        {
+            return _assignments.Count;
+        }
     }
 }
