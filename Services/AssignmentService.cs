@@ -15,13 +15,13 @@ namespace HOFORTaskPlanner.Services
         {
             DbService = dbService;
 
-            _assignments = MockData.MockAssignments.GetMockAssignments();
+            //_assignments = MockData.MockAssignments.GetMockAssignments();
             //foreach (var assign in _assignments)
             //{
             //    DbService.AddObjectAsync(assign);
             //}
 
-            //_assignments = DbService.GetObjectsAsync().Result.ToList();
+            _assignments = DbService.GetObjectsAsync().Result.ToList();
         }
 
         public List<Assignment> GetAssignments()
@@ -83,6 +83,11 @@ namespace HOFORTaskPlanner.Services
                 await DbService.UpdateObjectAsync(assignment);
                 _assignments = DbService.GetObjectsAsync().Result.ToList();
             }
+        }
+
+        public int AmountOfAssignmentsForUserId(int userId)
+        {
+            return _assignments.Count(assign => assign.AktionUserId.Equals(userId));
         }
     }
 }

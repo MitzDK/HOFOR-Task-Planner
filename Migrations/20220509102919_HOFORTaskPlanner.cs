@@ -44,7 +44,8 @@ namespace HOFORTaskPlanner.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AktionUserId = table.Column<int>(type: "int", nullable: false),
-                    ControlUserId = table.Column<int>(type: "int", nullable: false)
+                    ControlUserId = table.Column<int>(type: "int", nullable: false),
+                    ContactId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
