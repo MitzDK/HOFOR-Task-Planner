@@ -14,7 +14,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
     {
         private AssignmentService _assignmentService;
         private UserService _userService;
-        private UserService _userService;
         private ContactService _contactService;
 
         [BindProperty] public Models.Assignment Assignment { get; set; }
@@ -64,7 +63,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 return Page();
             }
-            Assignment.Contact = "Blank";
 
             if (_userService.GetUserByDisplayName(AktionSearch) != null)
             {

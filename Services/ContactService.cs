@@ -15,8 +15,10 @@ namespace HOFORTaskPlanner.Services
         public ContactService(DbGenericService<Contact> dbService)
         {
             DbService = dbService;
+
             //_contacts = MockContacts.GetMockContacts();
             //InitializeDB();
+
             _contacts = DbService.GetObjectsAsync().Result.ToList();
         }
 

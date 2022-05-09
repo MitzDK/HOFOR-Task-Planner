@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HOFORTaskPlanner.Migrations
 {
     [DbContext(typeof(TaskPlannerDbContext))]
-    [Migration("20220509143155_HOFORTaskPlanner")]
+    [Migration("20220509144108_HOFORTaskPlanner")]
     partial class HOFORTaskPlanner
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
