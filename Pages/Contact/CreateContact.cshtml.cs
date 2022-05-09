@@ -21,24 +21,24 @@ namespace HOFORTaskPlanner.Pages.Contact
         {
         }
 
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            _contactService.AddContact(Contact);
-           return RedirectToPage("../Index");
-        }
-        //public async Task<IActionResult> OnPostAsync()
+        //public IActionResult OnPost()
         //{
         //    if (!ModelState.IsValid)
         //    {
         //        return Page();
         //    }
-
-        //    await _contactService.AddContactAsync(Contact);
-        //    return RedirectToPage("../Index");
+        //    _contactService.AddContact(Contact);
+        //   return RedirectToPage("../Index");
         //}
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            await _contactService.AddContactAsync(Contact);
+            return RedirectToPage("GetContacts");
+        }
     }
 }
