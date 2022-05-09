@@ -16,7 +16,7 @@ namespace HOFORTaskPlanner.Models
             Udvikling = 2,
             Infrastruktur = 3,
             Digitalisering = 4,
-            Service = 5
+            //Service = 5
         }
         public enum UserRoles
         {

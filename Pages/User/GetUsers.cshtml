@@ -1,11 +1,12 @@
 ﻿@page
+@using HOFORTaskPlanner.Models
 @model HOFORTaskPlanner.Pages.User.GetUsersModel
 @{
 }
-@if (Model.UserList.Count != 0)
+@if (Model.UserList.Count() != 0)
 {
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
+    <table class="table table-striped ">
+        <thead class="table-hofor">
         <tr>
             <th>
                 UserID
@@ -26,7 +27,15 @@
                 UserRole
             </th>
             <th>
-                UserDepartment
+                <form method="post">
+                    <div class="form-group">
+                        <label asp-for="@Model.User.UserDepartment"></label><br />
+                        <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); "asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
+                            <option>Choose a department</option>
+                        </select>
+                    </div>
+                </form>
+
             </th>
             <th>
                 LastUpdated
@@ -34,6 +43,7 @@
             <th>
                 Action
             </th>
+
         </tr>
         </thead>
         <tbody>
@@ -67,6 +77,7 @@
                 <td>
                     <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="GetUser" asp-route-id="@user.UserId"><i class="fa fa-edit"></i></a>
                 </td>
+
             </tr>
         }
         </tbody>
