@@ -47,7 +47,8 @@ namespace HOFORTaskPlanner.Models
         public enum UserTypes
         {
             Admin = 1,
-            User = 2
+            User = 2,
+            Arkiveret = 3
         }
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
