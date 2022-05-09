@@ -13,6 +13,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public List<Models.Assignment> AssignmentList;
         private AssignmentService _assignmentService;
         private UserService _userService;
+        private ContactService _contactService;
 
         public Models.User AssignmentUser(int userId)
         {
@@ -26,10 +27,22 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             return "N/A";
         }
-        public GetAssignmentsModel(AssignmentService assignmentService, UserService userService)
+
+        public string ContactDisplayName(int contactId)
+        {
+            if (_contactService.GetContactById(contactId) != null)
+            {
+                return
+                    $"{_contactService.GetContactById(contactId).FirstName} {_contactService.GetContactById(contactId).LastName}";
+            }
+
+            return "N/A";
+        }
+        public GetAssignmentsModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
         {
             _assignmentService = assignmentService;
             _userService = userService;
+            _contactService = contactService;
         }
         public void OnGet()
         {
