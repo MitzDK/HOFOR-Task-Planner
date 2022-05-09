@@ -53,7 +53,7 @@ namespace HOFORTaskPlanner
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions =>
             {
-                cookieOptions.LoginPath = "/User/GetUsers";
+                cookieOptions.LoginPath = "/Login/LoginPage";
             });
             services.AddAuthorization(options =>
             {
