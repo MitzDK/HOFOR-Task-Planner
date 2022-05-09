@@ -81,37 +81,14 @@ namespace HOFORTaskPlanner.Services
             await DbService.DeleteObjectAsync(user);
         }
 
-        public List<User> FilterTeams(User.UserDepartments department)
+        public IEnumerable<User> FilterTeams(User.UserDepartments department)
         {
-            List<User> results = new List<User>();
-            foreach (var VARIABLE in _users)
-            {
-                if (VARIABLE.UserDepartment == department)
-                {
-                    results.Add(VARIABLE);
-                }
-            }
-
-            if (results.Count != 0)
+            var results = _users.Where(De => De.UserDepartment == department);
+            if (results.Count() != 0)
             {
                 return results;
             }
-
             return _users;
-
-
-            //var hej = from user in _users
-            //    where (user.UserDepartment == department)
-            //          select user;
-            //if (hej != null)
-            //{
-            //    return hej;
-            //}
-
-
-
-
-
         }
 
     }
