@@ -20,14 +20,18 @@ namespace HOFORTaskPlanner.Services
             DbService = dbService;
 
             //_users = MockUsers.GetUsers();
-            //foreach (var user in _users)
-            //{
-            //    DbService.AddObjectAsync(user);
-            //}
+            //InitializeDB();
 
             _users = DbService.GetObjectsAsync().Result.ToList();
         }
 
+        public async Task InitializeDB()
+        {
+            foreach (var user in _users)
+            {
+                await DbService.AddObjectAsync(user);
+            }
+        }
         public async Task AddUserAsync(User user)
         {
             _users.Add(user);
@@ -81,6 +85,7 @@ namespace HOFORTaskPlanner.Services
             await DbService.DeleteObjectAsync(user);
         }
 
+
         public IEnumerable<User> FilterTeams(User.UserDepartments department)
         {
             var results = _users.Where(De => De.UserDepartment == department);
@@ -91,5 +96,10 @@ namespace HOFORTaskPlanner.Services
             return _users;
         }
 
+
+        public List<User> GetUsersByDepartment(Models.User.UserDepartments userDepartment)
+        {
+            return _users.FindAll(user => user.UserDepartment == userDepartment);
+        }
     }
 }

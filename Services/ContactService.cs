@@ -15,14 +15,20 @@ namespace HOFORTaskPlanner.Services
         public ContactService(DbGenericService<Contact> dbService)
         {
             DbService = dbService;
+
             //_contacts = MockContacts.GetMockContacts();
-            //foreach (var contact in _contacts)
-            //{
-            //    DbService.AddObjectAsync(contact);
-            //}
+            //InitializeDB();
+
             _contacts = DbService.GetObjectsAsync().Result.ToList();
         }
 
+        public async Task InitializeDB()
+        {
+            foreach (var timeReg in _contacts)
+            {
+                await DbService.AddObjectAsync(timeReg);
+            }
+        }
         public void AddContact(Contact contact)
         {
             _contacts.Add(contact);

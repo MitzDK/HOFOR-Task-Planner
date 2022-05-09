@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HOFORTaskPlanner.Migrations
 {
     [DbContext(typeof(TaskPlannerDbContext))]
-    [Migration("20220509102919_HOFORTaskPlanner")]
+    [Migration("20220509144108_HOFORTaskPlanner")]
     partial class HOFORTaskPlanner
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,10 +80,6 @@ namespace HOFORTaskPlanner.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Contact")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

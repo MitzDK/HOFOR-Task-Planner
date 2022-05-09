@@ -19,17 +19,17 @@ namespace HOFORTaskPlanner.Pages.Assignment
         [BindProperty] public Models.Assignment Assignment { get; set; }
         public List<Models.User> Users { get; set; }
         public List<Models.Contact> Contacts { get; set; }
-        public Models.Assignment AssignmentToBeUpdated { get; set; }
         [Display(Name = "Aktion til opgaven")]
         [BindProperty] public string AktionSearch { get; set; }
         [Display(Name = "Styring til opgaven")]
         [BindProperty] public string ControllerSearch { get; set; }
         [Display(Name = "Kontakt til opgaven")]
         [BindProperty] public string ContactSearch { get; set; }
-
+        
         public EditAssignmentModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
         {
             _assignmentService = assignmentService;
+            _contactService = contactService;
             _userService = userService;
             _contactService = contactService;
         }
@@ -56,8 +56,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Users = _userService.GetUsers();
             Contacts = _contactService.GetContacts();
 
-            //AssignmentToBeUpdated = _assignmentService.GetAssignmentByIdAsync(id).Result;
-
+            
+            if (string.IsNullOrWhiteSpace(Assignment.Comment)) Assignment.Comment = " ";
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -87,7 +87,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 Assignment.ContactId = 0;
             }
-
             //Assignment.AktionUserId = AssignmentToBeUpdated.AktionUserId;
             //Assignment.ControlUserId = AssignmentToBeUpdated.ControlUserId;
             await _assignmentService.UpdateAssignmentAsync(Assignment);

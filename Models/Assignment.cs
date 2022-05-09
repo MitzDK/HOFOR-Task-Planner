@@ -42,9 +42,6 @@ namespace HOFORTaskPlanner.Models
         [Required(ErrorMessage = "Område skal udfyldes")]
         [Display(Name = "Område")]
         public string Area { get; set; }
-        [Required(ErrorMessage = "Indtast en kontakt")]
-        [Display(Name = "Kontakt")]
-        public string Contact { get; set; }
         [Required(ErrorMessage = "Indtast en beskrivelse")]
         [Display(Name = "Beskrivelse")]
         public string Description { get; set; }
@@ -57,7 +54,6 @@ namespace HOFORTaskPlanner.Models
         [Required(ErrorMessage = "Indtast en slutdato for opgaven")]
         [Display(Name = "Slutdato")]
         public DateTime EndDate { get; set; }
-        [Required(ErrorMessage = "Indtast en kommentar")]
         [Display(Name = "Kommentar")]
 
         public string Comment { get; set; }
@@ -71,12 +67,11 @@ namespace HOFORTaskPlanner.Models
 
         }
 
-        public Assignment(AssignmentStatus status, AssignmentType type, string area, string contact, string description, int estimate, DateTime startDate, DateTime endDate, string comment, int aktionUserId, int controlUserId, int contactId)
+        public Assignment(AssignmentStatus status, AssignmentType type, string area, string description, int estimate, DateTime startDate, DateTime endDate, string comment, int aktionUserId, int controlUserId, int contactId)
         {
             Status = status;
             Type = type;
             Area = area;
-            Contact = contact;
             Description = description;
             Estimate = estimate;
             StartDate = startDate;

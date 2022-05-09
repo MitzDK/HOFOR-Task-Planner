@@ -45,11 +45,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             Contacts = _contactService.GetContacts();
             Users = _userService.GetUsers();
+            if (string.IsNullOrWhiteSpace(Assignment.Comment)) Assignment.Comment = " ";
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
             if (_userService.GetUserByDisplayName(AktionSearch) != null)
             {
                 Assignment.AktionUserId = _userService.GetUserByDisplayName(AktionSearch).UserId;
@@ -75,8 +76,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 Assignment.ContactId = 0;
             }
 
-            _assignmentService.AddAssignment(Assignment);
-            //await _assignmentService.AddAssignmentAsync(Assignment);
+            //_assignmentService.AddAssignment(Assignment);
+            await _assignmentService.AddAssignmentAsync(Assignment);
             return RedirectToPage("../Index");
         }
     }

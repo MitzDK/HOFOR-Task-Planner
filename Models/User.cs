@@ -20,7 +20,7 @@ namespace HOFORTaskPlanner.Models
         }
         public enum UserRoles
         {
-            Implementering = 1,
+            Leder = 1,
             Tovholder = 2,
             Projektleder = 3,
             D365Platform = 4,
@@ -41,7 +41,7 @@ namespace HOFORTaskPlanner.Models
             Lcm = 19,
             Support = 20,
             Støttefunktion = 21,
-            Leder = 22,
+            Implementering = 22,
             Xprojektleder = 23
         }
         public enum UserTypes

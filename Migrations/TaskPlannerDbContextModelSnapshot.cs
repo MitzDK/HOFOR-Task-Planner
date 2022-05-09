@@ -81,10 +81,6 @@ namespace HOFORTaskPlanner.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Contact")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ContactId")
                         .HasColumnType("int");
 

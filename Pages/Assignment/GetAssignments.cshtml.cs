@@ -32,10 +32,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             if (_contactService.GetContactById(contactId) != null)
             {
-                return
-                    $"{_contactService.GetContactById(contactId).FirstName} {_contactService.GetContactById(contactId).LastName}";
+                return _contactService.GetContactById(contactId).FirstName + " " + _contactService.GetContactById(contactId).LastName;
             }
-
             return "N/A";
         }
         public GetAssignmentsModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
