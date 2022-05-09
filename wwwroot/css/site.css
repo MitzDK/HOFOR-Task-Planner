@@ -88,3 +88,22 @@ body {
     border: 0px;
     border-bottom: 0px;
 }
+.TableSeperator {
+    border: 2px solid black !important;
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+}
+.TableSeperatorLeft {
+    border: 2px solid black !important;
+    border-top: 2px solid black !important;
+    border-bottom: 2px solid black !important;
+    border-left: 2px solid black !important;
+    border-right: 0px !important;
+}
+.TableSeperatorRight {
+    border: 2px solid black !important;
+    border-top: 2px solid black !important;
+    border-bottom: 2px solid black !important;
+    border-left: 0px !important;
+    border-right: 2px solid black !important;
+}

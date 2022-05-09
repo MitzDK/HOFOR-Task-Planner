@@ -11,22 +11,22 @@
         <th></th>
         @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
         {
-            <th colspan="2">@user.UserRole</th>
+            <th colspan="2" class="TableSeperator">@user.UserRole</th>
         }
     </tr>
     <tr>
         <th></th>
         @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
         {
-            <th colspan="2">@user.DisplayName</th>
+            <th colspan="2" class="TableSeperator">@user.DisplayName</th>
         }
     </tr>
     <tr>
         <th></th>
         @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
         {
-            <th scope="col">Opgaver</th>
-            <th scope="col">Timer</th>
+            <th scope="col" class="TableSeperatorLeft">Opgaver</th>
+            <th scope="col" class="TableSeperatorRight">Timer</th>
         }
     </tr>
 
@@ -35,11 +35,11 @@
         @for (int i = 1; i < 13; i++)
         {
             <tr>
-                <th>@((Models.TimeReg.MonthName) i)-@yearint</th>
+                <th>@(Models.TimeReg.AbrMonthName(i))-@yearint</th>
                 @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
                 {
-                    <th scope="col">@Model.AmountOfAssignmentsForYearAndMonthAndUserId(yearint, i, user.UserId)</th>
-                    <th scope="col">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
+                    <th scope="col" class="TableSeperatorLeft">@Model.AmountOfAssignmentsForYearAndMonthAndUserId(yearint, i, user.UserId)</th>
+                    <th scope="col" class="TableSeperatorRight">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
                 }
             </tr>
         }

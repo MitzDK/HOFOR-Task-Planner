@@ -54,7 +54,6 @@ namespace HOFORTaskPlanner.Models
         [Required(ErrorMessage = "Indtast en slutdato for opgaven")]
         [Display(Name = "Slutdato")]
         public DateTime EndDate { get; set; }
-        [Required(ErrorMessage = "Indtast en kommentar")]
         [Display(Name = "Kommentar")]
 
         public string Comment { get; set; }
