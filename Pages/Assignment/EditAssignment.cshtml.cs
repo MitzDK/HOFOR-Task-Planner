@@ -62,6 +62,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 return Page();
             }
+            Assignment.Contact = "Blank";
 
             if (_userService.GetUserByDisplayName(AktionSearch) != null)
             {
