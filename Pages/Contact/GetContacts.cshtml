@@ -2,11 +2,11 @@
 @model HOFORTaskPlanner.Pages.Contact.GetContactsModel
 @{
 }
-<a class="btn btn-primary" asp-page="CreateContact">Opret ny kontakt</a>
+<a class="btn btn-hofor" asp-page="CreateContact">Opret ny kontakt</a>
 
 @if (Model.Contacts.Count != 0)
 {
-    <table class="table table-striped">
+    <table class="table table-striped text-center">
         <thead class="table-hofor">
             <tr>
                 <th>
@@ -43,15 +43,7 @@
                         @contact.Email
                     </td>
                     <td>
-                        <li class="list-inline-item">
-                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Details" asp-page="EditContact" asp-route-id="@contact.ContactId">Edit</a>
-                        </li>
-                        @*<ul>
-
-                            <li class="list-inline-item">
-                                <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@contact.AssignmentId">Edit</a>
-                            </li>
-                        </ul>*@
+                        <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Details" asp-page="EditContact" asp-route-id="@contact.ContactId"><i class="fa fa-edit"></i></a>
                     </td>
                 </tr>
             }

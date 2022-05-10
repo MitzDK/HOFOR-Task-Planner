@@ -2,14 +2,38 @@
 @model HOFORTaskPlanner.Pages.Assignment.GetAssignmentsModel
 @{
 }
+<div>
+    <ul class="pagination">
+        <li class="page-item @(!Model.ShowFirst? "disabled":"")">
+            <a asp-page="GetAssignmentsPagePagination" asp-route-CurrentPage="1" class="page-link"> <i class="fa fa-fast-backward"></i></a>
+        </li>
+
+        <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
+            <a asp-page="GetAssignmentsPagePagination" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link"><i class="fa fa-angle-left"></i></a>
+        </li>
+        <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+            <a asp-page="GetAssignmentsPagePagination" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"><i class="fa fa-angle-right"></i></a>
+        </li>
+
+        <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+            <a asp-page="GetAssignmentsPagePagination" asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="fa fa-fast-forward"></i></a>
+        </li>
+        <li class="page-item ml-2">
+            <a class="page-link">@Model.CurrentPage</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">of</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">@Model.TotalPages pages</a>
+        </li>
+    </ul>
+</div>
 @if (Model.AssignmentList.Count != 0)
 {
     <table class="table table-striped text-center">
         <thead class="table-hofor">
             <tr>
-                <th>
-                    Id
-                </th>
                 <th>
                     Status
                 </th>
@@ -20,13 +44,19 @@
                     Område
                 </th>
                 <th>
-                    Kontakt
-                </th>
-                <th>
                     Beskrivelse
                 </th>
                 <th>
-                    Estimat
+                    Aktion
+                </th>
+                <th>
+                    Styring
+                </th>
+                <th>
+                    Kontakt
+                </th>
+                <th>
+                    Est
                 </th>
                 <th>
                     Start
@@ -35,13 +65,10 @@
                     Slut
                 </th>
                 <th>
+                    Rest
+                </th>
+                <th>
                     Kommentar
-                </th>
-                <th>
-                    Aktion
-                </th>
-                <th>
-                    Styring
                 </th>
                 <th>
                     Rediger
@@ -51,54 +78,47 @@
         <tbody>
             @foreach (var assignment in Model.AssignmentList)
             {
-            <tr>
-                <td>
-                    @assignment.AssignmentId
-                </td>
-                <td>
-                    @assignment.Status
-                </td>
-                <td>
-                    @assignment.Type
-                </td>
-                <td>
-                    @assignment.Area
-                </td>
-                <td>
-                    @Model.ContactDisplayName(assignment.ContactId)
-                </td>
-                <td>
-                    @assignment.Description
-                </td>
-                <td>
-                    @assignment.Estimate
-                </td>
-                <td>
-                    @assignment.StartDate.Day/@assignment.StartDate.Month/@assignment.StartDate.Year
-                </td>
-                <td>
-                    @assignment.EndDate.Day/@assignment.EndDate.Month/@assignment.EndDate.Year
-                </td>
-                <td>
-                    @assignment.Comment
-                </td>
-                <td>
-                    @Model.UserDisplayName(assignment.AktionUserId)
-                </td>
-                <td>
-                    @Model.UserDisplayName(assignment.ControlUserId)
-                </td>
-                <td>
-                    <ul>
-                        <li class="list-inline-item">
-                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Details" asp-page="Details" asp-route-id="@assignment.AktionUserId">Details</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId">Edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @assignment.Status
+                    </td>
+                    <td>
+                        @assignment.Type
+                    </td>
+                    <td>
+                        @assignment.Area
+                    </td>
+                    <td>
+                        @assignment.Description
+                    </td>
+                    <td>
+                        @Model.UserDisplayName(assignment.AktionUserId)
+                    </td>
+                    <td>
+                        @Model.UserDisplayName(assignment.ControlUserId)
+                    </td>
+                    <td>
+                        @Model.ContactDisplayName(assignment.ContactId)
+                    </td>
+                    <td>
+                        @assignment.Estimate
+                    </td>
+                    <td>
+                        @assignment.StartDate.Day/@assignment.StartDate.Month/@assignment.StartDate.Year
+                    </td>
+                    <td>
+                        @assignment.EndDate.Day/@assignment.EndDate.Month/@assignment.EndDate.Year
+                    </td>
+                    <td>
+                        Indsæt matematik
+                    </td>
+                    <td>
+                        @assignment.Comment
+                    </td>
+                    <td>
+                        <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-edit"></i></a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
