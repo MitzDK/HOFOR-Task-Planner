@@ -2,9 +2,9 @@
 @model HOFORTaskPlanner.Pages.Assignment.DetailsModel
 @{
 }
-<table class="table table-bordered table-striped text-center">
-    <tr class="table-dark">
-        <th colspan="6" scope="colgroup">Detaljer</th>
+<table class="table table-striped text-center">
+    <tr class="table-hofor">
+        <th colspan="6" scope="colgroup">@Model.CurrentUser.FirstName @Model.CurrentUser.LastName</th>
         <th colspan="12" scope="colgroup">@Model.Year</th>
         <th colspan="1" scope="colgroup"></th>
     </tr>
