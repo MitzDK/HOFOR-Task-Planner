@@ -2,8 +2,8 @@
 @model HOFORTaskPlanner.Pages.Assignment.TimePlanningModel
 @{
 }
-<table class="table table-bordered table-striped text-center">
-    <thead>
+<table class="table table-striped text-center">
+    <thead class="table-hofor">
     <tr>
         <th>Status</th>
         <th>Beskrivelse</th>
@@ -17,16 +17,31 @@
     <tr>
         <td>@Model.Assignment.Status</td>
         <td>@Model.Assignment.Description</td>
-        <td>@Model.Assignment.StartDate</td>
-        <td>@Model.Assignment.EndDate</td>
+        <td>@Model.Assignment.StartDate.Day/@Model.Assignment.StartDate.Month/@Model.Assignment.StartDate.Year
+        </td>
+        <td>@Model.Assignment.EndDate.Day/@Model.Assignment.EndDate.Month/@Model.Assignment.EndDate.Year</td>
         <td>@Model.Assignment.Estimate</td>
         <td>@Model.TotalTimer(Model.Assignment.AssignmentId)</td>
     </tr>
     </tbody>
 </table>
 <form method="post">
-    <table class="table table-bordered table-striped text-center">
-        <thead>
+    <table class="table grid text-center ">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <col style="width: calc(100% / 13)">
+        <thead class="table-hofor">
             <tr>
                 <th></th>
                 <th scope="col">Jan</th>
@@ -50,20 +65,21 @@
                 Model.TimeHours = Model.PopulateTable(Model.Assignment);
                 //foreach (var varint in Model.PopulateTable(Model.Assignment))
                 for (int newint = 0; newint < Model.TimeHours.Count; newint += 12)
-                {<tr>
-                        <td>@i</td>
-                        <td><input asp-for="TimeHours[newint]" class=""/></td>
-                        <td><input asp-for="TimeHours[1 + newint]" /></td>
-                        <td><input asp-for="TimeHours[2 + newint]" /></td>
-                        <td><input asp-for="TimeHours[3 + newint]" /></td>
-                        <td><input asp-for="TimeHours[4 + newint]" /></td>
-                        <td><input asp-for="TimeHours[5 + newint]" /></td>
-                        <td><input asp-for="TimeHours[6 + newint]" /></td>
-                        <td><input asp-for="TimeHours[7 + newint]" /></td>
-                        <td><input asp-for="TimeHours[8 + newint]" /></td>
-                        <td><input asp-for="TimeHours[9 + newint]" /></td>
-                        <td><input asp-for="TimeHours[10 + newint]" /></td>
-                        <td><input asp-for="TimeHours[11 + newint]" /></td>
+                {
+                    <tr>
+                        <td style="background-color: white; border-right: 2px solid black">@i</td>
+                        <td><input style="width: 100%" asp-for="TimeHours[newint]" class="" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[1 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[2 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[3 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[4 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[5 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[6 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[7 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[8 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[9 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[10 + newint]" /></td>
+                        <td><input style="width: 100%" asp-for="TimeHours[11 + newint]" /></td>
                     </tr>
                     i++;
                 }
