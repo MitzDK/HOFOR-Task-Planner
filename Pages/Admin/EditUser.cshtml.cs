@@ -54,5 +54,14 @@ namespace HOFORTaskPlanner.Pages.Admin
             await _userService.UpdateUserAsync(user);
             return RedirectToPage("../User/GetUsers");
         }
+
+        public async Task<IActionResult> OnPostArchive(int id)
+        {
+            UserToBeEdited = _userService.GetUserById(id);
+            UserToBeEdited.Password = "Arkiveretbruger";
+            UserToBeEdited.UserType = Models.User.UserTypes.Arkiveret;
+            await _userService.UpdateUserAsync(UserToBeEdited);
+            return RedirectToPage("../User/GetUsers");
+        }
     }
 }
