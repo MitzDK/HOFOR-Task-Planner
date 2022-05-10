@@ -15,6 +15,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         private AssignmentService _assignmentService;
         private UserService _userService;
         public List<Models.Assignment> Assignments { get; set; }
+        public Models.User CurrentUser { get; set; }
         public List<Models.TimeReg> Times { get; set; }
         public int Year { get; set; } = DateTime.Now.Year;
 
@@ -29,6 +30,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public void OnGet(int id)
         {
             Assignments = _assignmentService.GetAssignmentsByUserId(id);
+            CurrentUser = AssignmentUser(id);
         }
 
 

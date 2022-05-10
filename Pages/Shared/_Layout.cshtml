@@ -16,7 +16,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">HOFORTaskPlanner</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">HOFOR</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,23 +24,18 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/CreateAssignment">Create Assignment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/GetAssignments">Get Assignment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/User/GetUsers">Get Users</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/GetAssignments">Opgaver</a>
                         </li>
                         <li>
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact/GetContacts">Get Contacts</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/Dashboard">Dashboard</a>
                         </li>
-                        @if (User.HasClaim(ClaimTypes.Role, "admin"))
-                        {
-                            <li>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/Dashboard">Dashboard</a>
-                            </li>
-                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/User/GetUsers">Brugere</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact/GetContacts">Kontakter</a>
+                        </li>
+
 
                     </ul>
                     <ul class="navbar-nav navbar-right align-items-center">

@@ -64,7 +64,10 @@ namespace HOFORTaskPlanner
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 //Når vi har mere struktur lavet, tilføj diverse side-mapper hertil!
-                //options.Conventions.AuthorizeFolder("/Index");
+                options.Conventions.AuthorizeFolder("/Admin");
+                options.Conventions.AuthorizeFolder("/Assignment");
+                options.Conventions.AuthorizeFolder("/Contact");
+                options.Conventions.AuthorizeFolder("/User");
             });
         }
 
