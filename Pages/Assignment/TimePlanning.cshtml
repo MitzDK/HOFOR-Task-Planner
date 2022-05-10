@@ -1,28 +1,31 @@
 ﻿@page
 @model HOFORTaskPlanner.Pages.Assignment.TimePlanningModel
 @{
+    ViewData["Title"] = "Tidsplanlægning";
 }
+
 <table class="table text-center">
     <thead class="table-hofor">
-    <tr>
-        <th>Status</th>
-        <th>Beskrivelse</th>
-        <th>Start</th>
-        <th>Slut</th>
-        <th>Estimat</th>
-        <th>Rest</th>
-    </tr>
+        <tr>
+            <th>Status</th>
+            <th>Beskrivelse</th>
+            <th>Start</th>
+            <th>Slut</th>
+            <th>Estimat</th>
+            <th>Rest</th>
+        </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>@Model.Assignment.Status</td>
-        <td>@Model.Assignment.Description</td>
-        <td>@Model.Assignment.StartDate.Day/@Model.Assignment.StartDate.Month/@Model.Assignment.StartDate.Year
-        </td>
-        <td>@Model.Assignment.EndDate.Day/@Model.Assignment.EndDate.Month/@Model.Assignment.EndDate.Year</td>
-        <td>@Model.Assignment.Estimate</td>
-        <td>@Model.TotalTimer(Model.Assignment.AssignmentId)</td>
-    </tr>
+        <tr>
+            <td>@Model.Assignment.Status</td>
+            <td>@Model.Assignment.Description</td>
+            <td>
+                @Model.Assignment.StartDate.Day/@Model.Assignment.StartDate.Month/@Model.Assignment.StartDate.Year
+            </td>
+            <td>@Model.Assignment.EndDate.Day/@Model.Assignment.EndDate.Month/@Model.Assignment.EndDate.Year</td>
+            <td>@Model.Assignment.Estimate</td>
+            <td>@Model.TotalTimer(Model.Assignment.AssignmentId)</td>
+        </tr>
     </tbody>
 </table>
 <form method="post">

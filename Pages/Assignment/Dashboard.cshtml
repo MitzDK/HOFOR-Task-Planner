@@ -1,6 +1,7 @@
 ﻿@page
 @model HOFORTaskPlanner.Pages.Assignment.DashboardModel
 @{
+    ViewData["Title"] = "Dashboard";
 }
 <div>
     <ul class="pagination">
@@ -31,7 +32,7 @@
 </div>
 <table class="table table-striped text-center">
     <tr class="table-hofor">
-        
+
         <th colspan="@((Model.Users.Count * 2) + 1)">@Model.UserDepartment</th>
     </tr>
     <tr>
