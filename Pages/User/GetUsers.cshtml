@@ -1,89 +1,114 @@
-﻿@page
+﻿@page "{handler?}"
 @using HOFORTaskPlanner.Models
-@using HOFORTaskPlanner.Pages.Login
 @using System.Security.Claims
 @model HOFORTaskPlanner.Pages.User.GetUsersModel
 @{
 }
+<div>
+    <ul class="pagination">
+        <li class="page-item @(!Model.ShowFirst? "disabled":"")">
+            <a asp-page="GetUsers" asp-route-CurrentPage="1" class="page-link"> <i class="fa fa-fast-backward"></i></a>
+        </li>
+
+        <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
+            <a asp-page="GetUsers" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link"><i class="fa fa-angle-left"></i></a>
+        </li>
+        <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+            <a asp-page="GetUsers" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"><i class="fa fa-angle-right"></i></a>
+        </li>
+
+        <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+            <a asp-page="GetUsers" asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="fa fa-fast-forward"></i></a>
+        </li>
+        <li class="page-item ml-2">
+            <a class="page-link">@Model.CurrentPage</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">of</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">@Model.TotalPages pages</a>
+        </li>
+    </ul>
+</div>
 @if (Model.UserList.Count() != 0)
 {
     <table class="table table-striped text-center">
         <thead class="table-hofor">
-        <tr>
-            <th>
-                UserID
-            </th>
-            <th>
-                First Name
-            </th>
-            <th>
-                Last Name
-            </th>
-            <th>
-                DisplayName
-            </th>
-            <th>
-                UserType
-            </th>
-            <th>
-                UserRole
-            </th>
-            <th>
-                <form method="post">
-                    <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
-                            <option>UserDepartment</option>
-                        </select>
-                    
-                </form>
-            </th>
-            <th>
-                LastUpdated
-            </th>
-            <th>
-                Action
-            </th>
-
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var user in Model.UserList)
-        {
             <tr>
-                <td>
-                    @user.UserId
-                </td>
-                <td>
-                    @user.FirstName
-                </td>
-                <td>
-                    @user.LastName
-                </td>
-                <td>
-                    @user.DisplayName
-                </td>
-                <td>
-                    @user.UserType
-                </td>
-                <td>
-                    @user.UserRole
-                </td>
-                <td>
-                    @user.UserDepartment
-                </td>
-                <td>
-                    @user.LastUpdated.Day/@user.LastUpdated.Month/@user.LastUpdated.Year
-                </td>
-                <td>
-                    <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Detail" asp-page="../Assignment/Details" asp-route-id="@user.UserId"><i class="fa fa-list"></i></a>
-
-                    @if (User.HasClaim(ClaimTypes.Role, "admin"))
-                    {
-                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="../Admin/EditUser" asp-route-id="@user.UserId"><i class="fa fa-edit"></i></a>
-                    }
-                    </td>
+                <th>
+                    UserID
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    DisplayName
+                </th>
+                <th>
+                    UserType
+                </th>
+                <th>
+                    UserRole
+                </th>
+                <th>
+                    <form method="post">
+                        <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
+                            <option>Choose a department</option>
+                        </select>
+                    </form>
+                </th>
+                <th>
+                    LastUpdated
+                </th>
+                <th>
+                    Action
+                </th>
 
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var user in Model.UserList)
+            {
+                <tr>
+                    <td>
+                        @user.UserId
+                    </td>
+                    <td>
+                        @user.FirstName
+                    </td>
+                    <td>
+                        @user.LastName
+                    </td>
+                    <td>
+                        @user.DisplayName
+                    </td>
+                    <td>
+                        @user.UserType
+                    </td>
+                    <td>
+                        @user.UserRole
+                    </td>
+                    <td>
+                        @user.UserDepartment
+                    </td>
+                    <td>
+                        @user.LastUpdated.Day/@user.LastUpdated.Month/@user.LastUpdated.Year
+                    </td>
+                    <td>
+                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Detail" asp-page="../Assignment/Details" asp-route-id="@user.UserId"><i class="fa fa-list"></i></a>
+
+                        @if (User.HasClaim(ClaimTypes.Role, "admin"))
+                        {
+                            <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="../Admin/EditUser" asp-route-id="@user.UserId"><i class="fa fa-edit"></i></a>
+                        }
+                    </td>
+
+                </tr>
+            }
         </tbody>
     </table>
 }
