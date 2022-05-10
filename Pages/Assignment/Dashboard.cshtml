@@ -2,10 +2,37 @@
 @model HOFORTaskPlanner.Pages.Assignment.DashboardModel
 @{
 }
-<table class="table table-bordered table-striped text-center">
-    <tr class="table-dark">
-        <th></th>
-        <th colspan="@(Model.Users.Count * 2)" scope="colgroup">@Model.UserDepartment</th>
+<div>
+    <ul class="pagination">
+        <li class="page-item @(!Model.ShowFirst? "disabled":"")">
+            <a asp-page="Dashboard" asp-route-CurrentPage="1" class="page-link"> <i class="fa fa-fast-backward"></i></a>
+        </li>
+
+        <li class="page-item @(!Model.ShowPrevious? "disabled":"")">
+            <a asp-page="Dashboard" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link"><i class="fa fa-angle-left"></i></a>
+        </li>
+        <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+            <a asp-page="Dashboard" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"><i class="fa fa-angle-right"></i></a>
+        </li>
+
+        <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+            <a asp-page="Dashboard" asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="fa fa-fast-forward"></i></a>
+        </li>
+        <li class="page-item ml-2">
+            <a class="page-link">@Model.CurrentPage</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">of</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">@Model.TotalPages pages</a>
+        </li>
+    </ul>
+</div>
+<table class="table table-striped text-center">
+    <tr class="table-hofor">
+        
+        <th colspan="@((Model.Users.Count * 2) + 1)">@Model.UserDepartment</th>
     </tr>
     <tr>
         <th></th>
@@ -25,8 +52,8 @@
         <th></th>
         @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
         {
-            <th scope="col" class="TableSeperatorLeft">Opgaver</th>
-            <th scope="col" class="TableSeperatorRight">Timer</th>
+            <th scope="col" class="TableSeperatorLeft Table-small">Opgaver</th>
+            <th scope="col" class="TableSeperatorRight Table-small">Timer</th>
         }
     </tr>
 
@@ -35,11 +62,11 @@
         @for (int i = 1; i < 13; i++)
         {
             <tr>
-                <th>@(Models.TimeReg.AbrMonthName(i))-@yearint</th>
+                <th class="Table-small">@(Models.TimeReg.AbrMonthName(i))-@yearint</th>
                 @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
                 {
-                    <th scope="col" class="TableSeperatorLeft">@Model.AmountOfAssignmentsForYearAndMonthAndUserId(yearint, i, user.UserId)</th>
-                    <th scope="col" class="TableSeperatorRight">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
+                    <th scope="col" class="TableSeperatorLeft Table-small">@Model.AmountOfAssignmentsForYearAndMonthAndUserId(yearint, i, user.UserId)</th>
+                    <th scope="col" class="TableSeperatorRight Table-small">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
                 }
             </tr>
         }

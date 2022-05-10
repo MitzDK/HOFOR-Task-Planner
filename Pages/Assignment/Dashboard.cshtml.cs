@@ -22,6 +22,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public List<Models.Assignment> Assignments { get; set; }
         public string UserDepartment { get; set; } = "N/A";
 
+        // Pagination
+        [BindProperty(SupportsGet = true)] public int CurrentPage { get; set; } = 1;
+        public int Count { get; set; }
+        public int PageSize { get; set; } = 6;
+        public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
+
         public DashboardModel(UserService userService, TimeService timeService, AssignmentService assignmentService)
         {
             _userService = userService;
@@ -29,11 +35,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _assignmentService = assignmentService;
         }
 
-        public void OnGet()
-        {
-            Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
-            UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
-        }
+        //public void OnGet()
+        //{
+        //    Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
+        //    UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
+        //}
 
 
         public int GetTotalHoursByUserId(int userId)
@@ -64,6 +70,18 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public int AmountOfAssignmentsForYearAndMonthAndUserId(int year, int month, int userId)
         {
             return _assignmentService.AmountOfAssignmentsForYearAndMonthAndUserId(year, month, userId);
+        }
+        public bool ShowPrevious => CurrentPage > 1;
+        public bool ShowNext => CurrentPage < TotalPages;
+        public bool ShowFirst => CurrentPage != 1;
+        public bool ShowLast => CurrentPage != TotalPages;
+
+        public void OnGet()
+        {
+            Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
+            UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
+            Count = Users.Count;
+            Users = _userService.GetPaginated(Users, CurrentPage, PageSize);
         }
     }
 }
