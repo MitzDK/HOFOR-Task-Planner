@@ -1,11 +1,13 @@
 ﻿@page
 @using HOFORTaskPlanner.Models
+@using HOFORTaskPlanner.Pages.Login
+@using System.Security.Claims
 @model HOFORTaskPlanner.Pages.User.GetUsersModel
 @{
 }
 @if (Model.UserList.Count() != 0)
 {
-    <table class="table table-striped ">
+    <table class="table table-striped text-center">
         <thead class="table-hofor">
         <tr>
             <th>
@@ -28,12 +30,10 @@
             </th>
             <th>
                 <form method="post">
-                    <div class="form-group">
-                        <label asp-for="@Model.User.UserDepartment"></label><br />
-                        <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); "asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
-                            <option>Choose a department</option>
+                    <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
+                            <option>UserDepartment</option>
                         </select>
-                    </div>
+                    
                 </form>
             </th>
             <th>
@@ -74,8 +74,13 @@
                     @user.LastUpdated.Day/@user.LastUpdated.Month/@user.LastUpdated.Year
                 </td>
                 <td>
-                    <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="GetUser" asp-route-id="@user.UserId"><i class="fa fa-edit"></i></a>
-                </td>
+                    <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Detail" asp-page="../Assignment/Details" asp-route-id="@user.UserId"><i class="fa fa-list"></i></a>
+
+                    @if (User.HasClaim(ClaimTypes.Role, "admin"))
+                    {
+                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="../Admin/EditUser" asp-route-id="@user.UserId"><i class="fa fa-edit"></i></a>
+                    }
+                    </td>
 
             </tr>
         }
