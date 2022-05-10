@@ -113,3 +113,6 @@ body {
     border-left: 0px !important;
     border-right: 2px solid black !important;
 }
+.brand img {
+    max-width: 30%;
+}
