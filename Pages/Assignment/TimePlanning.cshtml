@@ -2,7 +2,7 @@
 @model HOFORTaskPlanner.Pages.Assignment.TimePlanningModel
 @{
 }
-<table class="table table-striped text-center">
+<table class="table text-center">
     <thead class="table-hofor">
     <tr>
         <th>Status</th>
@@ -67,19 +67,19 @@
                 for (int newint = 0; newint < Model.TimeHours.Count; newint += 12)
                 {
                     <tr>
-                        <td style="background-color: white; border-right: 2px solid black">@i</td>
-                        <td><input style="width: 100%" asp-for="TimeHours[newint]" class="" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[1 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[2 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[3 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[4 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[5 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[6 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[7 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[8 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[9 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[10 + newint]" /></td>
-                        <td><input style="width: 100%" asp-for="TimeHours[11 + newint]" /></td>
+                        <td style="background-color: white; @Model.GetClassForCurrentYearFirst(i)">@i</td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[1 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[2 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[3 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[4 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[5 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[6 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[7 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[8 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[9 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[10 + newint]" /></td>
+                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[11 + newint]" /></td>
                     </tr>
                     i++;
                 }

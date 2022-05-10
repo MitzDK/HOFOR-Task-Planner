@@ -40,7 +40,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
         //    Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
         //    UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
         //}
-
+        public void OnGet()
+        {
+            Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
+            UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
+            Count = Users.Count;
+            Users = _userService.GetPaginated(Users, CurrentPage, PageSize);
+        }
 
         public int GetTotalHoursByUserId(int userId)
         {
@@ -76,12 +82,23 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public void OnGet()
+
+
+        public string ColourByHours(int hours)
         {
-            Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
-            UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
-            Users = _userService.GetPaginated(Users, CurrentPage, PageSize);
-            Count = _userService.PaginatedUsers.Count;
+            switch (hours)
+            {
+                case var n when (n<130):
+                    return "background-color: #fff2cc";
+                case var n when n is >= 130 and <= 150:
+                    return "background-color: #92d050";
+                case var n when n is >= 151 and <= 160:
+                    return "background-color: #f8cbad";
+                case var n when (n > 160):
+                    return "background-color: #ed7d31";
+                default:
+                    return "background-color: #fff2cc";
+            }
         }
     }
 }
