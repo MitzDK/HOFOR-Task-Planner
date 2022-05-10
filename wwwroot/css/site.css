@@ -59,8 +59,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    overflow-y: scroll; /* Show vertical scrollbar */
 }
 .footer {
   position: absolute;
@@ -85,13 +86,12 @@ body {
     border-top: 0px !important;
 }
 .IsNotCurrentMonth {
-    border: 0px;
-    border-bottom: 0px;
+   
 }
 
 .table-hofor {
     background-color: #0F464B !important;
-    color: #C6EF75 !important;
+    color: white !important;
 }
 
 .TableSeperator {
@@ -115,4 +115,28 @@ body {
 }
 .brand img {
     max-width: 30%;
+
+.Table-small {
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+
+
+.TableSeperatorFull {
+    border: 2px solid black !important;
+}
+
+.TableSeperatorSides {
+    border: 2px solid black !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+}
+
+.grid tbody tr td {
+    background-color: white;
+}
+
+.grid tbody tr:nth-child(odd) td:nth-child(even),
+.grid tbody tr:nth-child(even) td:nth-child(odd) {
+    background-color: #e8e4e4;
+
 }

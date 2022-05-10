@@ -38,10 +38,10 @@ namespace HOFORTaskPlanner.Pages.User
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            UserList = await _userService.GetPaginatedResult(CurrentPage, PageSize);
-            Count = await _userService.GetCount();
+            UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
+            Count = _userService.GetCount();
         }
     }
 }

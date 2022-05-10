@@ -16,6 +16,7 @@ namespace HOFORTaskPlanner.Services
     public class UserService
     {
         private readonly List<User> _users;
+        private List<User> _paginatedUsers;
         private DbGenericService<User> DbService { get; set; }
 
         public UserService(DbGenericService<User> dbService)
@@ -104,15 +105,24 @@ namespace HOFORTaskPlanner.Services
         {
             return _users.FindAll(user => user.UserDepartment == userDepartment);
         }
-        public async Task<List<User>> GetPaginatedResult(int currentPage, int pageSize = 10)
+        public List<User> GetPaginatedResult(int currentPage, int pageSize = 10)
         {
             var data = _users;
-            return data.OrderBy(Us=>Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            var test = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return test;
         }
 
-        public async Task<int> GetCount()
+        public int GetCount()
         {
             return _users.Count;
+        }
+
+        public List<User> GetPaginated(List<User> users, int currentPage, int pageSize)
+        {
+            var data = users.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            _paginatedUsers = data;
+
+            return data;
         }
 
     }
