@@ -16,6 +16,7 @@ namespace HOFORTaskPlanner.Pages.Admin
         [BindProperty] public string FirstName { get; set; }
         [BindProperty] public string LastName { get; set; }
         [BindProperty] public string DisplayName { get; set; }
+        public Models.User UserToBeEdited { get; set; }
 
 
         public EditUserModel(UserService userService)
@@ -25,16 +26,13 @@ namespace HOFORTaskPlanner.Pages.Admin
 
         public IActionResult OnGet(int id)
         {
+            UserToBeEdited = _userService.GetUserById(id);
             var user = _userService.GetUserById(id);
             FirstName = user.FirstName;
             LastName = user.LastName;
             DisplayName = user.DisplayName;
             UserDepartments = user.UserDepartment;
             UserRoles = user.UserRole;
-            if (User == null)
-            {
-                return RedirectToPage("../Index"); //Alternativt oprettes ny side, som i Itemrazor
-            }
 
             return Page();
         }
