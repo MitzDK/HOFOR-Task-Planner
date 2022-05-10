@@ -114,5 +114,20 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             await TimeService.AddAndUpdateTimes(newList);
         }
+        public bool IsCurrentYear(int input)
+        {
+            return TimeService.IsCurrentYear(input);
+        }
+        public string GetClassForCurrentYear(int i)
+        {
+            if (TimeService.IsCurrentYear(i)) return "background-color: lightgray";
+            return "";
+        }
+        public string GetClassForCurrentYearFirst(int i)
+        {    
+            if (TimeService.IsCurrentYear(i)) return "background-color: lightgray";
+            return "border-right: 2px black;";
+        }
+
     }
 }

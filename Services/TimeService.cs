@@ -116,6 +116,12 @@ namespace HOFORTaskPlanner.Services
             return false;
         }
 
+        public bool IsCurrentYear(int input)
+        {
+            if (DateTime.Now.Year == input) return true;
+            return false;
+        }
+
         public async Task AddAndUpdateTimes(List<TimeReg> timeList)
         {
             _times = DbService.GetObjectsAsync().Result.ToList();

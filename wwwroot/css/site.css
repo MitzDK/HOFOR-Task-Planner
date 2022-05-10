@@ -140,3 +140,35 @@ body {
     background-color: #e8e4e4;
 
 }
+.HoursLowColour {
+    background-color: #fff2cc !important;
+}
+.HoursGoodColour {
+    background-color: #92d050 !important;
+}
+.HoursWarningColour {
+    background-color: #f8cbad !important;
+}
+.HoursExtremeColour {
+    background-color: #ed7d31 !important;
+}
+.IsCurrentYearLeft {
+    border-left: 2px solid red !important;
+    border-top: 2px solid red !important;
+    border-bottom: 2px solid red !important;
+}
+
+.IsCurrentYearMiddle {
+    border-top: 2px solid red !important;
+    border-bottom: 2px solid red !important;
+}
+
+.IsCurrentYearRight {
+    border-top: 2px solid red !important;
+    border-right: 2px solid red !important;
+    border-bottom: 2px solid red !important;
+}
+
+.IsNotCurrentYear {
+    background-color: lightgray
+}
