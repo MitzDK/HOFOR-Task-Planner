@@ -117,5 +117,15 @@ namespace HOFORTaskPlanner.Services
         {
             return _assignments.Count;
         }
+
+        public IEnumerable<Assignment> FilterAssignments(Assignment.AssignmentType assignmentType)
+        {
+            var results = _assignments.Where(Ass => Ass.Type == assignmentType);
+            if (results.Count() !=0)
+            {
+                return results;
+            }
+            return _assignments;
+        }
     }
 }

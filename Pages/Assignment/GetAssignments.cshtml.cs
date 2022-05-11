@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using HOFORTaskPlanner.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace HOFORTaskPlanner.Pages.Assignment
 {
     public class GetAssignmentsModel : PageModel
     {
-        public List<Models.Assignment> AssignmentList;
+        public IEnumerable<Models.Assignment> AssignmentList;
         private AssignmentService _assignmentService;
         private UserService _userService;
         private ContactService _contactService;
@@ -18,7 +19,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public int Count { get; set; }
         public int PageSize { get; set; } = 10;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
-
+        [BindProperty] public Models.Assignment.AssignmentType AssignmentType { get; set; }
+        public Models.Assignment Assignment { get; set; }
 
         public Models.User AssignmentUser(int userId)
         {
@@ -56,6 +58,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
+        public IActionResult OnPost()
+        {
+            AssignmentList = _assignmentService.FilterAssignments(AssignmentType);
+            return Page();
+        }
         public async Task OnGetAsync()
         {
             AssignmentList = await _assignmentService.GetPaginatedResult(CurrentPage, PageSize);

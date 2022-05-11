@@ -1,4 +1,6 @@
-﻿@page
+﻿@page "{handler?}"
+@using HOFORTaskPlanner.Models
+@using System.Security.Claims
 @model HOFORTaskPlanner.Pages.Assignment.GetAssignmentsModel
 @{
     ViewData["Title"] = "Opgaveliste";
@@ -30,52 +32,56 @@
         </li>
     </ul>
 </div>
-@if (Model.AssignmentList.Count != 0)
+@if (Model.AssignmentList.Count() != 0)
 {
     <table class="table table-striped text-center">
         <thead class="table-hofor">
-            <tr>
-                <th>
-                    Status
-                </th>
-                <th>
-                    Type
-                </th>
-                <th>
-                    Område
-                </th>
-                <th>
-                    Beskrivelse
-                </th>
-                <th>
-                    Aktion
-                </th>
-                <th>
-                    Styring
-                </th>
-                <th>
-                    Kontakt
-                </th>
-                <th>
-                    Est
-                </th>
-                <th>
-                    Start
-                </th>
-                <th>
-                    Slut
-                </th>
-                <th>
-                    Rest
-                </th>
-                <th>
-                    Kommentar
-                </th>
-                <th>
-                    <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Create Assignment" asp-page="CreateAssignment"><i class="fa-solid fa-plus"></i> Ny</a>
-                    Rediger
-                </th>
-            </tr>
+        <tr>
+            <th>
+                Status
+            </th>
+            <th>
+                <form method="post">
+                    <select asp-for="@Model.AssignmentType" onchange="this.form.submit();"asp-items="Html.GetEnumSelectList<Assignment.AssignmentType>()">
+                        <option>Vælg type opgave</option>
+                    </select>
+                </form>
+            </th>
+            <th>
+                Område
+            </th>
+            <th>
+                Beskrivelse
+            </th>
+            <th>
+                Aktion
+            </th>
+            <th>
+                Styring
+            </th>
+            <th>
+                Kontakt
+            </th>
+            <th>
+                Est
+            </th>
+            <th>
+                Start
+            </th>
+            <th>
+                Slut
+            </th>
+            <th>
+                Rest
+            </th>
+            <th>
+                Kommentar
+            </th>
+            <th>
+                <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Create Assignment" asp-page="CreateAssignment"><i class="fa-solid fa-plus"></i>Ny</a>
+                Rediger
+            </th>
+        </tr>
         </thead>
         <tbody>
             @foreach (var assignment in Model.AssignmentList)
