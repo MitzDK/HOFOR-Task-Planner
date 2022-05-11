@@ -34,6 +34,7 @@ namespace HOFORTaskPlanner.Pages.Login
         public async Task<IActionResult> OnPost()
         {
             List<Models.User> users = _userService.GetUsers();
+            var tempUser = _userService.GetUserByUsername(Username);
             foreach (Models.User user in users)
             {
                 if (user.UserName.ToLower().Equals(Username.ToLower()))
@@ -43,12 +44,18 @@ namespace HOFORTaskPlanner.Pages.Login
                     {
                         var claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Name, _userService.GetUserByUsername(Username).UserName)
+                            new Claim(ClaimTypes.Name, tempUser.UserName)
                         };
                         if (user.UserType == Models.User.UserTypes.Admin) claims.Add(new Claim(ClaimTypes.Role, "admin"));
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                             new ClaimsPrincipal(claimsIdentity));
+
+                        //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
+                        Response.Cookies.Append("FilterCookie", "true");
+                        Response.Cookies.Append("SearchDeparment", tempUser.UserDepartment.ToString());
+
+                        //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
                         return RedirectToPage("/User/GetUsers");
                     }
                 }

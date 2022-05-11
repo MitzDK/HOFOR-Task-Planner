@@ -6,6 +6,7 @@ using HOFORTaskPlanner.Pages.Login;
 using HOFORTaskPlanner.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace HOFORTaskPlanner.Pages.User
 {
@@ -20,8 +21,8 @@ namespace HOFORTaskPlanner.Pages.User
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
         public Models.User PageUser { get; set; }
 
-        private static bool _isFiltered;
-        private static Models.User.UserDepartments _searchedDepartment;
+        //private static bool _isFiltered;
+        //private static Models.User.UserDepartments _searchedDepartment;
 
         public GetUsersModel(UserService userService)
         {
@@ -36,8 +37,8 @@ namespace HOFORTaskPlanner.Pages.User
         {
             UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
             Count = _userService.FilterTeams(UserDepartments).Count();
-            _isFiltered = true;
-            _searchedDepartment = UserDepartments;
+            Response.Cookies.Append("FilterCookie", "true");
+            Response.Cookies.Append("SearchDeparment", UserDepartments.ToString());
             CurrentPage = 1;
             return Page();
         }
@@ -48,9 +49,13 @@ namespace HOFORTaskPlanner.Pages.User
 
         public void OnGet()
         {
-            if (_isFiltered)
+            var cookieFilterValue = Request.Cookies["FilterCookie"];
+            var cookieDepartmentValue = Request.Cookies["SearchDeparment"];
+            if (cookieFilterValue == "true")
             {
-                UserDepartments = _searchedDepartment;
+                Models.User.UserDepartments test;
+                Enum.TryParse(cookieDepartmentValue, out test);
+                UserDepartments = test;
                 UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
                 Count = _userService.FilterTeams(UserDepartments).Count();
             }
