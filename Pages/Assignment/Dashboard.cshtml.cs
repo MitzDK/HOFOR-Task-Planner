@@ -100,5 +100,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
                     return "background-color: #fff2cc";
             }
         }
+
+        public int AmountOfAssignmentsWithHoursInList(int year, int month, int userId)
+        {
+           return _timeService.AmountOfAssignmentsWithHoursInList(
+                _assignmentService.AssigmentsForDateAndUserId(year, month, userId), year, month);
+        }
     }
 }
