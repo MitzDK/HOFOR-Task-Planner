@@ -1,10 +1,11 @@
 ﻿@page
 @using HOFORTaskPlanner.Models
+@using System.ComponentModel.DataAnnotations
 @model HOFORTaskPlanner.Pages.Admin.CreateUserModel
 @{
     ViewData["Title"] = "Opret Bruger";
 }
-<div class="row">
+@*<div class="row">
     <div class="col-md-4">
         <form method="post">
             <div class="form-group">
@@ -49,6 +50,90 @@
                 <button class="btn btn-primary" type="submit">Create!</button>
             </div>
 
+        </form>
+    </div>
+</div>*@
+<div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <form method="post">
+            <div class="col-xl-8">
+                <!-- Account details card-->
+                <div class="card mb-4 ">
+                    <div class="card-header table-hofor">Account Details</div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1">Username</label>
+                                    <input class="form-control" asp-for="NewUser.UserName" type="text">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" asp-for="NewUser.Password">Password</label>
+                                    <input class="form-control" asp-for="NewUser.Password" type="text">
+                                </div>
+                                <h4>@Model.Message</h4>
+                            </div>
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (first name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1">First name</label>
+                                    <input class="form-control" asp-for="NewUser.FirstName" type="text">
+                                </div>
+                                <!-- Form Group (last name)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1">Last name</label>
+                                    <input class="form-control" asp-for="NewUser.LastName" type="text">
+                                </div>
+                            </div>
+                            <!-- Form Row        -->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (location)-->
+                                <div class="col-md-6">
+                                    <label class="small mb-1">Displayname</label>
+                                    <input class="form-control" asp-for="NewUser.DisplayName" type="text">
+                                </div>
+                            </div>
+                            <!-- Form Group (email address)-->
+
+                            <div class="mb-3">
+
+                                <div class="form-group">
+                                    <label asp-for="NewUser.UserType"></label>:<br/>
+                                    <select asp-for="UserTypes" asp-items="Html.GetEnumSelectList<User.UserTypes>()">
+                                        <option>Choose a department</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Form Row-->
+                            <div class="row gx-3 mb-3">
+                                <!-- Form Group (phone number)-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="NewUser.UserDepartment"></label>:<br />
+                                        <select asp-for="UserDepartments" asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
+                                            <option>Choose a department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Form Group (birthday)-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="NewUser.UserRole"></label>:<br/>
+                                        <select asp-for="UserRoles" asp-items="Html.GetEnumSelectList<User.UserRoles>()">
+                                            <option>Choose a department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Save changes button-->
+                            <button class="btn btn-hofor" type="submit">Opret</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>

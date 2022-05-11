@@ -34,6 +34,7 @@ namespace HOFORTaskPlanner.Pages.Admin
         {
             if (!ModelState.IsValid)
             {
+                Message = "Invalid attempt";
                 return Page();
             }
             NewUser.UserDepartment = UserDepartments;
@@ -42,7 +43,7 @@ namespace HOFORTaskPlanner.Pages.Admin
             NewUser.LastUpdated = DateTime.Now;
             NewUser.Password = _passwordHasher.HashPassword(null, NewUser.Password);
             await _userService.AddUserAsync(NewUser);
-            return RedirectToPage("../Index");
+            return RedirectToPage("../User/GetUsers");
         }
     }
 }
