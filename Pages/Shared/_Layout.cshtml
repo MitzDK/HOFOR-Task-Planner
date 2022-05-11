@@ -43,24 +43,28 @@
                             </li>
                         }
                     }
-
                     </ul>
                     <ul class="navbar-nav navbar-right align-items-center">
-                        @{if (LoginPageModel.LoggedInUser == null)
-                          {
+                        @{
+                            if (Context.User.Identity.Name == null)
+                            {
                               <li class="nav-item">
                                   <a class="nav-link" asp-area="" asp-page="/Index">Login</a>
                               </li>
-                          }
-                          else
-                          {
-                              <li class="nav-item nav-link mr-3">
-                                  User: @LoginPageModel.LoggedInUser.UserName
-                              </li>
+                            }
+                            else
+                            {
+                                if (Context.User.Identity.Name != null)
+                                {
+                                  <li class="nav-item nav-link mr-3">
+                                      User:  @Context.User.Identity.Name
+                                  </li>
+                                }
                               <li class="nav-item">
                                   <a class="nav-link" asp-area="" asp-page="/Login/LogoutPage">Logout</a>
                               </li>
-                          }
+
+                            }
                         }
                     </ul>
                 </div>

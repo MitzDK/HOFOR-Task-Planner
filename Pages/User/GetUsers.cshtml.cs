@@ -13,13 +13,14 @@ namespace HOFORTaskPlanner.Pages.User
     {
         public IEnumerable<Models.User> UserList;
         private UserService _userService;
-        [BindProperty] public Models.User.UserDepartments UserDepartments { get; set; }
+        [BindProperty(SupportsGet = true)] public Models.User.UserDepartments UserDepartments { get; set; }
         [BindProperty(SupportsGet = true)] public int CurrentPage { get; set; } = 1;
         public int Count { get; set; }
         public int PageSize { get; set; } = 10;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
-        public Models.User User { get; set; }
-
+        public Models.User PageUser { get; set; }
+        private static bool _isFiltered;
+        private static Models.User.UserDepartments _searchedDepartment;
         public GetUsersModel(UserService userService)
         {
             _userService = userService;
@@ -31,7 +32,11 @@ namespace HOFORTaskPlanner.Pages.User
 
         public IActionResult OnPost()
         {
-            UserList = _userService.FilterTeams(UserDepartments);
+            UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
+            Count = _userService.FilterTeams(UserDepartments).Count();
+            _isFiltered = true;
+            _searchedDepartment = UserDepartments;
+            CurrentPage = 1;
             return Page();
         }
         public bool ShowPrevious => CurrentPage > 1;
@@ -41,14 +46,34 @@ namespace HOFORTaskPlanner.Pages.User
 
         public void OnGet()
         {
-            UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
-            Count = _userService.GetCount();
+            if (_isFiltered)
+            {
+                UserDepartments = _searchedDepartment;
+                UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
+                Count = _userService.FilterTeams(UserDepartments).Count();
+            }
+            else
+            {
+                UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
+                Count = _userService.GetCount();
+            }
         }
 
         public IActionResult OnGetFirst()
         {
-            UserList = _userService.FilterTeams(LoginPageModel.LoggedInUser.UserDepartment);
-            UserDepartments = LoginPageModel.LoggedInUser.UserDepartment;
+            
+            UserList = _userService.FilterTeams(UserDepartments);
+            if (_isFiltered)
+            {
+                UserDepartments = _searchedDepartment;
+                UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments), CurrentPage, PageSize);
+                Count = _userService.FilterTeams(UserDepartments).Count();
+            }
+            else
+            {
+                UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
+                Count = _userService.GetCount();
+            }
             return Page();
         }
     }
