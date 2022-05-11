@@ -51,7 +51,7 @@ namespace HOFORTaskPlanner.Pages.Login
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                             new ClaimsPrincipal(claimsIdentity));
-                        return RedirectToPage("/Admin/CreateUser");
+                        return RedirectToPage("/User/GetUsers", "First");
                     }
                 }
             }

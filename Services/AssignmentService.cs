@@ -117,5 +117,14 @@ namespace HOFORTaskPlanner.Services
         {
             return _assignments.Count;
         }
+
+        public List<Assignment> AssigmentsForDateAndUserId(int year, int month, int userId)
+        {
+            var dateTime = new DateTime(year, month, 1);
+            var tempList = _assignments.FindAll(assignment =>
+                assignment.StartDate <= dateTime && assignment.EndDate >= dateTime &&
+                assignment.AktionUserId == userId);
+            return tempList;
+        }
     }
 }

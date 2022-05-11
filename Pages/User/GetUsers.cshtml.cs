@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HOFORTaskPlanner.Pages.Login;
 using HOFORTaskPlanner.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -42,6 +43,13 @@ namespace HOFORTaskPlanner.Pages.User
         {
             UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
             Count = _userService.GetCount();
+        }
+
+        public IActionResult OnGetFirst()
+        {
+            UserList = _userService.FilterTeams(LoginPageModel.LoggedInUser.UserDepartment);
+            UserDepartments = LoginPageModel.LoggedInUser.UserDepartment;
+            return Page();
         }
     }
 }
