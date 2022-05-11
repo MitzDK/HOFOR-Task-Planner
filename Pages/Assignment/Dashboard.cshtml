@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Dashboard";
 }
-<div>
+<div style="display: flex; height: 35px; justify-content: space-between; width: 100%">
     <ul class="pagination">
         <li class="page-item @(!Model.ShowFirst? "disabled":"")">
             <a asp-page="Dashboard" asp-route-CurrentPage="1" class="page-link"> <i class="fa fa-fast-backward"></i></a>

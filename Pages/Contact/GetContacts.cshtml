@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Kontaktliste";
 }
-<a class="btn btn-hofor" asp-page="CreateContact">Opret ny kontakt</a>
+<a class="btn btn-hofor float-right" asp-page="CreateContact"><i class="fa-solid fa-plus"></i></a>
 
 @if (Model.Contacts.Count != 0)
 {
@@ -44,7 +44,7 @@
                         @contact.Email
                     </td>
                     <td>
-                        <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Details" asp-page="EditContact" asp-route-id="@contact.ContactId"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-sm btn-hofor" type="button" data-toggle="tooltip" title="Details" asp-page="EditContact" asp-route-id="@contact.ContactId"><i class="fa fa-edit"></i></a>
                     </td>
                 </tr>
             }
