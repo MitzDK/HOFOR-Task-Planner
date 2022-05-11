@@ -126,8 +126,10 @@ namespace HOFORTaskPlanner.Services
 
         public List<User> GetPaginatedNoLeaderRole(List<User> users, int currentPage, int pageSize)
         {
+
             var data = users.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).Where(us => us.UserRole != User.UserRoles.Leder).ToList();
             PaginatedUsers = data;
+
             return data;
         }
 

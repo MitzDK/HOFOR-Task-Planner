@@ -16,6 +16,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
         private UserService _userService;
         private ContactService _contactService;
 
+        public List<string> DescriptionList = new List<string>();
+
         [BindProperty] public Models.Assignment Assignment { get; set; }
         public List<Models.User> Users { get; set; }
         public List<Models.Contact> Contacts { get; set; }
@@ -25,6 +27,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
         [BindProperty] public string ControllerSearch { get; set; }
         [Display(Name = "Kontakt til opgaven")]
         [BindProperty] public string ContactSearch { get; set; }
+        [Display(Name = "Beskrivelse")]
+        [BindProperty] public string DescriptionSearch { get; set; }
+        
 
         public CreateAssignmentModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
         {
@@ -37,6 +42,14 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
         public void OnGet()
         {
+            DescriptionList = new List<string>();
+            foreach (var description in _assignmentService.GetAssignments().Select(De=>De.Description))
+            {
+                if (!DescriptionList.Contains(description))
+                {
+                    DescriptionList.Add(description);
+                }
+            }
             Contacts = _contactService.GetContacts();
             Users = _userService.GetUsers();
         }
@@ -45,12 +58,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             Contacts = _contactService.GetContacts();
             Users = _userService.GetUsers();
+            Assignment.Description = DescriptionSearch;
             if (string.IsNullOrWhiteSpace(Assignment.Comment)) Assignment.Comment = " ";
-
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            if (string.IsNullOrWhiteSpace(Assignment.Description)) Assignment.Description = " ";
             if (_userService.GetUserByDisplayName(AktionSearch) != null)
             {
                 Assignment.AktionUserId = _userService.GetUserByDisplayName(AktionSearch).UserId;
@@ -76,9 +86,14 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 Assignment.ContactId = 0;
             }
 
+            if (!ModelState.IsValid)
+            {
+                var test = ModelState;
+                return Page();
+            }
             //_assignmentService.AddAssignment(Assignment);
             await _assignmentService.AddAssignmentAsync(Assignment);
-            return RedirectToPage("../Index");
+            return RedirectToPage("../User/GetUsers");
         }
     }
 }
