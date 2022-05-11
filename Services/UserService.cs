@@ -75,6 +75,7 @@ namespace HOFORTaskPlanner.Services
         {
             return _users;
         }
+        
 
         public async Task UpdateUserAsync(User user)
         {
@@ -111,25 +112,22 @@ namespace HOFORTaskPlanner.Services
             var test = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return test;
         }
+        public List<User> GetPaginatedResultTest(IEnumerable<User> userList, int currentPage, int pageSize = 10)
+        {
+            var data = userList;
+            var test = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return test;
+        }
 
         public int GetCount()
         {
             return _users.Count;
         }
 
-        public List<User> GetPaginated(List<User> users, int currentPage, int pageSize)
+        public List<User> GetPaginatedNoLeaderRole(List<User> users, int currentPage, int pageSize)
         {
-            var test = new List<User>();
-            foreach (var VARIABLE in users)
-            {
-                if (VARIABLE.UserRole != User.UserRoles.Leder)
-                {
-                    test.Add(VARIABLE);
-                }
-            }
-            var data = test.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-            PaginatedUsers = test;
-
+            var data = users.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).Where(us => us.UserRole != User.UserRoles.Leder).ToList();
+            PaginatedUsers = data;
             return data;
         }
 
