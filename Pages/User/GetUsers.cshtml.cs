@@ -61,12 +61,12 @@ namespace HOFORTaskPlanner.Pages.User
             }
         }
 
-        public IActionResult OnGetFirst()
-        {
-            UserDepartments = _userService.GetUserByUsername(HttpContext.User.Identity.Name).UserDepartment;
-            UserList = _userService.FilterTeams(UserDepartments);
-            Count = _userService.FilterTeams(UserDepartments).Count();
-            return Page();
-        }
+        //public IActionResult OnGetFirst()
+        //{
+        //    UserDepartments = _userService.GetUserByUsername(HttpContext.User.Identity.Name).UserDepartment;
+        //    UserList = _userService.FilterTeams(UserDepartments);
+        //    Count = _userService.FilterTeams(UserDepartments).Count();
+        //    return Page();
+        //}
     }
 }

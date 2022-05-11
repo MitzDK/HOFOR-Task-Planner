@@ -28,7 +28,7 @@ namespace HOFORTaskPlanner.Pages
         public async Task<IActionResult> OnGet()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToPage("Assignment/GetAssignments");
+            return RedirectToPage("Login/LoginPage");
         }
 
     }
