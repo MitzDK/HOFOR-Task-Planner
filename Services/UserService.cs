@@ -122,7 +122,7 @@ namespace HOFORTaskPlanner.Services
             var test = new List<User>();
             foreach (var VARIABLE in users)
             {
-                if (VARIABLE.UserRole != User.UserRoles.Leder)
+                if (VARIABLE.UserRole != User.UserRoles.Leder || VARIABLE.UserType != User.UserTypes.Arkiveret)
                 {
                     test.Add(VARIABLE);
                 }
