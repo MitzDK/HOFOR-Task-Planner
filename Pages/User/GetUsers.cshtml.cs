@@ -19,8 +19,10 @@ namespace HOFORTaskPlanner.Pages.User
         public int PageSize { get; set; } = 10;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
         public Models.User PageUser { get; set; }
+
         private static bool _isFiltered;
         private static Models.User.UserDepartments _searchedDepartment;
+
         public GetUsersModel(UserService userService)
         {
             _userService = userService;
@@ -61,19 +63,9 @@ namespace HOFORTaskPlanner.Pages.User
 
         public IActionResult OnGetFirst()
         {
-            
+            UserDepartments = _userService.GetUserByUsername(HttpContext.User.Identity.Name).UserDepartment;
             UserList = _userService.FilterTeams(UserDepartments);
-            if (_isFiltered)
-            {
-                UserDepartments = _searchedDepartment;
-                UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments), CurrentPage, PageSize);
-                Count = _userService.FilterTeams(UserDepartments).Count();
-            }
-            else
-            {
-                UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
-                Count = _userService.GetCount();
-            }
+            Count = _userService.FilterTeams(UserDepartments).Count();
             return Page();
         }
     }
