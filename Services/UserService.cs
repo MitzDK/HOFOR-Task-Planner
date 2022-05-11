@@ -49,11 +49,11 @@ namespace HOFORTaskPlanner.Services
 
         public User GetUserByDisplayName(string displayName)
         {
-            return _users.Find(user => user.DisplayName == displayName);
+            return _users.Find(user => user.DisplayName.ToLower().Equals(displayName.ToLower()));
         }
         public User GetUserByUsername(string username)
         {
-            return _users.Find(user => user.UserName == username);
+            return _users.Find(user => user.UserName.ToLower().Equals(username.ToLower()));
         }
 
         public List<User> GetUsers()
@@ -111,8 +111,8 @@ namespace HOFORTaskPlanner.Services
 
         public List<User> GetPaginatedNoLeaderRole(List<User> users, int currentPage, int pageSize)
         {
-
-            var data = users.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).Where(us => us.UserRole != User.UserRoles.Leder).ToList();
+            var data = users.Where(us => us.UserRole != User.UserRoles.Leder).ToList();
+            data = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             PaginatedUsers = data;
 
             return data;

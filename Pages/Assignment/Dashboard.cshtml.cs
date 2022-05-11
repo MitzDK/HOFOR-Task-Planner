@@ -46,7 +46,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Users = _userService.GetUsersByDepartment(user.UserDepartment);
             UserDepartment = user.UserDepartment.ToString();
             Users = _userService.GetPaginatedNoLeaderRole(Users, CurrentPage, PageSize);
-            Count = _userService.PaginatedUsers.Count;
+            Count = _userService.GetUsersByDepartment(user.UserDepartment).Where(us=> us.UserRole != Models.User.UserRoles.Leder).ToList().Count;
         }
 
         public int GetTotalHoursByUserId(int userId)

@@ -43,7 +43,7 @@ namespace HOFORTaskPlanner.Pages.Login
                     {
                         var claims = new List<Claim>
                         {
-                            new Claim(ClaimTypes.Name, Username)
+                            new Claim(ClaimTypes.Name, _userService.GetUserByUsername(Username).UserName)
                         };
                         if (user.UserType == Models.User.UserTypes.Admin) claims.Add(new Claim(ClaimTypes.Role, "admin"));
                         var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
