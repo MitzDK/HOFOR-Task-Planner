@@ -16,7 +16,6 @@ namespace HOFORTaskPlanner.Pages.Login
 {
     public class LoginPageModel : PageModel
     {
-        public static Models.User LoggedInUser { get; set; }
         private UserService _userService;
 
         public LoginPageModel(UserService userService)
@@ -42,7 +41,6 @@ namespace HOFORTaskPlanner.Pages.Login
                     var passwordHasher = new PasswordHasher<string>();
                     if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
                     {
-                        LoginPageModel.LoggedInUser = user;
                         var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Name, Username)

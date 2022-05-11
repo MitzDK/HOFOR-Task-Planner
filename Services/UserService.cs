@@ -49,26 +49,11 @@ namespace HOFORTaskPlanner.Services
 
         public User GetUserByDisplayName(string displayName)
         {
-            foreach (var user in _users)
-            {
-                if (!string.IsNullOrEmpty(displayName))
-                {
-                    if (user.DisplayName.ToLower().Equals(displayName.ToLower())) return user;
-                }
-            }
-            return null;
+            return _users.Find(user => user.DisplayName == displayName);
         }
         public User GetUserByUsername(string username)
         {
-            foreach (var user in _users)
-            {
-                if (user.UserName.ToLower().Equals(username))
-                {
-                    return user;
-                }
-            }
-
-            return null;
+            return _users.Find(user => user.UserName == username);
         }
 
         public List<User> GetUsers()

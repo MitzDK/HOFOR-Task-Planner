@@ -13,8 +13,6 @@ namespace HOFORTaskPlanner.Pages.Login
     {
         public async Task<IActionResult> OnGet()
         {
-            LoginPageModel.LoggedInUser = null;
-
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToPage("/Index");
         }

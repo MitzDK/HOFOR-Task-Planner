@@ -42,8 +42,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
         //}
         public void OnGet()
         {
-            Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
-            UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
+            Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
+            Users = _userService.GetUsersByDepartment(user.UserDepartment);
+            UserDepartment = user.UserDepartment.ToString();
             Users = _userService.GetPaginatedNoLeaderRole(Users, CurrentPage, PageSize);
             Count = _userService.PaginatedUsers.Count;
         }

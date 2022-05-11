@@ -27,7 +27,7 @@
 
                     <ul class="navbar-nav flex-grow-1">
                     @{
-                        if (LoginPageModel.LoggedInUser != null)
+                        if (Context.User.Identity.Name != null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/GetAssignments">Opgaver</a>
