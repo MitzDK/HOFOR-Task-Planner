@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
@@ -38,7 +39,6 @@ namespace HOFORTaskPlanner.Pages.Admin
         {
             if (!ModelState.IsValid)
             {
-                Message = "Invalid attempt";
                 return Page();
             }
             NewUser.UserDepartment = UserDepartments;
@@ -46,6 +46,11 @@ namespace HOFORTaskPlanner.Pages.Admin
             NewUser.UserType = UserTypes;
             NewUser.LastUpdated = DateTime.Now;
             NewUser.Password = _passwordHasher.HashPassword(null, NewUser.Password);
+            if (_userService.GetUsers().Select(us => us.DisplayName).Contains(NewUser.DisplayName))
+            {
+                Message = "Displayname eksisterer allerede";
+                return Page();
+            }
             await _userService.AddUserAsync(NewUser);
             return RedirectToPage("../User/GetUsers");
         }

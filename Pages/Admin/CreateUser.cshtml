@@ -68,8 +68,14 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1">Displayname</label>
                                     <input class="form-control" asp-for="NewUser.DisplayName"type="text">
+
+                                    <h4 style="color: red">@Model.Message</h4>
+
+
                                     <span asp-validation-for="NewUser.DisplayName" class="text-danger"></span>
+
                                 </div>
+
                             </div>
                             <!-- Form Group (email address)-->
 
