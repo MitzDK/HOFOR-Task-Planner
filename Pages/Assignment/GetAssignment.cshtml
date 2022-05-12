@@ -1,0 +1,127 @@
+﻿@page
+@using HOFORTaskPlanner.Models
+@model HOFORTaskPlanner.Pages.Assignment.GetAssignmentModel
+@{
+}
+<head>
+    <meta charset="utf-8">
+    <title>bs5 edit profile account details - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="css/EditUser.css" rel="stylesheet" />
+    <link href="css/Modal.css" />
+    <link href="js/Modal.js" />
+</head>
+<body>
+    
+    <div class="container-xl px-4 mt-4">
+
+        <hr class="mt-0 mb-4">
+        <table class="table table-striped text-center">
+            <tr class="table-hofor">
+                <th colspan="2" scope="colgroup"></th>
+                <th colspan="12" scope="colgroup">@Model.Year</th>
+                <th colspan="1" scope="colgroup"></th>
+            </tr>
+            <tr>
+                <th scope="col">Estimat</th>
+                <th scope="col">Rest</th>
+                <th scope="col">Jan</th>
+                <th scope="col">Feb</th>
+                <th scope="col">Mar</th>
+                <th scope="col">Apr</th>
+                <th scope="col">Maj</th>
+                <th scope="col">Jun</th>
+                <th scope="col">Jul</th>
+                <th scope="col">Aug</th>
+                <th scope="col">Sep</th>
+                <th scope="col">Okt</th>
+                <th scope="col">Nov</th>
+                <th scope="col">Dec</th>
+
+                <th scope="col"></th>
+            </tr>
+            <tr>
+                <td>@Model.Assignment.Estimate</td>
+                <td>@(Model.Assignment.Estimate -  Model.TimeService.TotalTimeForAssignmentPlanned(Model.Assignment.AssignmentId) )</td>
+                <td>@Model.TimeByMonth(1, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(2, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(3, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(4, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(5, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(6, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(7, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(8, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(9, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(10, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(11, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td>@Model.TimeByMonth(12, Model.Year, Model.Assignment.AssignmentId)</td>
+                <td><a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Time Registration" asp-page="TimePlanning" asp-route-id="@Model.Assignment.AssignmentId">Planlæg Tid</a></td>
+            </tr>
+        </table>
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header table-hofor" style="display: flex; justify-content: space-between">
+                        Opgave detaljer
+                        <a class="btn-hofor" style="text-decoration: none" data-toggle="tooltip" title="Forrige side" href='javascript:history.go(-1)'><i class="fa fa-circle-left"></i> Tilbage</a>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="row gx-3 mb-3">
+                                <div class="form-group col-md-6">
+                                    <label asp-for="@Model.Assignment.Status"></label>
+                                    <input asp-for="@Model.Assignment.Status" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="@Model.Assignment.Type"></label>
+                                    <input asp-for="@Model.Assignment.Type" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="@Model.Assignment.Area"></label>
+                                    <input asp-for="@Model.Assignment.Area" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label asp-for="@Model.Assignment.Comment"></label>
+                                    <input asp-for="@Model.Assignment.Comment" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label asp-for="@Model.Assignment.Description"></label>
+                                    <input asp-for="@Model.Assignment.Description" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="@Model.Assignment.Estimate"></label>
+                                    <input asp-for="@Model.Assignment.Estimate" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="@Model.Assignment.StartDate"></label>
+                                    <input asp-for="@Model.Assignment.StartDate" class="form-control" readonly="@(true)" type="date" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label asp-for="@Model.Assignment.EndDate"></label>
+                                    <input asp-for="@Model.Assignment.EndDate" class="form-control" readonly="@(true)" type="date" />
+                                </div>
+
+                                <div class="form-group col-md-4">
+                                    <label>Aktion</label>
+                                    <input asp-for="@Model.AktionName" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Styring</label>
+                                    <input asp-for="@Model.ControlName" class="form-control" readonly="@(true)" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>Kontakt</label>
+                                    <input asp-for="@Model.ContactName" class="form-control" readonly="@(true)" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
