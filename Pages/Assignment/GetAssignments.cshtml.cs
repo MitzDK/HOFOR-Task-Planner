@@ -52,6 +52,10 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
         public IActionResult OnPost()
         {
+            if (_assignmentService.FilterAssignmentType(AssignmentType).Count() < CurrentPage * PageSize)
+            {
+                CurrentPage = 1;
+            }
             AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
             Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
             _isFiltered = true;
