@@ -1,7 +1,9 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
 using HOFORTaskPlanner.Services;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +16,8 @@ namespace HOFORTaskPlanner.Pages.Admin
         private PasswordHasher<string> _passwordHasher = new PasswordHasher<string>();
 
         [BindProperty] public Models.User NewUser { get; set; }
+
+
         [BindProperty] public Models.User.UserDepartments UserDepartments { get; set; }
         [BindProperty] public Models.User.UserRoles UserRoles { get; set; }
         [BindProperty] public Models.User.UserTypes UserTypes { get; set; }
