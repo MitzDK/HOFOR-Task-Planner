@@ -101,7 +101,6 @@ namespace HOFORTaskPlanner.Services
             return _users;
         }
 
-
         public List<User> GetUsersByDepartment(Models.User.UserDepartments userDepartment)
         {
             return _users.FindAll(user => user.UserDepartment == userDepartment);
