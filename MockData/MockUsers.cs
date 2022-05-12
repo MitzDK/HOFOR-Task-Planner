@@ -16,7 +16,7 @@ namespace HOFORTaskPlanner.MockData
             new User("Martin", "Lylloff", "MLYL", _passwordHasher.HashPassword(null, "1234"), "MLYL", User.UserRoles.Leder, User.UserTypes.Admin, User.UserDepartments.Digitalisering),
             new User("Victor", "Jejlskov", "VTOR", _passwordHasher.HashPassword(null, "1234"), "VTOR", User.UserRoles.Leder, User.UserTypes.Admin, User.UserDepartments.Udvikling),
             new User("Andreas", "Broberg","ABRO", _passwordHasher.HashPassword(null, "1234"), "ABRO", User.UserRoles.Azure, User.UserTypes.Admin, User.UserDepartments.Implementering),
-            new User("Frederik", "Bressendorf", "FDOR", _passwordHasher.HashPassword(null, "1234"), "FDOR", User.UserRoles.Leder, User.UserTypes.Admin, User.UserDepartments.Infrastruktur),
+            new User("Frederik", "Bressendorff", "FDOR", _passwordHasher.HashPassword(null, "1234"), "FDOR", User.UserRoles.Leder, User.UserTypes.Admin, User.UserDepartments.Infrastruktur),
 
             //Ledere
             new User("Per", "Efternavn", "PER", _passwordHasher.HashPassword(null, "1234"), "PER", User.UserRoles.Leder, User.UserTypes.Admin, User.UserDepartments.Infrastruktur),

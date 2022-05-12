@@ -30,7 +30,13 @@
         <li class="page-item">
             <a class="page-link">@Model.TotalPages pages</a>
         </li>
+        <div class="col-4">
+            <form asp-page-handler="Search" method="post" class="form-inline">
+                <input asp-page-handler="Search" asp-for="@Model.UserSearch" type="text" class="form-control" style="height: 100%" onchange="this.form.submit();" placeholder="Søg efter bruger"/>
+            </form>
+        </div>
     </ul>
+
 
     @if (User.HasClaim(ClaimTypes.Role, "admin"))
     {
