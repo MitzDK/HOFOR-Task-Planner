@@ -45,50 +45,53 @@
         <col style="width: calc(100% / 13)">
         <col style="width: calc(100% / 13)">
         <thead class="table-hofor">
-            <tr>
-                <th></th>
-                <th scope="col">Jan</th>
-                <th scope="col">Feb</th>
-                <th scope="col">Mar</th>
-                <th scope="col">Apr</th>
-                <th scope="col">Maj</th>
-                <th scope="col">Jun</th>
-                <th scope="col">Jul</th>
-                <th scope="col">Aug</th>
-                <th scope="col">Sep</th>
-                <th scope="col">Okt</th>
-                <th scope="col">Nov</th>
-                <th scope="col">Dec</th>
-            </tr>
+        <tr>
+            <th></th>
+            <th scope="col">Jan</th>
+            <th scope="col">Feb</th>
+            <th scope="col">Mar</th>
+            <th scope="col">Apr</th>
+            <th scope="col">Maj</th>
+            <th scope="col">Jun</th>
+            <th scope="col">Jul</th>
+            <th scope="col">Aug</th>
+            <th scope="col">Sep</th>
+            <th scope="col">Okt</th>
+            <th scope="col">Nov</th>
+            <th scope="col">Dec</th>
+        </tr>
         </thead>
         <tbody>
-            @if (@Model.ShowList(Model.Year, Model.Assignment.AssignmentId) != null)
+        @if (@Model.ShowList(Model.Year, Model.Assignment.AssignmentId) != null)
+        {
+            int i = Model.Assignment.StartDate.Year;
+            Model.TimeHours = Model.PopulateTable(Model.Assignment);
+            //foreach (var varint in Model.PopulateTable(Model.Assignment))
+            for (int newint = 0; newint < Model.TimeHours.Count; newint += 12)
             {
-                int i = Model.Assignment.StartDate.Year;
-                Model.TimeHours = Model.PopulateTable(Model.Assignment);
-                //foreach (var varint in Model.PopulateTable(Model.Assignment))
-                for (int newint = 0; newint < Model.TimeHours.Count; newint += 12)
-                {
-                    <tr>
-                        <td style="background-color: white; @Model.GetClassForCurrentYearFirst(i)">@i</td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[1 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[2 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[3 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[4 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[5 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[6 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[7 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[8 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[9 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[10 + newint]" /></td>
-                        <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[11 + newint]" /></td>
-                    </tr>
-                    i++;
-                }
+                <tr>
+                    <td style="background-color: white; @Model.GetClassForCurrentYearFirst(i)">@i</td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[1 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[2 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[3 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[4 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[5 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[6 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[7 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[8 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[9 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[10 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[11 + newint]" /></td>
+                </tr>
+                i++;
             }
+        }
 
         </tbody>
     </table>
-    <button type="submit" class="btn btn-primary">Opdater</button>
+    <div class="container" style="display: flex; justify-content: space-between">
+        <button type="submit" class="btn btn-primary">Opdater</button>
+        <a class="btn btn-hofor" style="text-decoration: none" data-toggle="tooltip" title="Forrige side" href='javascript:history.go(-1)'><i class="fa fa-circle-left"></i> Tilbage</a>
+    </div>
 </form>

@@ -56,6 +56,32 @@ namespace HOFORTaskPlanner.Services
             return _users.Find(user => user.UserName.ToLower().Equals(username.ToLower()));
         }
 
+        public IEnumerable<User> GetUsersByUserName(string username)
+        {
+            if (string.IsNullOrEmpty(username)) return _users;
+            var results = _users.FindAll(user => user.UserName.ToLower().Contains(username.ToLower()));
+            if (results.Count == 0)
+            {
+                return _users;
+            }
+
+            return results;
+
+        }
+
+        public IEnumerable<User> GetUsersBySearch(string search)
+        {
+            if (string.IsNullOrEmpty(search)) return _users;
+            var results = _users.Where(user =>
+                user.FirstName.ToLower().Contains(search.ToLower()) || user.LastName.ToLower().Contains(search.ToLower()) ||
+                user.DisplayName.ToLower().Contains(search.ToLower()) || user.UserName.ToLower().Contains(search.ToLower()));
+            if (results.Any())
+            {
+                return results;
+            }
+
+            return _users;
+        }
         public List<User> GetUsers()
         {
             return _users;

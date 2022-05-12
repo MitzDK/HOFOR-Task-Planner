@@ -18,16 +18,13 @@
 </head>
 
 <div class="container-xl px-4 mt-4">
-    <!-- Account page navigation-->
     <hr class="mt-0 mb-4">
     <div class="row">
         <div class="col-xl-8">
-                <!-- Account details card-->
-                <div class="card mb-4 ">
+            <div class="card mb-4 ">
                     <div class="card-header table-hofor" style="display: flex; justify-content: space-between">
                         Account Details
                         <a class="btn-hofor" style="text-decoration: none"data-toggle="tooltip" title="Forrige side" href='javascript:history.go(-1)'><i class="fa fa-circle-left"></i> Tilbage</a>
-
                     </div>
                     <div class="card-body">
                         <form method="post">
@@ -36,51 +33,34 @@
                                     <label class="small mb-1">Username</label>
                                     <input class="form-control" asp-for="NewUser.UserName" type="text">
                                     <span asp-validation-for="NewUser.UserName" class="text-danger"></span>
-
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1">Password</label>
                                     <input class="form-control" asp-for="NewUser.Password" type="text">
                                     <span asp-validation-for="NewUser.Password" class="text-danger"></span>
-
                                 </div>
                             </div>
-                            <!-- Form Row-->
                             <div class="row gx-3 mb-3">
-                                <!-- Form Group (first name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1">First name</label>
                                     <input class="form-control" asp-for="NewUser.FirstName" type="text">
                                     <span asp-validation-for="NewUser.FirstName" class="text-danger"></span>
-
                                 </div>
-                                <!-- Form Group (last name)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1">Last name</label>
                                     <input class="form-control" asp-for="NewUser.LastName" type="text">
                                     <span asp-validation-for="NewUser.LastName" class="text-danger"></span>
-
                                 </div>
                             </div>
-                            <!-- Form Row        -->
                             <div class="row gx-3 mb-3">
-                                <!-- Form Group (location)-->
                                 <div class="col-md-6">
                                     <label class="small mb-1">Displayname</label>
                                     <input class="form-control" asp-for="NewUser.DisplayName"type="text">
-
                                     <h4 style="color: red">@Model.Message</h4>
-
-
                                     <span asp-validation-for="NewUser.DisplayName" class="text-danger"></span>
-
                                 </div>
-
                             </div>
-                            <!-- Form Group (email address)-->
-
                             <div class="mb-3">
-
                                 <div class="form-group">
                                     <label asp-for="NewUser.UserType"></label>:<br/>
                                     <select asp-for="UserTypes" asp-items="Html.GetEnumSelectList<User.UserTypes>()">
@@ -89,9 +69,7 @@
                                     <span asp-validation-for="UserTypes" class="text-danger"></span>
                                 </div>
                             </div>
-                            <!-- Form Row-->
                             <div class="row gx-3 mb-3">
-                                <!-- Form Group (phone number)-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="NewUser.UserDepartment"></label>:<br />
@@ -101,7 +79,6 @@
                                         <span asp-validation-for="UserDepartments" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <!-- Form Group (birthday)-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label asp-for="NewUser.UserRole"></label>:<br/>
@@ -109,11 +86,9 @@
                                             <option>Choose a role</option>
                                         </select>
                                         <span asp-validation-for="UserRoles" class="text-danger"></span>
-
                                     </div>
                                 </div>
                             </div>
-                            <!-- Save changes button-->
                             <button class="btn btn-hofor" type="submit">Opret</button>
                         </form>
                     </div>
