@@ -118,7 +118,9 @@
                         @assignment.Comment
                     </td>
                     <td>
-                        <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Details" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-edit"></i></a>
+                    
+                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="GetAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-list"></i></a>
                     </td>
                 </tr>
             }
