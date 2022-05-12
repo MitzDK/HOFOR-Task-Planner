@@ -40,7 +40,6 @@
                                     <label class="small mb-1" asp-for="NewUser.Password">Password</label>
                                     <input class="form-control" asp-for="NewUser.Password" type="text">
                                 </div>
-                                <h4>@Model.Message</h4>
                             </div>
                             <!-- Form Row-->
                             <div class="row gx-3 mb-3">
@@ -61,7 +60,10 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1">Displayname</label>
                                     <input class="form-control" asp-for="NewUser.DisplayName"type="text">
+                                    <h4 style="color: red">@Model.Message</h4>
+
                                 </div>
+
                             </div>
                             <!-- Form Group (email address)-->
 
