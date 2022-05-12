@@ -10,7 +10,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
 {
     public class GetAssignmentsModel : PageModel
     {
-        public List<Models.Assignment> AssignmentList;
+        public IEnumerable<Models.Assignment> AssignmentList;
         private AssignmentService _assignmentService;
         private UserService _userService;
         private ContactService _contactService;
@@ -18,7 +18,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public int Count { get; set; }
         public int PageSize { get; set; } = 10;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
-
+        [BindProperty(SupportsGet = true)] public Models.Assignment.AssignmentType AssignmentType { get; set; }
+        private static bool _isFiltered;
+        private static Models.Assignment.AssignmentType _searchedAssignmentType;
 
         public Models.User AssignmentUser(int userId)
         {
@@ -47,6 +49,17 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _userService = userService;
             _contactService = contactService;
         }
+
+        public IActionResult OnPost()
+        {
+            AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
+            Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
+            _isFiltered = true;
+            _searchedAssignmentType = AssignmentType;
+            CurrentPage = 1;
+            return Page();
+        }
+
         //public void OnGet()
         //{
         //    AssignmentList = _assignmentService.GetAssignments();
@@ -56,10 +69,43 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            AssignmentList = await _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
-            Count = await _assignmentService.GetCount();
+            if (_isFiltered)
+            {
+                AssignmentType = _searchedAssignmentType;
+                AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType), CurrentPage, PageSize);
+                Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
+            }
+            else
+            {
+                AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+                Count = _assignmentService.GetCounts();
+            }
         }
+
+        public IActionResult OnGetFirst()
+        {
+            AssignmentList = _assignmentService.FilterAssignmentType(AssignmentType);
+            if (_isFiltered)
+            {
+                AssignmentType = _searchedAssignmentType;
+                AssignmentList =
+                    _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
+                Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
+            }
+            else
+            {
+                AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+                Count = _assignmentService.GetCounts();
+            }
+
+            return Page();
+        }
+        //public async Task OnGetAsync()
+        //{
+        //    AssignmentList = await _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+        //    Count = await _assignmentService.GetCount();
+        //}
     }
 }

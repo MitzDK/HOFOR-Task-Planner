@@ -107,15 +107,52 @@ namespace HOFORTaskPlanner.Services
                     assign.StartDate <= dateTime && assign.EndDate >= dateTime);
 
         }
-        public async Task<List<Assignment>> GetPaginatedResult(int currentPage, int pageSize = 10)
+        //public async Task<List<Assignment>> GetPaginatedResult(int currentPage, int pageSize = 10)
+        //{
+        //    var data = _assignments;
+        //    return data.OrderBy(Us => Us.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+        //}
+
+        public List<Assignment> GetPaginatedResult(int currentPage, int pageSize = 10)
         {
             var data = _assignments;
-            return data.OrderBy(Us => Us.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            var test = data.OrderBy(Ass => Ass.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return test;
+        }
+        public List<Assignment> GetPaginatedResultTest(IEnumerable<Assignment> assignmentList, int currentPage, int pageSize = 10)
+        {
+            var data = assignmentList;
+            var test = data.OrderBy(Ass => Ass.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return test;
         }
 
         public async Task<int> GetCount()
         {
             return _assignments.Count;
+        }
+
+        public int GetCounts()
+        {
+            return _assignments.Count;
+        }
+
+        public List<Assignment> AssigmentsForDateAndUserId(int year, int month, int userId)
+        {
+            var dateTime = new DateTime(year, month, 1);
+            var tempList = _assignments.FindAll(assignment =>
+                assignment.StartDate <= dateTime && assignment.EndDate >= dateTime &&
+                assignment.AktionUserId == userId);
+            return tempList;
+        }
+
+        public IEnumerable<Assignment> FilterAssignmentType(Assignment.AssignmentType assignmentType)
+        {
+            var result = _assignments.Where(Ass => Ass.Type == assignmentType);
+            if (result.Count() !=0)
+            {
+                return result;
+            }
+            return _assignments;
         }
     }
 }

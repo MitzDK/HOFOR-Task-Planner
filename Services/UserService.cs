@@ -49,32 +49,18 @@ namespace HOFORTaskPlanner.Services
 
         public User GetUserByDisplayName(string displayName)
         {
-            foreach (var user in _users)
-            {
-                if (!string.IsNullOrEmpty(displayName))
-                {
-                    if (user.DisplayName.ToLower().Equals(displayName.ToLower())) return user;
-                }
-            }
-            return null;
+            return _users.Find(user => user.DisplayName.ToLower().Equals(displayName.ToLower()));
         }
         public User GetUserByUsername(string username)
         {
-            foreach (var user in _users)
-            {
-                if (user.UserName.ToLower().Equals(username))
-                {
-                    return user;
-                }
-            }
-
-            return null;
+            return _users.Find(user => user.UserName.ToLower().Equals(username.ToLower()));
         }
 
         public List<User> GetUsers()
         {
             return _users;
         }
+        
 
         public async Task UpdateUserAsync(User user)
         {
@@ -100,7 +86,6 @@ namespace HOFORTaskPlanner.Services
             return _users;
         }
 
-
         public List<User> GetUsersByDepartment(Models.User.UserDepartments userDepartment)
         {
             return _users.FindAll(user => user.UserDepartment == userDepartment);
@@ -111,24 +96,23 @@ namespace HOFORTaskPlanner.Services
             var test = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return test;
         }
+        public List<User> GetPaginatedResultTest(IEnumerable<User> userList, int currentPage, int pageSize = 10)
+        {
+            var data = userList;
+            var test = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return test;
+        }
 
         public int GetCount()
         {
             return _users.Count;
         }
 
-        public List<User> GetPaginated(List<User> users, int currentPage, int pageSize)
+        public List<User> GetPaginatedNoLeaderRole(List<User> users, int currentPage, int pageSize)
         {
-            var test = new List<User>();
-            foreach (var VARIABLE in users)
-            {
-                if (VARIABLE.UserRole != User.UserRoles.Leder)
-                {
-                    test.Add(VARIABLE);
-                }
-            }
-            var data = test.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-            PaginatedUsers = test;
+            var data = users.Where(us => us.UserRole != User.UserRoles.Leder).ToList();
+            data = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            PaginatedUsers = data;
 
             return data;
         }

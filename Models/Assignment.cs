@@ -42,7 +42,6 @@ namespace HOFORTaskPlanner.Models
         [Required(ErrorMessage = "Område skal udfyldes")]
         [Display(Name = "Område")]
         public string Area { get; set; }
-        [Required(ErrorMessage = "Indtast en beskrivelse")]
         [Display(Name = "Beskrivelse")]
         public string Description { get; set; }
         [Required(ErrorMessage = "Indtast et estimat")]

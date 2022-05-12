@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
 using HOFORTaskPlanner.Services;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,6 +17,8 @@ namespace HOFORTaskPlanner.Pages.Admin
         private PasswordHasher<string> _passwordHasher = new PasswordHasher<string>();
 
         [BindProperty] public Models.User NewUser { get; set; }
+
+
         [BindProperty] public Models.User.UserDepartments UserDepartments { get; set; }
         [BindProperty] public Models.User.UserRoles UserRoles { get; set; }
         [BindProperty] public Models.User.UserTypes UserTypes { get; set; }
@@ -41,8 +46,13 @@ namespace HOFORTaskPlanner.Pages.Admin
             NewUser.UserType = UserTypes;
             NewUser.LastUpdated = DateTime.Now;
             NewUser.Password = _passwordHasher.HashPassword(null, NewUser.Password);
+            if (_userService.GetUsers().Select(us => us.DisplayName).Contains(NewUser.DisplayName))
+            {
+                Message = "Displayname eksisterer allerede";
+                return Page();
+            }
             await _userService.AddUserAsync(NewUser);
-            return RedirectToPage("../Index");
+            return RedirectToPage("../User/GetUsers");
         }
     }
 }

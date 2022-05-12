@@ -148,5 +148,15 @@ namespace HOFORTaskPlanner.Services
         {
             return GetTimeByYearAndMonthAndAssignmentId(year, month, id).Hours;
         }
+
+        public int AmountOfAssignmentsWithHoursInList(List<Assignment> assignments, int year, int month)
+        {
+            int counter = 0;
+            foreach (var assignment in assignments)
+            {
+                counter += _times.Count(reg => reg.AssignmentId == assignment.AssignmentId && reg.Hours > 0 && reg.Year == year && reg.Month == (Models.TimeReg.MonthName)month);
+            }
+            return counter;
+        }
     }
 }

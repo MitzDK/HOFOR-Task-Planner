@@ -25,14 +25,10 @@ namespace HOFORTaskPlanner.Pages
             _logger = logger;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            if (LoginPageModel.LoggedInUser == null)
-            {
-                HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                return RedirectToPage("Login/LoginPage");
-            }
-            return RedirectToPage("Assignment/GetAssignments");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToPage("Login/LoginPage");
         }
 
     }

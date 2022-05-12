@@ -1,9 +1,12 @@
 ﻿@page
+@using HOFORTaskPlanner.Models
+@using System.Security.Claims
+@using HOFORTaskPlanner.Services
 @model HOFORTaskPlanner.Pages.Assignment.GetAssignmentsModel
 @{
     ViewData["Title"] = "Opgaveliste";
 }
-<div>
+<div style="display: flex; height: 35px; justify-content: space-between; width: 100%">
     <ul class="pagination">
         <li class="page-item @(!Model.ShowFirst? "disabled":"")">
             <a asp-page="GetAssignments" asp-route-CurrentPage="1" class="page-link"> <i class="fa fa-fast-backward"></i></a>
@@ -15,7 +18,6 @@
         <li class="page-item  @(!Model.ShowNext? "disabled":"")">
             <a asp-page="GetAssignments" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"><i class="fa fa-angle-right"></i></a>
         </li>
-
         <li class="page-item  @(!Model.ShowLast? "disabled":"")">
             <a asp-page="GetAssignments" asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="fa fa-fast-forward"></i></a>
         </li>
@@ -29,8 +31,12 @@
             <a class="page-link">@Model.TotalPages pages</a>
         </li>
     </ul>
+    @if (User.HasClaim(ClaimTypes.Role, "admin"))
+    {
+        <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Create Assignment" asp-page="CreateAssignment"><i class="fa-solid fa-plus"></i></a>
+    }
 </div>
-@if (Model.AssignmentList.Count != 0)
+@if (Model.AssignmentList.Count() != 0)
 {
     <table class="table table-striped text-center">
         <thead class="table-hofor">
@@ -39,7 +45,11 @@
                     Status
                 </th>
                 <th>
-                    Type
+                    <form method="post">
+                        <select asp-for="@Model.AssignmentType" onchange="this.form.submit();" asp-items="Html.GetEnumSelectList<Assignment.AssignmentType>()">
+                            <option>Vælg opgave type</option>
+                        </select>
+                    </form>
                 </th>
                 <th>
                     Område
@@ -72,7 +82,6 @@
                     Kommentar
                 </th>
                 <th>
-                    <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Create Assignment" asp-page="CreateAssignment"><i class="fa-solid fa-plus"></i> Ny</a>
                     Rediger
                 </th>
             </tr>
@@ -118,9 +127,8 @@
                         @assignment.Comment
                     </td>
                     <td>
-                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Details" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-edit"></i></a>
-                    
-                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="GetAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-list"></i></a>
+                        <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Details" asp-page="GetAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-list"></i></a>
+                        <a class="btn btn-sm btn-hofor" type="button" data-toggle="tooltip" title="Edit Assignment" asp-page="EditAssignment" asp-route-id="@assignment.AssignmentId"><i class="fa fa-edit"></i></a>
                     </td>
                 </tr>
             }

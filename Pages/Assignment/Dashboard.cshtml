@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Dashboard";
 }
-<div>
+<div style="display: flex; height: 35px; justify-content: space-between; width: 100%">
     <ul class="pagination">
         <li class="page-item @(!Model.ShowFirst? "disabled":"")">
             <a asp-page="Dashboard" asp-route-CurrentPage="1" class="page-link"> <i class="fa fa-fast-backward"></i></a>
@@ -66,7 +66,7 @@
                 <th class="Table-small">@(Models.TimeReg.AbrMonthName(i))-@yearint</th>
                 @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
                 {
-                    <th scope="col" class="TableSeperatorLeft Table-small">@Model.AmountOfAssignmentsForYearAndMonthAndUserId(yearint, i, user.UserId)</th>
+                    <th scope="col" class="TableSeperatorLeft Table-small">@Model.AmountOfAssignmentsWithHoursInList(yearint, i, user.UserId)</th>
                     <th scope="col" class="TableSeperatorRight Table-small" style="@Model.ColourByHours(Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId))">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
                 }
             </tr>

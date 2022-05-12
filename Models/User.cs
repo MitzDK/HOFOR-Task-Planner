@@ -10,6 +10,7 @@ namespace HOFORTaskPlanner.Models
 {
     public class User
     {
+        private string _displayName;
         public enum UserDepartments
         {
             Implementering = 1,
@@ -50,19 +51,35 @@ namespace HOFORTaskPlanner.Models
             User = 2,
             Arkiveret = 3
         }
-        [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Du skal indtaste dit fornavn")]
+        [Display(Name = "Indtast dit fornavn")]
         public string FirstName { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Du skal indtaste dit efternavn")]
+        [Display(Name = "Indtast dit efternavn")]
         public string LastName { get; set; }
-        [Required] 
+
+        [Required(ErrorMessage = "Du skal indtaste et brugernavn")]
+        [Display(Name = "Indtast dit brugernavn")]
         public string UserName { get; set; }
-        [Required][DataType(DataType.Password)]
+
+        [Required(ErrorMessage = "Du skal indtaste et password")]
+        [Display(Name = "Indtast dit password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
-        // Skal være uppercase
-        [Required][StringLength(20)]
-        public string DisplayName { get; set; }
+
+        [Display(Name = "Indtast dit displayname")]
+        [Required(ErrorMessage = "Du skal indtaste et displayname")]
+        [StringLength(20)]
+        public string DisplayName
+        {
+            get => _displayName;
+            set => _displayName = value.ToUpper();
+        }
 
 
         [Required] public UserRoles UserRole { get; set; }

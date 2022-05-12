@@ -42,10 +42,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
         //}
         public void OnGet()
         {
-            Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
-            UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
-            Users = _userService.GetPaginated(Users, CurrentPage, PageSize);
-            Count = _userService.PaginatedUsers.Count;
+            Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
+            Users = _userService.GetUsersByDepartment(user.UserDepartment);
+            UserDepartment = user.UserDepartment.ToString();
+            Users = _userService.GetPaginatedNoLeaderRole(Users, CurrentPage, PageSize);
+            Count = _userService.GetUsersByDepartment(user.UserDepartment).Where(us=> us.UserRole != Models.User.UserRoles.Leder).ToList().Count;
         }
 
         public int GetTotalHoursByUserId(int userId)
@@ -99,6 +100,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 default:
                     return "background-color: #fff2cc";
             }
+        }
+
+        public int AmountOfAssignmentsWithHoursInList(int year, int month, int userId)
+        {
+           return _timeService.AmountOfAssignmentsWithHoursInList(
+                _assignmentService.AssigmentsForDateAndUserId(year, month, userId), year, month);
         }
     }
 }
