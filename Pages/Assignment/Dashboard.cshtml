@@ -72,5 +72,14 @@
             </tr>
         }
     }
+    <tr>
+        <th></th>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th scope="col" class="TableSeperatorLeft Table-small">Ajour pr:</th>
+            <th scope="col" class="TableSeperatorRight Table-small">@user.LastUpdated.Day/@user.LastUpdated.Month/@user.LastUpdated.Year</th>
+        }
+    </tr>
+
 
 </table>
