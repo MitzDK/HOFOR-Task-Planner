@@ -121,7 +121,7 @@
                         @assignment.EndDate.Day/@assignment.EndDate.Month/@assignment.EndDate.Year
                     </td>
                     <td>
-                        Indsæt matematik
+                        @(assignment.Estimate-Model.GetHoursByAssignmentId(assignment.AssignmentId))
                     </td>
                     <td>
                         @assignment.Comment

@@ -21,6 +21,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public List<Models.TimeReg> TimeRegs { get; set; }
         public List<Models.Assignment> Assignments { get; set; }
         public string UserDepartment { get; set; } = "N/A";
+        [BindProperty(SupportsGet = true)] public Models.User.UserDepartments UserDepartments { get; set; }
 
         // Pagination
         [BindProperty(SupportsGet = true)] public int CurrentPage { get; set; } = 1;
@@ -34,17 +35,27 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _timeService = timeService;
             _assignmentService = assignmentService;
         }
-
-        //public void OnGet()
-        //{
-        //    Users = _userService.GetUsersByDepartment(LoginPageModel.LoggedInUser.UserDepartment);
-        //    UserDepartment = LoginPageModel.LoggedInUser.UserDepartment.ToString();
-        //}
+        public IActionResult OnPost()
+        {
+            if (_userService.FilterTeams(UserDepartments).Count() < CurrentPage * PageSize)
+            {
+                CurrentPage = 1;
+            }
+            UserDepartment = UserDepartments.ToString();
+            Users = _userService.GetPaginatedNoLeaderRole(_userService.FilterTeams(UserDepartments).ToList(), CurrentPage, PageSize);
+            Count = _userService.GetUsersByDepartment(UserDepartments).Where(us => us.UserRole != Models.User.UserRoles.Leder).ToList().Count;
+            Response.Cookies.Append("FilterCookie", "true");
+            Response.Cookies.Append("SearchDeparment", UserDepartments.ToString());
+            CurrentPage = 1;
+            return Page();
+        }
         public void OnGet()
         {
+
             Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
             Users = _userService.GetUsersByDepartment(user.UserDepartment);
             UserDepartment = user.UserDepartment.ToString();
+            UserDepartments = user.UserDepartment;
             Users = _userService.GetPaginatedNoLeaderRole(Users, CurrentPage, PageSize);
             Count = _userService.GetUsersByDepartment(user.UserDepartment).Where(us=> us.UserRole != Models.User.UserRoles.Leder).ToList().Count;
         }
@@ -74,6 +85,16 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return counter;
         }
 
+        public int GetHoursByYearAndMonthAndList(int year, int month, Models.User.UserDepartments userDepartment)
+        {
+            return _timeService.GetHoursByYearAndMonthAndList(year, month,
+                _assignmentService.AssignmentsForYearAndMonthAndUserDepartment(year, month, userDepartment));
+        }
+        public int AmountOfAssignmentsForYearAndMonthAndUserDepartment(int year, int month,
+            Models.User.UserDepartments department)
+        {
+            return _assignmentService.AmountOfAssignmentsForYearAndMonthAndUserDepartment(year, month, department);
+        }
         public int AmountOfAssignmentsForYearAndMonthAndUserId(int year, int month, int userId)
         {
             return _assignmentService.AmountOfAssignmentsForYearAndMonthAndUserId(year, month, userId);
