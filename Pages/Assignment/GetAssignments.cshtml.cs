@@ -14,6 +14,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         private AssignmentService _assignmentService;
         private UserService _userService;
         private ContactService _contactService;
+        private TimeService _timeService;
         [BindProperty(SupportsGet = true)] public int CurrentPage { get; set; } = 1;
         public int Count { get; set; }
         public int PageSize { get; set; } = 10;
@@ -43,11 +44,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             return "N/A";
         }
-        public GetAssignmentsModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
+        public GetAssignmentsModel(AssignmentService assignmentService, UserService userService, ContactService contactService, TimeService timeService)
         {
             _assignmentService = assignmentService;
             _userService = userService;
             _contactService = contactService;
+            _timeService = timeService;
         }
 
         public IActionResult OnPost()
@@ -106,10 +108,10 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
             return Page();
         }
-        //public async Task OnGetAsync()
-        //{
-        //    AssignmentList = await _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
-        //    Count = await _assignmentService.GetCount();
-        //}
+
+        public int GetHoursByAssignmentId(int id)
+        {
+            return _timeService.GetTimeByAssignmentId(id).Sum(time => time.Hours);
+        }
     }
 }

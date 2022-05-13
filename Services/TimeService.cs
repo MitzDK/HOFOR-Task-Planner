@@ -148,6 +148,17 @@ namespace HOFORTaskPlanner.Services
         {
             return GetTimeByYearAndMonthAndAssignmentId(year, month, id).Hours;
         }
+        public int GetHoursByYearAndMonthAndList(int year, int month, List<Assignment> assignmentList)
+        {
+            int counter = 0;
+            foreach (var assignment in assignmentList)
+            {
+                counter += GetTimeByYearAndMonthAndAssignmentId(year, month, assignment.AssignmentId).Hours;
+            }
+
+            return counter;
+        }
+
 
         public int AmountOfAssignmentsWithHoursInList(List<Assignment> assignments, int year, int month)
         {

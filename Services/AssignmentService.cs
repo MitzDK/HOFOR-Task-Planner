@@ -9,15 +9,16 @@ namespace HOFORTaskPlanner.Services
     public class AssignmentService
     {
         private List<Assignment> _assignments;
+        private UserService _userService;
         private DbGenericService<Assignment> DbService { get; set; }
 
-        public AssignmentService(DbGenericService<Assignment> dbService)
+        public AssignmentService(DbGenericService<Assignment> dbService, UserService userService)
         {
             DbService = dbService;
 
             //_assignments = MockData.MockAssignments.GetMockAssignments();
             //InitializeDB();
-
+            _userService = userService;
             _assignments = DbService.GetObjectsAsync().Result.ToList();
         }
 
@@ -107,11 +108,37 @@ namespace HOFORTaskPlanner.Services
                     assign.StartDate <= dateTime && assign.EndDate >= dateTime);
 
         }
-        //public async Task<List<Assignment>> GetPaginatedResult(int currentPage, int pageSize = 10)
-        //{
-        //    var data = _assignments;
-        //    return data.OrderBy(Us => Us.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
-        //}
+        public int AmountOfAssignmentsForYearAndMonthAndUserDepartment(int year, int month, Models.User.UserDepartments department)
+        {
+            var dateTime = new DateTime(year, month, 1);
+            List<User> userList = _userService.GetUsersByDepartment(department);
+            List<Assignment> assignmentList = new List<Assignment>();
+            foreach (var user in userList)
+            {
+                foreach (var assignment in GetAssignmentsByUserId(user.UserId))
+                {
+                    assignmentList.Add(assignment);
+                }
+            }
+            return assignmentList
+                .Count(assign => assign.StartDate <= dateTime && assign.EndDate >= dateTime);
+        }
+        public List<Assignment> AssignmentsForYearAndMonthAndUserDepartment(int year, int month, Models.User.UserDepartments department)
+        {
+            var dateTime = new DateTime(year, month, 1);
+            List<User> userList = _userService.GetUsersByDepartment(department);
+            List<Assignment> assignmentList = new List<Assignment>();
+            foreach (var user in userList)
+            {
+                foreach (var assignment in GetAssignmentsByUserId(user.UserId))
+                {
+                    assignmentList.Add(assignment);
+                }
+            }
+            return assignmentList
+                .FindAll(assign => assign.StartDate <= dateTime && assign.EndDate >= dateTime);
+        }
+
 
         public List<Assignment> GetPaginatedResult(int currentPage, int pageSize = 10)
         {
