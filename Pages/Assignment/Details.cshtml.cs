@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
 using HOFORTaskPlanner.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -79,7 +82,14 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return 0;
         }
 
+        public IActionResult OnPost()
+        {
+            Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
+            user.LastUpdated = DateTime.Now;
+            _userService.UpdateUserAsync(user);
+            return RedirectToPage("../User/GetUsers");
+        }
 
-        
+
     }
 }
