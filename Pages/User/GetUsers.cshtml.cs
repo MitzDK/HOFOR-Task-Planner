@@ -38,15 +38,11 @@ namespace HOFORTaskPlanner.Pages.User
 
         public IActionResult OnPost()
         {
-            if (_userService.FilterTeams(UserDepartments).Count() < CurrentPage * PageSize)
-            {
-                CurrentPage = 1;
-            }
+            CurrentPage = 1;
             UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
             Count = _userService.FilterTeams(UserDepartments).Count();
-            Response.Cookies.Append("UserFilterCookie", "true");
             Response.Cookies.Append("UserSearchDepartment", ((int)UserDepartments).ToString());
-            CurrentPage = 1;
+
             return Page();
         }
 
@@ -64,7 +60,6 @@ namespace HOFORTaskPlanner.Pages.User
                     PageSize);
                 Count = _userService.GetUsersBySearch(UserSearch).Count();
                 Response.Cookies.Append("UserSearchUsername", UserSearch);
-
             }
             CurrentPage = 1;
             return Page();
@@ -76,38 +71,27 @@ namespace HOFORTaskPlanner.Pages.User
 
         public void OnGet()
         {
-            var cookieFilterValue = Request.Cookies["UserFilterCookie"];
             var cookieDepartmentValue = Request.Cookies["UserSearchDepartment"];
             //var cookieUserNameValue = Request.Cookies["SearchUsername"];
-            if (cookieFilterValue == "true")
-            {
-                UserDepartments = (Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue);
-                //Martin m� lige forklare
-                //if (cookieUserNameValue == "true")
-                //{
-                //    UserList = _userService.GetPaginatedResultTest(_userService.GetUsersByUserName(UserSearch),
-                //        CurrentPage,
-                //        PageSize);
-                //    Count = _userService.GetUsersByUserName(UserSearch).Count();
-                //    //Fix delete cookie
-                //    //Response.Cookies.Delete("SearchUsername");
-                //}
-                //else
-                //{
-                //    UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments), 
-                //        CurrentPage, PageSize);
-                //    Count = _userService.FilterTeams(UserDepartments).Count();
-                //}
-                UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),
-                    CurrentPage, PageSize);
-
-                Count = _userService.FilterTeams(UserDepartments).Count();
-            }
-            else
-            {
-                UserList = _userService.GetPaginatedResultNoArchived(CurrentPage, PageSize);
-                Count = _userService.GetCount();
-            }
+            //Martin m� lige forklare
+            //if (cookieUserNameValue == "true")
+            //{
+            //    UserList = _userService.GetPaginatedResultTest(_userService.GetUsersByUserName(UserSearch),
+            //        CurrentPage,
+            //        PageSize);
+            //    Count = _userService.GetUsersByUserName(UserSearch).Count();
+            //    //Fix delete cookie
+            //    //Response.Cookies.Delete("SearchUsername");
+            //}
+            //else
+            //{
+            //    UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments), 
+            //        CurrentPage, PageSize);
+            //    Count = _userService.FilterTeams(UserDepartments).Count();
+            //}
+            UserDepartments = (Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue);
+            UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments), CurrentPage, PageSize);
+            Count = _userService.FilterTeams(UserDepartments).Count();
         }
     }
 }

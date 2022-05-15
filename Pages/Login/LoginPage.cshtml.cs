@@ -52,7 +52,7 @@ namespace HOFORTaskPlanner.Pages.Login
                             new ClaimsPrincipal(claimsIdentity));
 
                         //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
-                        Response.Cookies.Append("FilterCookie", "true");
+                        Response.Cookies.Append("AssignmentTypeSelect", "0");
                         Response.Cookies.Append("SearchDeparment", tempUser.UserDepartment.ToString());
 
                         //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?

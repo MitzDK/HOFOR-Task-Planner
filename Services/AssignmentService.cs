@@ -153,7 +153,7 @@ namespace HOFORTaskPlanner.Services
             var test = data.OrderBy(Ass => Ass.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return test;
         }
-        public List<Assignment> GetPaginatedResultTest(IEnumerable<Assignment> assignmentList, int currentPage, int pageSize = 10)
+        public List<Assignment> GetPaginatedResultTest(IEnumerable<Assignment> assignmentList, int currentPage, int pageSize)
         {
             var data = assignmentList;
             var test = data.OrderBy(Ass => Ass.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
@@ -189,20 +189,36 @@ namespace HOFORTaskPlanner.Services
             return _assignments;
         }
 
-        public List<Assignment> SortPaginationHelper(List<Assignment> assignments, string cookieValue, string filterValue, int currentPage, int pageSize)
-        {
-            List<Assignment> newList = new List<Assignment>();
-            switch (filterValue)
-            {
-                case "true": 
-                   return newList = GetPaginatedResultTest(assignments, currentPage, pageSize);
-                    default:
-                        return null;
-            }
-        }
+        //public List<Assignment> SortPaginationHelper(string isFiltered, int filterValue, string isSorted, string sortValue, int currentPage, int pageSize)
+        //{
+        //    List<Assignment> newList = new List<Assignment>();
+
+        //    switch (isFiltered)
+        //    {
+        //        case "true":
+        //            var type = (Models.Assignment.AssignmentType) filterValue;
+        //            newList = GetPaginatedResultTest(FilterAssignmentType(type), currentPage, pageSize);
+        //            break;
+        //        default:
+        //            newList = GetPaginatedResult(currentPage, pageSize);
+        //            break;
+        //    }
+        //    switch (isSorted)
+        //    {
+        //        case "true":
+        //            switch (sortValue)
+        //            {
+        //                case "contact":
+        //                    newList = SortByContact(newList).ToList();
+        //                    break;
+        //            }
+        //            break;
+        //    }
+        //    return newList;
+        //}
         public IEnumerable<Assignment> SortByContact(IEnumerable<Assignment> assignments)
         {
-            return assignments.OrderBy(ass => _contactService.GetContactById(ass.ContactId).FirstName);
+            return assignments.OrderBy(assign => assign.ContactId);
         }
 
         public IEnumerable<Assignment> SortByEstimate()

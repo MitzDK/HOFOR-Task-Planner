@@ -20,8 +20,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public int PageSize { get; set; } = 10;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
         [BindProperty(SupportsGet = true)] public Models.Assignment.AssignmentType AssignmentType { get; set; }
-        private static bool _isFiltered;
-        private static Models.Assignment.AssignmentType _searchedAssignmentType;
 
         public Models.User AssignmentUser(int userId)
         {
@@ -53,14 +51,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
         public IActionResult OnPost()
         {
-            if (_assignmentService.FilterAssignmentType(AssignmentType).Count() < CurrentPage * PageSize)
-            {
-                CurrentPage = 1;
-            }
+            CurrentPage = 1;
             AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
             Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
-            //_isFiltered = true;
-            //_searchedAssignmentType = AssignmentType;
             Response.Cookies.Append("AssignmentFilterCookie", "true");
             Response.Cookies.Append("AssignmentTypeSelect", ((int)AssignmentType).ToString());
             CurrentPage = 1;
@@ -78,11 +71,18 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
         public void OnGet()
         {
-            var cookieFilterValue = Request.Cookies["AssignmentFilterCookie"];
-            var cookieTypeValue = Request.Cookies["AssignmentTypeSelect"];
-            if (_isFiltered)
+            var cookieIsFilteredValue = Request.Cookies["AssignmentFilterCookie"];
+            var cookiesFilterTypeValue = Request.Cookies["AssignmentTypeSelect"];
+            var cookieSortTypeValue = Request.Cookies["AssignmentSort"];
+            var cookieIsSortedValue = Request.Cookies["AssignmentIsSorted"];
+
+
+            //AssignmentList = _assignmentService.SortPaginationHelper(cookieIsFilteredValue, Convert.ToInt32(cookiesFilterTypeValue),
+            //    cookieIsSortedValue, cookieSortTypeValue, CurrentPage, PageSize);
+
+            if (cookieIsFilteredValue == "true")
             {
-                AssignmentType = _searchedAssignmentType;
+                AssignmentType = (Models.Assignment.AssignmentType)Convert.ToInt32(cookiesFilterTypeValue);
                 AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType), CurrentPage, PageSize);
                 Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
             }
@@ -91,6 +91,20 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
                 Count = _assignmentService.GetCounts();
             }
+
+            //if (_isFiltered)
+            //{
+            //    AssignmentType = _searchedAssignmentType;
+            //    AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType), CurrentPage, PageSize);
+                
+            //}
+            //else
+            //{
+            //    AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+            //    Count = _assignmentService.GetCounts();
+            //}
+
+
         }
 
         //public IActionResult OnGetFirst()
@@ -117,13 +131,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return _assignmentService.GetHoursByAssignmentId(id);
         }
 
-        public IActionResult OnGetSortByContact()
+        public void OnGetSortByContact()
         {
             Response.Cookies.Append("AssignmentSort", "contact");
             Response.Cookies.Append("AssignmentIsSorted", "true");
             OnGet();
-            AssignmentList = _assignmentService.SortByContact(AssignmentList);
-            return Page();
         }
 
         public IActionResult OnGetSortByEstimate()
