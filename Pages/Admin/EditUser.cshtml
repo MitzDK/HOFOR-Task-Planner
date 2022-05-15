@@ -30,17 +30,29 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1" asp-for="@Model.FirstName">First name</label>
                                     <input class="form-control" asp-for="@Model.FirstName">
+                                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="@Model.LastName">Last name</label>
                                     <input class="form-control" asp-for="@Model.LastName">
+                                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="@Model.DisplayName">Display name</label>
                                     <input class="form-control" asp-for="@Model.DisplayName">
+                                    <span asp-validation-for="@Model.DisplayName" class="text-danger"></span>
+                                    @if (Model.Message != null)
+                                    {
+                                        <p style="color:red">@Model.Message</p>
+                                    }
                                 </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="@Model.Password">Password</label>
+                                <input class="form-control" asp-for="@Model.Password">
+                                <span asp-validation-for="@Model.Password" class="text-danger"></span>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="form-group">
@@ -85,7 +97,7 @@
 
             </div>
             <div class="modal-body">
-                <p>Ønsker du at arkivere @Model.DisplayName?</p>
+                <p>Ønsker du at arkivere @Model.UserToBeEdited.DisplayName?</p>
             </div>
             <div class="modal-footer">
 
