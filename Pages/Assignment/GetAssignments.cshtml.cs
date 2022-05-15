@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -14,7 +15,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
         private AssignmentService _assignmentService;
         private UserService _userService;
         private ContactService _contactService;
-        private TimeService _timeService;
         [BindProperty(SupportsGet = true)] public int CurrentPage { get; set; } = 1;
         public int Count { get; set; }
         public int PageSize { get; set; } = 10;
@@ -44,12 +44,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             return "N/A";
         }
-        public GetAssignmentsModel(AssignmentService assignmentService, UserService userService, ContactService contactService, TimeService timeService)
+        public GetAssignmentsModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
         {
             _assignmentService = assignmentService;
             _userService = userService;
             _contactService = contactService;
-            _timeService = timeService;
         }
 
         public IActionResult OnPost()
@@ -60,8 +59,10 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
             Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
-            _isFiltered = true;
-            _searchedAssignmentType = AssignmentType;
+            //_isFiltered = true;
+            //_searchedAssignmentType = AssignmentType;
+            Response.Cookies.Append("AssignmentFilterCookie", "true");
+            Response.Cookies.Append("AssignmentTypeSelect", ((int)AssignmentType).ToString());
             CurrentPage = 1;
             return Page();
         }
@@ -77,6 +78,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
         public void OnGet()
         {
+            var cookieFilterValue = Request.Cookies["AssignmentFilterCookie"];
+            var cookieTypeValue = Request.Cookies["AssignmentTypeSelect"];
             if (_isFiltered)
             {
                 AssignmentType = _searchedAssignmentType;
@@ -90,28 +93,84 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
         }
 
-        public IActionResult OnGetFirst()
-        {
-            AssignmentList = _assignmentService.FilterAssignmentType(AssignmentType);
-            if (_isFiltered)
-            {
-                AssignmentType = _searchedAssignmentType;
-                AssignmentList =
-                    _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
-                Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
-            }
-            else
-            {
-                AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
-                Count = _assignmentService.GetCounts();
-            }
+        //public IActionResult OnGetFirst()
+        //{
+        //    AssignmentList = _assignmentService.FilterAssignmentType(AssignmentType);
+        //    if (_isFiltered)
+        //    {
+        //        AssignmentType = _searchedAssignmentType;
+        //        AssignmentList =
+        //            _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
+        //        Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
+        //    }
+        //    else
+        //    {
+        //        AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+        //        Count = _assignmentService.GetCounts();
+        //    }
 
-            return Page();
-        }
+        //    return Page();
+        //}
 
         public int GetHoursByAssignmentId(int id)
         {
-            return _timeService.GetTimeByAssignmentId(id).Sum(time => time.Hours);
+            return _assignmentService.GetHoursByAssignmentId(id);
         }
+
+        public IActionResult OnGetSortByContact()
+        {
+            Response.Cookies.Append("AssignmentSort", "contact");
+            Response.Cookies.Append("AssignmentIsSorted", "true");
+            OnGet();
+            AssignmentList = _assignmentService.SortByContact(AssignmentList);
+            return Page();
+        }
+
+        public IActionResult OnGetSortByEstimate()
+        {
+            AssignmentList = _assignmentService.SortByEstimate();
+            return Page();
+        }
+
+        public IActionResult OnGetSortByEstimateDescending()
+        {
+            AssignmentList = _assignmentService.SortByEstimateDescending();
+            return Page();
+        }
+
+        public IActionResult OnGetSortByStartDate()
+        {
+            AssignmentList = _assignmentService.SortByStartDate();
+            return Page();
+        }
+        public IActionResult OnGetSortByStartDateDescending()
+        {
+            AssignmentList = _assignmentService.SortByStartDateDescending();
+            return Page();
+        }
+
+        public IActionResult OnGetSortByEndDate()
+        {
+            AssignmentList = _assignmentService.SortByEndDate();
+            return Page();
+        }
+        public IActionResult OnGetSortByEndDateDescending()
+        {
+            AssignmentList = _assignmentService.SortByEndDateDescending();
+            return Page();
+        }
+
+        public IActionResult OnGetSortByRemaining()
+        {
+            AssignmentList = _assignmentService.SortByRemaining();
+            return Page();
+        }
+
+        public IActionResult OnGetSortByRemainingDescending()
+        {
+            AssignmentList = _assignmentService.SortbyRemainingDescending();
+            return Page();
+        }
+
     }
 }

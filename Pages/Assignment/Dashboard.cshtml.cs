@@ -42,6 +42,11 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 CurrentPage = 1;
             }
             UserDepartment = UserDepartments.ToString();
+            if (UserDepartment == "0")
+            {
+                Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
+                UserDepartment = user.UserDepartment.ToString();
+            }
             Users = _userService.GetPaginatedNoLeaderRole(_userService.FilterTeams(UserDepartments).ToList(), CurrentPage, PageSize);
             Count = _userService.GetUsersByDepartment(UserDepartments).Where(us => us.UserRole != Models.User.UserRoles.Leder).ToList().Count;
             Response.Cookies.Append("FilterCookie", "true");

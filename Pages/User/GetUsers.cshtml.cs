@@ -44,8 +44,8 @@ namespace HOFORTaskPlanner.Pages.User
             }
             UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
             Count = _userService.FilterTeams(UserDepartments).Count();
-            Response.Cookies.Append("FilterCookie", "true");
-            Response.Cookies.Append("SearchDeparment", UserDepartments.ToString());
+            Response.Cookies.Append("UserFilterCookie", "true");
+            Response.Cookies.Append("UserSearchDepartment", ((int)UserDepartments).ToString());
             CurrentPage = 1;
             return Page();
         }
@@ -54,7 +54,8 @@ namespace HOFORTaskPlanner.Pages.User
         {
             if (string.IsNullOrWhiteSpace(UserSearch))
             {
-                Response.Cookies.Delete("SearchUsername");
+                //TODO Skal fikses med anden metode
+                //Response.Cookies.Delete("SearchUsername");
                 UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
             }
             else
@@ -62,7 +63,7 @@ namespace HOFORTaskPlanner.Pages.User
                 UserList = _userService.GetPaginatedResultList(_userService.GetUsersBySearch(UserSearch), CurrentPage,
                     PageSize);
                 Count = _userService.GetUsersBySearch(UserSearch).Count();
-                Response.Cookies.Append("SearchUsername", UserSearch);
+                Response.Cookies.Append("UserSearchUsername", UserSearch);
 
             }
             CurrentPage = 1;
@@ -75,23 +76,31 @@ namespace HOFORTaskPlanner.Pages.User
 
         public void OnGet()
         {
-            var cookieFilterValue = Request.Cookies["FilterCookie"];
-            var cookieDepartmentValue = Request.Cookies["SearchDeparment"];
-            var cookieUserNameValue = Request.Cookies["SearchUsername"];
+            var cookieFilterValue = Request.Cookies["UserFilterCookie"];
+            var cookieDepartmentValue = Request.Cookies["UserSearchDepartment"];
+            //var cookieUserNameValue = Request.Cookies["SearchUsername"];
             if (cookieFilterValue == "true")
             {
-                Models.User.UserDepartments test;
-                Enum.TryParse(cookieDepartmentValue, out test);
-                UserDepartments = test;
-                if (cookieUserNameValue == "true")
-                {
-                    UserList = _userService.GetPaginatedResultList(_userService.GetUsersByUserName(UserSearch), CurrentPage,
-                        PageSize);
-                    Count = _userService.GetUsersByUserName(UserSearch).Count();
-                    Response.Cookies.Delete("SearchUsername");
-                }
-                else 
-                UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
+                UserDepartments = (Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue);
+                //Martin m� lige forklare
+                //if (cookieUserNameValue == "true")
+                //{
+                //    UserList = _userService.GetPaginatedResultTest(_userService.GetUsersByUserName(UserSearch),
+                //        CurrentPage,
+                //        PageSize);
+                //    Count = _userService.GetUsersByUserName(UserSearch).Count();
+                //    //Fix delete cookie
+                //    //Response.Cookies.Delete("SearchUsername");
+                //}
+                //else
+                //{
+                //    UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments), 
+                //        CurrentPage, PageSize);
+                //    Count = _userService.FilterTeams(UserDepartments).Count();
+                //}
+                UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),
+                    CurrentPage, PageSize);
+
                 Count = _userService.FilterTeams(UserDepartments).Count();
             }
             else
@@ -100,14 +109,5 @@ namespace HOFORTaskPlanner.Pages.User
                 Count = _userService.GetCount();
             }
         }
-
-
-        //public IActionResult OnGetFirst()
-        //{
-        //    UserDepartments = _userService.GetUserByUsername(HttpContext.User.Identity.Name).UserDepartment;
-        //    UserList = _userService.FilterTeams(UserDepartments);
-        //    Count = _userService.FilterTeams(UserDepartments).Count();
-        //    return Page();
-        //}
     }
 }
