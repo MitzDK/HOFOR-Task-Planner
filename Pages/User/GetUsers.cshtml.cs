@@ -42,7 +42,7 @@ namespace HOFORTaskPlanner.Pages.User
             {
                 CurrentPage = 1;
             }
-            UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
+            UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
             Count = _userService.FilterTeams(UserDepartments).Count();
             Response.Cookies.Append("FilterCookie", "true");
             Response.Cookies.Append("SearchDeparment", UserDepartments.ToString());
@@ -59,7 +59,7 @@ namespace HOFORTaskPlanner.Pages.User
             }
             else
             {
-                UserList = _userService.GetPaginatedResultTest(_userService.GetUsersBySearch(UserSearch), CurrentPage,
+                UserList = _userService.GetPaginatedResultList(_userService.GetUsersBySearch(UserSearch), CurrentPage,
                     PageSize);
                 Count = _userService.GetUsersBySearch(UserSearch).Count();
                 Response.Cookies.Append("SearchUsername", UserSearch);
@@ -85,18 +85,18 @@ namespace HOFORTaskPlanner.Pages.User
                 UserDepartments = test;
                 if (cookieUserNameValue == "true")
                 {
-                    UserList = _userService.GetPaginatedResultTest(_userService.GetUsersByUserName(UserSearch), CurrentPage,
+                    UserList = _userService.GetPaginatedResultList(_userService.GetUsersByUserName(UserSearch), CurrentPage,
                         PageSize);
                     Count = _userService.GetUsersByUserName(UserSearch).Count();
                     Response.Cookies.Delete("SearchUsername");
                 }
                 else 
-                UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
+                UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
                 Count = _userService.FilterTeams(UserDepartments).Count();
             }
             else
             {
-                UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
+                UserList = _userService.GetPaginatedResultNoArchived(CurrentPage, PageSize);
                 Count = _userService.GetCount();
             }
         }

@@ -122,10 +122,16 @@ namespace HOFORTaskPlanner.Services
             var test = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return test;
         }
-        public List<User> GetPaginatedResultTest(IEnumerable<User> userList, int currentPage, int pageSize = 10)
+        public List<User> GetPaginatedResultNoArchived(int currentPage, int pageSize = 10)
+        {
+            var data = _users;
+            var test = data.OrderBy(Us => Us.UserId).Where(Us=>Us.UserType != User.UserTypes.Arkiveret).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return test;
+        }
+        public List<User> GetPaginatedResultList(IEnumerable<User> userList, int currentPage, int pageSize = 10)
         {
             var data = userList;
-            var test = data.OrderBy(Us => Us.UserId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            var test = data.OrderBy(Us => Us.UserId).Where(User=>User.UserType != User.UserTypes.Arkiveret).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return test;
         }
 
