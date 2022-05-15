@@ -65,18 +65,36 @@
                 </th>
                 <th>
                     Kontakt
+                    <div>
+                        <a class="btn-hofor" data-toggle="tooltip" title="Sorter Kontakt Stigende" asp-page-handler="SortByContact"><i class="fa fa-angle-up"></i></a>
+                        @*<a class="btn-hofor" data-toggle="tooltip" title="Sorter Estimat Aftagende" asp-page-handler="SortByContactDescending"><i class="fa fa-angle-down"></i></a>*@
+                    </div>
                 </th>
                 <th>
                     Est
+                    <div>
+                        <a class="btn-hofor" data-toggle="tooltip" title="Sorter Estimat Stigende" asp-page-handler="SortByEstimate"><i class="fa fa-angle-up"></i></a>
+                        <a class="btn-hofor" data-toggle="tooltip" title="Sorter Estimat Aftagende" asp-page-handler="SortByEstimateDescending"><i class="fa fa-angle-down"></i></a>
+                    </div>
                 </th>
                 <th>
                     Start
+                    <div>
+                        <a class="btn-hofor" data-toggle="tooltip" title="Sorter Start Stigende" asp-page-handler="SortByStartDate"><i class="fa fa-angle-up"></i></a>
+                        <a class="btn-hofor" data-toggle="tooltip" title="Sorter Start Aftagende" asp-page-handler="SortByStartDateDescending"><i class="fa fa-angle-down"></i></a>
+                    </div>
                 </th>
                 <th>
                     Slut
+                    <div>
+                        <a class="btn-hofor" data-toggle="tooltip" title="Sorter Slut Stigende" asp-page-handler="SortByEndDate"><i class="fa fa-angle-up"></i></a>
+                        <a class="btn-hofor" data-toggle="tooltip" title="Sorter Slut Aftagende" asp-page-handler="SortByEndDateDescending"><i class="fa fa-angle-down"></i></a>
+                    </div>
                 </th>
                 <th>
                     Rest
+                    <a class="btn-hofor" data-toggle="tooltip" title="Sorter Rest Stigende" asp-page-handler="SortByRemaining"><i class="fa fa-angle-up"></i></a>
+                    <a class="btn-hofor" data-toggle="tooltip" title="Sorter Rest Aftagende" asp-page-handler="SortByRemainingDescending"><i class="fa fa-angle-down"></i></a>
                 </th>
                 <th>
                     Kommentar

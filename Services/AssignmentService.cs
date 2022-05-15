@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
+using HOFORTaskPlanner.Pages.Assignment;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace HOFORTaskPlanner.Services
 {
@@ -10,15 +13,19 @@ namespace HOFORTaskPlanner.Services
     {
         private List<Assignment> _assignments;
         private UserService _userService;
+        private TimeService _timeService;
+        private ContactService _contactService;
         private DbGenericService<Assignment> DbService { get; set; }
 
-        public AssignmentService(DbGenericService<Assignment> dbService, UserService userService)
+        public AssignmentService(DbGenericService<Assignment> dbService, UserService userService, TimeService timeService, ContactService contactService)
         {
             DbService = dbService;
 
             //_assignments = MockData.MockAssignments.GetMockAssignments();
             //InitializeDB();
             _userService = userService;
+            _timeService = timeService;
+            _contactService = contactService;
             _assignments = DbService.GetObjectsAsync().Result.ToList();
         }
 
@@ -180,6 +187,75 @@ namespace HOFORTaskPlanner.Services
                 return result;
             }
             return _assignments;
+        }
+
+        public List<Assignment> SortPaginationHelper(List<Assignment> assignments, string cookieValue, string filterValue, int currentPage, int pageSize)
+        {
+            List<Assignment> newList = new List<Assignment>();
+            switch (filterValue)
+            {
+                case "true": 
+                   return newList = GetPaginatedResultTest(assignments, currentPage, pageSize);
+                    default:
+                        return null;
+            }
+        }
+        public IEnumerable<Assignment> SortByContact(IEnumerable<Assignment> assignments)
+        {
+            return assignments.OrderBy(ass => _contactService.GetContactById(ass.ContactId).FirstName);
+        }
+
+        public IEnumerable<Assignment> SortByEstimate()
+        {
+            return from assignment in _assignments
+                orderby assignment.Estimate
+                select assignment;
+        }
+
+        public IEnumerable<Assignment> SortByEstimateDescending()
+        {
+            return from assignment in _assignments
+                orderby assignment.Estimate descending 
+                select assignment;
+        }
+
+        public IEnumerable<Assignment> SortByStartDate()
+        {
+            return from assignment in _assignments 
+                orderby assignment.StartDate 
+                select assignment;
+        }
+
+        public IEnumerable<Assignment> SortByStartDateDescending()
+        {
+            return from assignment in _assignments
+                orderby assignment.StartDate descending 
+                select assignment;
+        }
+
+        public IEnumerable<Assignment> SortByEndDate()
+        {
+            return _assignments.OrderBy(a => a.EndDate);
+        }
+        public IEnumerable<Assignment> SortByEndDateDescending()
+        {
+            return _assignments.OrderByDescending(a => a.EndDate);
+        }
+
+        public int GetHoursByAssignmentId(int id)
+        {
+            return _timeService.GetTimeByAssignmentId(id).Sum(time => time.Hours);
+        }
+
+        public IEnumerable<Assignment> SortByRemaining()
+        {
+            return _assignments.OrderBy(a => (a.Estimate - GetHoursByAssignmentId(a.AssignmentId)));
+
+        }
+        public IEnumerable<Assignment> SortbyRemainingDescending()
+        {
+            return _assignments.OrderByDescending(a => (a.Estimate - GetHoursByAssignmentId(a.AssignmentId)));
+
         }
     }
 }

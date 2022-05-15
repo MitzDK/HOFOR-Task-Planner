@@ -59,7 +59,7 @@ namespace HOFORTaskPlanner.Services
                 }
             }
 
-            return null;
+            return new Contact("ææææ", "ææææ", "99999999", "æææææ");
         }
 
         public Contact GetContactByEmail(string email)
