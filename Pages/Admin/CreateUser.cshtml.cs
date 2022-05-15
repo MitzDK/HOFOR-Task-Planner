@@ -46,7 +46,7 @@ namespace HOFORTaskPlanner.Pages.Admin
             NewUser.UserType = UserTypes;
             NewUser.LastUpdated = DateTime.Now;
             NewUser.Password = _passwordHasher.HashPassword(null, NewUser.Password);
-            if (_userService.GetUsers().Select(us => us.DisplayName).Contains(NewUser.DisplayName))
+            if (_userService.GetUsers().Select(us => us.DisplayName.ToLower()).Contains(NewUser.DisplayName.ToLower()))
             {
                 Message = "Displayname eksisterer allerede";
                 return Page();

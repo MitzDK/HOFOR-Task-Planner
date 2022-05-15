@@ -42,7 +42,7 @@ namespace HOFORTaskPlanner.Pages.User
             {
                 CurrentPage = 1;
             }
-            UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
+            UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);
             Count = _userService.FilterTeams(UserDepartments).Count();
             Response.Cookies.Append("UserFilterCookie", "true");
             Response.Cookies.Append("UserSearchDepartment", ((int)UserDepartments).ToString());
@@ -60,7 +60,7 @@ namespace HOFORTaskPlanner.Pages.User
             }
             else
             {
-                UserList = _userService.GetPaginatedResultTest(_userService.GetUsersBySearch(UserSearch), CurrentPage,
+                UserList = _userService.GetPaginatedResultList(_userService.GetUsersBySearch(UserSearch), CurrentPage,
                     PageSize);
                 Count = _userService.GetUsersBySearch(UserSearch).Count();
                 Response.Cookies.Append("UserSearchUsername", UserSearch);
@@ -81,9 +81,8 @@ namespace HOFORTaskPlanner.Pages.User
             //var cookieUserNameValue = Request.Cookies["SearchUsername"];
             if (cookieFilterValue == "true")
             {
-             
                 UserDepartments = (Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue);
-                //Martin må lige forklare
+                //Martin mï¿½ lige forklare
                 //if (cookieUserNameValue == "true")
                 //{
                 //    UserList = _userService.GetPaginatedResultTest(_userService.GetUsersByUserName(UserSearch),
@@ -101,11 +100,12 @@ namespace HOFORTaskPlanner.Pages.User
                 //}
                 UserList = _userService.GetPaginatedResultTest(_userService.FilterTeams(UserDepartments),
                     CurrentPage, PageSize);
+
                 Count = _userService.FilterTeams(UserDepartments).Count();
             }
             else
             {
-                UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
+                UserList = _userService.GetPaginatedResultNoArchived(CurrentPage, PageSize);
                 Count = _userService.GetCount();
             }
         }
