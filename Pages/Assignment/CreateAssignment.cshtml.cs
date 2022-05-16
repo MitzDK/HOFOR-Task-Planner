@@ -37,9 +37,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _userService = userService;
             _contactService = contactService;
         }
-
-
-
         public void OnGet()
         {
             DescriptionList = new List<string>();
@@ -53,7 +50,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Contacts = _contactService.GetContacts();
             Users = _userService.GetUsers();
         }
-
         public async Task<IActionResult> OnPost()
         {
             Contacts = _contactService.GetContacts();
@@ -91,7 +87,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 var test = ModelState;
                 return Page();
             }
-            //_assignmentService.AddAssignment(Assignment);
             await _assignmentService.AddAssignmentAsync(Assignment);
             return RedirectToPage("../User/GetUsers");
         }

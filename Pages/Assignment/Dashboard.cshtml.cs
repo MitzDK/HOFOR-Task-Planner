@@ -28,6 +28,10 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public int Count { get; set; }
         public int PageSize { get; set; } = 6;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
+        public bool ShowPrevious => CurrentPage > 1;
+        public bool ShowNext => CurrentPage < TotalPages;
+        public bool ShowFirst => CurrentPage != 1;
+        public bool ShowLast => CurrentPage != TotalPages;
 
         public DashboardModel(UserService userService, TimeService timeService, AssignmentService assignmentService)
         {
@@ -35,35 +39,31 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _timeService = timeService;
             _assignmentService = assignmentService;
         }
+        public void OnGet()
+        {
+            var cookieDepartmentValue = Request.Cookies["DashboardSearchDeparment"];
+            UserDepartments = (Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue);
+            UserDepartment = ((Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue)).ToString();
+            Users = _userService.GetUsersByDepartment(UserDepartments);
+            Users = _userService.GetPaginatedNoLeaderRole(Users, CurrentPage, PageSize);
+            Count = _userService.GetUsersByDepartment(UserDepartments).Where(us => us.UserRole != Models.User.UserRoles.Leder && us.UserType != Models.User.UserTypes.Arkiveret).ToList().Count;
+        }
         public IActionResult OnPost()
         {
-            if (_userService.FilterTeams(UserDepartments).Count() < CurrentPage * PageSize)
-            {
-                CurrentPage = 1;
-            }
+            CurrentPage = 1;
             UserDepartment = UserDepartments.ToString();
             if (UserDepartment == "0")
             {
                 Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
                 UserDepartment = user.UserDepartment.ToString();
+                UserDepartments = user.UserDepartment;
             }
             Users = _userService.GetPaginatedNoLeaderRole(_userService.FilterTeams(UserDepartments).ToList(), CurrentPage, PageSize);
-            Count = _userService.GetUsersByDepartment(UserDepartments).Where(us => us.UserRole != Models.User.UserRoles.Leder).ToList().Count;
-            Response.Cookies.Append("FilterCookie", "true");
-            Response.Cookies.Append("SearchDeparment", UserDepartments.ToString());
-            CurrentPage = 1;
+            Count = _userService.GetUsersByDepartment(UserDepartments).Where(us => us.UserRole != Models.User.UserRoles.Leder && us.UserType != Models.User.UserTypes.Arkiveret).ToList().Count;
+            Response.Cookies.Append("DashboardSearchDeparment", ((int)UserDepartments).ToString());
             return Page();
         }
-        public void OnGet()
-        {
-
-            Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
-            Users = _userService.GetUsersByDepartment(user.UserDepartment);
-            UserDepartment = user.UserDepartment.ToString();
-            UserDepartments = user.UserDepartment;
-            Users = _userService.GetPaginatedNoLeaderRole(Users, CurrentPage, PageSize);
-            Count = _userService.GetUsersByDepartment(user.UserDepartment).Where(us=> us.UserRole != Models.User.UserRoles.Leder).ToList().Count;
-        }
+        
 
         public int GetTotalHoursByUserId(int userId)
         {
@@ -104,13 +104,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             return _assignmentService.AmountOfAssignmentsForYearAndMonthAndUserId(year, month, userId);
         }
-        public bool ShowPrevious => CurrentPage > 1;
-        public bool ShowNext => CurrentPage < TotalPages;
-        public bool ShowFirst => CurrentPage != 1;
-        public bool ShowLast => CurrentPage != TotalPages;
-
-
-
         public string ColourByHours(int hours)
         {
             switch (hours)
@@ -127,11 +120,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
                     return "background-color: #fff2cc";
             }
         }
-
         public int AmountOfAssignmentsWithHoursInList(int year, int month, int userId)
         {
            return _timeService.AmountOfAssignmentsWithHoursInList(
                 _assignmentService.AssigmentsForDateAndUserId(year, month, userId), year, month);
         }
+
+
     }
 }

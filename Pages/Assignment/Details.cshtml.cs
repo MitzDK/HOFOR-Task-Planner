@@ -35,7 +35,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Assignments = _assignmentService.GetAssignmentsByUserId(id);
             CurrentUser = AssignmentUser(id);
         }
-
+        public async Task<IActionResult> OnPost()
+        {
+            Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
+            user.LastUpdated = DateTime.Now;
+            await _userService.UpdateUserAsync(user);
+            return RedirectToPage("../User/GetUsers");
+        }
 
         public bool IsCurrentMonth(int input)
         {
@@ -82,13 +88,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return 0;
         }
 
-        public IActionResult OnPost()
-        {
-            Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
-            user.LastUpdated = DateTime.Now;
-            _userService.UpdateUserAsync(user);
-            return RedirectToPage("../User/GetUsers");
-        }
+
 
 
     }

@@ -33,15 +33,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _userService = userService;
             _contactService = contactService;
         }
-
-        public string UserDisplayName(int userId)
-        {
-            if (_userService.GetUserById(userId) != null)
-            {
-                return _userService.GetUserById(userId).DisplayName;
-            }
-            return "N/A";
-        }
         public IActionResult OnGet(int id)
         {
             Assignment = _assignmentService.GetAssignmentById(id);
@@ -49,14 +40,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Contacts = _contactService.GetContacts();
             return Page();
         }
-        
         public async Task<IActionResult> OnPost(int id)
         {
             Assignment.AssignmentId = id;
             Users = _userService.GetUsers();
             Contacts = _contactService.GetContacts();
 
-            
+
             if (string.IsNullOrWhiteSpace(Assignment.Comment)) Assignment.Comment = " ";
             if (!ModelState.IsValid)
             {
@@ -87,10 +77,19 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 Assignment.ContactId = 0;
             }
-            //Assignment.AktionUserId = AssignmentToBeUpdated.AktionUserId;
-            //Assignment.ControlUserId = AssignmentToBeUpdated.ControlUserId;
             await _assignmentService.UpdateAssignmentAsync(Assignment);
             return RedirectToPage("GetAssignments");
         }
+        public string UserDisplayName(int userId)
+        {
+            if (_userService.GetUserById(userId) != null)
+            {
+                return _userService.GetUserById(userId).DisplayName;
+            }
+            return "N/A";
+        }
+        
+        
+        
     }
 }

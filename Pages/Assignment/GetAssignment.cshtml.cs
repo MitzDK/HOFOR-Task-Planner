@@ -30,6 +30,15 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _contactService = contactService;
             TimeService = timeService;
         }
+        public void OnGet(int id)
+        {
+            Assignment = _assignmentService.GetAssignmentById(id);
+            Users = _userService.GetUsers();
+            AktionName = UserDisplayName(Assignment.AktionUserId);
+            ControlName = UserDisplayName(Assignment.ControlUserId);
+            ContactName = ContactDisplayName(Assignment.ContactId);
+        }
+
 
         public string UserDisplayName(int userId)
         {
@@ -49,14 +58,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return "N/A";
         }
 
-        public void OnGet(int id)
-        {
-            Assignment = _assignmentService.GetAssignmentById(id);
-            Users = _userService.GetUsers();
-            AktionName = UserDisplayName(Assignment.AktionUserId);
-            ControlName = UserDisplayName(Assignment.ControlUserId);
-            ContactName = ContactDisplayName(Assignment.ContactId);
-        }
+        
         public List<TimeReg> ShowList(int year, int id)
         {
             List<TimeReg> newList = new List<TimeReg>();
