@@ -28,7 +28,11 @@ namespace HOFORTaskPlanner
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            //services.AddRazorPages();
+            services.AddRazorPages().AddMvcOptions(options =>
+            {
+                options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(_ => "Dette felt skal udfyldes");
+            });
             services.AddMvc().AddRazorRuntimeCompilation();
             services.AddTransient<AktionService>();
             services.AddTransient<DbGenericService<Aktion>>();

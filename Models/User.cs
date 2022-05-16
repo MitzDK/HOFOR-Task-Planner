@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace HOFORTaskPlanner.Models
 {
@@ -72,13 +73,19 @@ namespace HOFORTaskPlanner.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Indtast dit displayname")]
         [Required(ErrorMessage = "Du skal indtaste et displayname")]
+        [Display(Name = "Indtast dit displayname")]
         [StringLength(20)]
         public string DisplayName
         {
             get => _displayName;
-            set => _displayName = value.ToUpper();
+            set 
+            {
+                if (value != null)
+                {
+                    _displayName = value.ToUpper();
+                }
+            }
         }
 
 
