@@ -36,10 +36,12 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _assignmentService = assignmentService;
             _userService = userService;
             _contactService = contactService;
+            DescriptionList = new List<string>();
+
         }
         public void OnGet()
         {
-            DescriptionList = new List<string>();
+            //DescriptionList = new List<string>();
             foreach (var description in _assignmentService.GetAssignments().Select(De=>De.Description))
             {
                 if (!DescriptionList.Contains(description))
