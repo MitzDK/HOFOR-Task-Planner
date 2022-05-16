@@ -12,12 +12,19 @@ namespace HOFORTaskPlanner.Models
     {
         public enum AssignmentStatus
         {
+            [Display(Name = "I gang")]
             Active = 1,
+            [Display(Name = "Ny")]
             New = 2,
+            [Display(Name = "Afventer")]
             Waiting = 3,
+            [Display(Name = "Hold")]
             Hold = 4,
+            [Display(Name = "Slut")]
             Finished = 5,
+            [Display(Name = "Portefølje")]
             Portfolio = 6,
+            [Display(Name = "Arkiveret")]
             Archived = 7
         }
 
