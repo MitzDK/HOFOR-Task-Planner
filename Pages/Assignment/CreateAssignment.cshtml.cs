@@ -88,7 +88,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 return Page();
             }
             await _assignmentService.AddAssignmentAsync(Assignment);
-            return RedirectToPage("../User/GetUsers");
+            return RedirectToPage("/GetAssignments");
         }
     }
 }
