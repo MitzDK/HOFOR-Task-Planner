@@ -6,6 +6,13 @@
 @{
     ViewData["Title"] = "Opgaveliste";
 }
+<script>
+    _handleKeyDown: function(e) {
+        if (e.key === 'Enter') {
+            this.form.submit();
+        }
+        </script>
+
 <div style="display: flex; height: 35px; justify-content: space-between; width: 100%">
     <ul class="pagination">
         <li class="page-item @(!Model.ShowFirst? "disabled":"")">
@@ -32,7 +39,7 @@
         </li>
         <div class="col-4">
             <form asp-page-handler="DescriptionFilter" method="post">
-                <input class="form-control" type="text" list="datalist4" style="height: 100%"asp-for="Description" placeholder="Søg beskrivelse" onchange="this.form.submit();">
+                <input class="form-control" type="text" list="datalist4" style="height: 100%"asp-for="Description" placeholder="Søg beskrivelse" onchange="_h">
                 <datalist id="datalist4">
                     <optgroup label="Descriptions /">
                         @foreach (var description in Model.DescriptionList)
