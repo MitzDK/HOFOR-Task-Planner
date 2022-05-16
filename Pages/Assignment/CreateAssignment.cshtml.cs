@@ -52,6 +52,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         }
         public async Task<IActionResult> OnPost()
         {
+
             Contacts = _contactService.GetContacts();
             Users = _userService.GetUsers();
             Assignment.Description = DescriptionSearch;
