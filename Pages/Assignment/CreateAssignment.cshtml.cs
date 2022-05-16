@@ -57,7 +57,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Assignment.Description = DescriptionSearch;
             if (string.IsNullOrWhiteSpace(Assignment.Comment)) Assignment.Comment = " ";
             if (string.IsNullOrWhiteSpace(Assignment.Description)) Assignment.Description = " ";
-            if (_userService.GetUserByDisplayName(AktionSearch) != null)
+            if (!string.IsNullOrWhiteSpace(AktionSearch) && _userService.GetUserByDisplayName(AktionSearch) != null)
             {
                 Assignment.AktionUserId = _userService.GetUserByDisplayName(AktionSearch).UserId;
             }
@@ -65,7 +65,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 Assignment.AktionUserId = 0;
             }
-            if (_userService.GetUserByDisplayName(ControllerSearch) != null)
+            if (!string.IsNullOrWhiteSpace(ControllerSearch) && _userService.GetUserByDisplayName(ControllerSearch) != null)
             {
                 Assignment.ControlUserId = _userService.GetUserByDisplayName(ControllerSearch).UserId;
             }
@@ -73,7 +73,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 Assignment.ControlUserId = 0;
             }
-            if (_contactService.GetContactByEmail(ContactSearch) != null)
+            if (!string.IsNullOrWhiteSpace(ContactSearch) && _contactService.GetContactByEmail(ContactSearch) != null)
             {
                 Assignment.ContactId = _contactService.GetContactByEmail(ContactSearch).ContactId;
             }
