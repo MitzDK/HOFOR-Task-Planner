@@ -71,18 +71,126 @@
             {
                 <tr>
                     <td style="background-color: white; @Model.GetClassForCurrentYearFirst(i)">@i</td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[1 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[2 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[3 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%;" asp-for="TimeHours[4 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[5 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[6 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[7 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[8 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[9 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[10 + newint]" /></td>
-                    <td style="@Model.GetClassForCurrentYear(i)"><input style="width: 100%" asp-for="TimeHours[11 + newint]" /></td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 1) < Model.Assignment.StartDate || Model.DateChecker(i, 1) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 2) < Model.Assignment.StartDate || Model.DateChecker(i, 2) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[1+ newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[1+ newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 3) < Model.Assignment.StartDate || Model.DateChecker(i, 3) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[2+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[2+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 4) < Model.Assignment.StartDate || Model.DateChecker(i, 4) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[3+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[3+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 5) < Model.Assignment.StartDate || Model.DateChecker(i, 5) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[4+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[4+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 6) < Model.Assignment.StartDate || Model.DateChecker(i, 6) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[5+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[5+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 7) < Model.Assignment.StartDate || Model.DateChecker(i, 7) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[6+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[6+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 8) < Model.Assignment.StartDate || Model.DateChecker(i, 8) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[7+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[7+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 9) < Model.Assignment.StartDate || Model.DateChecker(i, 9) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[8+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[8+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 10) < Model.Assignment.StartDate || Model.DateChecker(i, 10) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[9+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[9+newint]" />
+                        }
+                    </td>
+                    <td style="@Model.GetClassForCurrentYear(i)">
+                        @if (Model.DateChecker(i, 11) < Model.Assignment.StartDate || Model.DateChecker(i, 11) > Model.Assignment.EndDate)
+                        {
+                            <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[10+newint]" />
+                        }
+                        else
+                        {
+                            <input style="width: 100%;" asp-for="TimeHours[10+newint]" />
+                        }
+                        <td style="@Model.GetClassForCurrentYear(i)">
+                            @if (Model.DateChecker(i, 12) < Model.Assignment.StartDate || Model.DateChecker(i, 12) > Model.Assignment.EndDate)
+                            {
+                                <input style="width: 100%;" readonly="readonly" asp-for="TimeHours[11+newint]" />
+                            }
+                            else
+                            {
+                                <input style="width: 100%;" asp-for="TimeHours[11+newint]" />
+                            }
+                        </td>
+                    </td>
                 </tr>
                 i++;
             }

@@ -128,6 +128,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
             if (TimeService.IsCurrentYear(i)) return "background-color: lightgray";
             return "border-right: 2px black;";
         }
-
+        public DateTime DateChecker(int year, int month)
+        {
+            return new DateTime(year, month, 1);
+        }
     }
 }

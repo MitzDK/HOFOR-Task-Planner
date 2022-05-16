@@ -53,7 +53,8 @@ namespace HOFORTaskPlanner.Pages.Login
 
                         //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
                         Response.Cookies.Append("AssignmentTypeSelect", "0");
-                        Response.Cookies.Append("SearchDeparment", tempUser.UserDepartment.ToString());
+                        Response.Cookies.Append("UserSearchDepartment", ((int)tempUser.UserDepartment).ToString());
+                        Response.Cookies.Append("DashboardSearchDeparment", ((int)tempUser.UserDepartment).ToString());
 
                         //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
                         return RedirectToPage("/User/GetUsers");
