@@ -35,6 +35,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Assignments = _assignmentService.GetAssignmentsByUserId(id);
             CurrentUser = AssignmentUser(id);
         }
+
+        public void OnGetUsername()
+        {
+            Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);
+            Assignments = _assignmentService.GetAssignmentsByUserId(user.UserId);
+            CurrentUser = AssignmentUser(user.UserId);
+        }
         public async Task<IActionResult> OnPost()
         {
             Models.User user = _userService.GetUserByUsername(HttpContext.User.Identity.Name);

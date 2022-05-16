@@ -36,7 +36,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             Assignment = _assignmentService.GetAssignmentById(id);
             await FinishUpdatingAsync();
-            return RedirectToPage("../User/GetUsers");
+            return RedirectToPage("GetAssignments");
         }
 
         public int TotalTimer(int id)

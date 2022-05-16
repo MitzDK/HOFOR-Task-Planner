@@ -43,7 +43,12 @@
                                 <li>
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/Dashboard">Dashboard</a>
                                 </li>
-
+                            }
+                            else
+                            {
+                                <li>
+                                    <a class="nav-link text-dark" title="Detail" asp-page="/Assignment/Details" asp-page-handler="Username">Mine Opgaver</a>
+                                </li>
                             }
                         }
                     }
@@ -60,18 +65,9 @@
                             {
                                 if (Context.User.Identity.Name != null)
                                 {
-                                    @if (User.HasClaim(ClaimTypes.Role, "admin"))
-                                    {
-                                        <li class="nav-item nav-link mr-3">
-                                            Leder:  @Context.User.Identity.Name
+                                    <li class="nav-item nav-link mr-3">
+                                            @Context.User.Identity.Name
                                         </li>
-                                    }
-                                    else
-                                    {
-                                        <li class="nav-item nav-link mr-3">
-                                            <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Detail" asp-page="../Assignment/Details" asp-page-handler="UserName">Bruger:  @Context.User.Identity.Name</a>
-                                        </li>
-                                    }
                                 }
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-page="/Login/LogoutPage">Logout</a>
