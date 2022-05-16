@@ -87,32 +87,32 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return Page();
         }
 
-        public IActionResult OnPostDescriptionFilter()
-        {
-            DescriptionList = new List<string>();
-            foreach (var description in _assignmentService.GetAssignments().Select(De => De.Description))
-            {
-                if (!DescriptionList.Contains(description))
-                {
-                    DescriptionList.Add(description);
-                }
-            }
+        //public IActionResult OnPostDescriptionFilter()
+        //{
+        //    DescriptionList = new List<string>();
+        //    foreach (var description in _assignmentService.GetAssignments().Select(De => De.Description))
+        //    {
+        //        if (!DescriptionList.Contains(description))
+        //        {
+        //            DescriptionList.Add(description);
+        //        }
+        //    }
 
-            if (string.IsNullOrWhiteSpace(Description))
-            {
-                AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
-            }
-            else
-            {
-                AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentDescription(Description),
-                    CurrentPage, PageSize);
-                Count = _assignmentService.FilterAssignmentDescription(Description).Count();
-                Response.Cookies.Append("AssignmentDescriptionCookie", "true"); // NY
-                Response.Cookies.Append("AssignmentFilterDescription", ((string)Description).ToString());
-            }
-            CurrentPage = 1;
-            return Page();
-        }
+        //    if (string.IsNullOrWhiteSpace(Description))
+        //    {
+        //        AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+        //    }
+        //    else
+        //    {
+        //        AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentDescription(Description),
+        //            CurrentPage, PageSize);
+        //        Count = _assignmentService.FilterAssignmentDescription(Description).Count();
+        //        Response.Cookies.Append("AssignmentDescriptionCookie", "true"); // NY
+        //        Response.Cookies.Append("AssignmentFilterDescription", ((string)Description).ToString());
+        //    }
+        //    CurrentPage = 1;
+        //    return Page();
+        //}
         
         public int GetHoursByAssignmentId(int id)
         {

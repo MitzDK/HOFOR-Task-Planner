@@ -32,16 +32,15 @@
 </div>
 <table class="table table-striped text-center">
     <ul class="nav table-hofor">
-        <li class="active" style="width: 90%">
+        <th colspan="100%" class="table-hofor">
             <p class="align-items-center">@Model.UserDepartment</p>
-        </li>
-        <li style="width: 10%">
             <form method="post">
                 <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<Models.User.UserDepartments>()">
                     <option>Vælg afdeling</option>
                 </select>
             </form>
-        </li>
+        </th>
+
     </ul>
     <tr>
     <th></th>
