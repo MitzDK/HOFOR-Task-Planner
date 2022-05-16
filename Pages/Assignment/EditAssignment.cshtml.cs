@@ -45,15 +45,10 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Assignment.AssignmentId = id;
             Users = _userService.GetUsers();
             Contacts = _contactService.GetContacts();
-
-
             if (string.IsNullOrWhiteSpace(Assignment.Comment)) Assignment.Comment = " ";
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            if (string.IsNullOrWhiteSpace(Assignment.Description)) Assignment.Description = " ";
 
-            if (_userService.GetUserByDisplayName(AktionSearch) != null)
+            if (!string.IsNullOrWhiteSpace(AktionSearch) && _userService.GetUserByDisplayName(AktionSearch) != null)
             {
                 Assignment.AktionUserId = _userService.GetUserByDisplayName(AktionSearch).UserId;
             }
@@ -61,7 +56,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 Assignment.AktionUserId = 0;
             }
-            if (_userService.GetUserByDisplayName(ControllerSearch) != null)
+            if (!string.IsNullOrWhiteSpace(ControllerSearch) && _userService.GetUserByDisplayName(ControllerSearch) != null)
             {
                 Assignment.ControlUserId = _userService.GetUserByDisplayName(ControllerSearch).UserId;
             }
@@ -69,13 +64,17 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 Assignment.ControlUserId = 0;
             }
-            if (_contactService.GetContactByEmail(ContactSearch) != null)
+            if (!string.IsNullOrWhiteSpace(ContactSearch) && _contactService.GetContactByEmail(ContactSearch) != null)
             {
                 Assignment.ContactId = _contactService.GetContactByEmail(ContactSearch).ContactId;
             }
             else
             {
                 Assignment.ContactId = 0;
+            }
+            if (!ModelState.IsValid)
+            {
+                return Page();
             }
             await _assignmentService.UpdateAssignmentAsync(Assignment);
             return RedirectToPage("GetAssignments");
@@ -88,7 +87,16 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             return "N/A";
         }
-        
+
+        public string ContactName(int contactId)
+        {
+
+            if (_contactService.GetContactById(contactId) != null)
+            {
+                return _contactService.GetContactById(contactId).Email;
+            }
+            return "N/A";
+        }
         
         
     }

@@ -32,15 +32,19 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/GetAssignments">Opgaver</a>
                             </li>
-                            <li>
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/Dashboard">Dashboard</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/User/GetUsers">Brugere</a>
                             </li>
                             <li>
                                 <a class="nav-link text-dark" asp-area="" asp-page="/Contact/GetContacts">Kontakter</a>
                             </li>
+                            @if (User.HasClaim(ClaimTypes.Role, "admin"))
+                            {
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Assignment/Dashboard">Dashboard</a>
+                                </li>
+
+                            }
                         }
                     }
                     </ul>
@@ -48,21 +52,30 @@
                         @{
                             if (Context.User.Identity.Name == null)
                             {
-                              <li class="nav-item">
-                                  <a class="nav-link" asp-area="" asp-page="/Index">Login</a>
-                              </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-page="/Index">Login</a>
+                                </li>
                             }
                             else
                             {
                                 if (Context.User.Identity.Name != null)
                                 {
-                                  <li class="nav-item nav-link mr-3">
-                                      User:  @Context.User.Identity.Name
-                                  </li>
+                                    @if (User.HasClaim(ClaimTypes.Role, "admin"))
+                                    {
+                                        <li class="nav-item nav-link mr-3">
+                                            Leder:  @Context.User.Identity.Name
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item nav-link mr-3">
+                                            <a class="btn btn-hofor btn-sm" type="button" data-toggle="tooltip" title="Detail" asp-page="../Assignment/Details" asp-page-handler="UserName">Bruger:  @Context.User.Identity.Name</a>
+                                        </li>
+                                    }
                                 }
-                              <li class="nav-item">
-                                  <a class="nav-link" asp-area="" asp-page="/Login/LogoutPage">Logout</a>
-                              </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-page="/Login/LogoutPage">Logout</a>
+                                </li>
 
                             }
                         }

@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label asp-for="ContactSearch"></label><br />
-                                <input type="text" list="datalist3" class="form-control"asp-for="ContactSearch" value="@Model.UserDisplayName(Model.Assignment.ContactId)">
+                                <input type="text" list="datalist3" class="form-control"asp-for="ContactSearch" value="@Model.ContactName(Model.Assignment.ContactId)">
                                 <datalist id="datalist3">
                                     <optgroup label="Email / First & Last Name /">
                                         @foreach (var contact in Model.Contacts)
