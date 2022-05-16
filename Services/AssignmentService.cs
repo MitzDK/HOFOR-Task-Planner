@@ -189,6 +189,24 @@ namespace HOFORTaskPlanner.Services
             return _assignments;
         }
 
+        public IEnumerable<Assignment> FilterAssignmentDescription(string description)
+        {
+            var results = _assignments.Where(ass => ass.Description.ToLower().Contains(description.ToLower()));
+            if (results.Count() != 0)
+            {
+                return results;
+            }
+
+            return _assignments;
+        }
+
+        public IEnumerable<Assignment> GetPaginatedResultList(IEnumerable<Assignment> assignmentList, int currentPage, int pageSize)
+        {
+            var data = assignmentList;
+            var test = data.OrderBy(ass => ass.AssignmentId).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            return test;
+        }
+
         //public List<Assignment> SortPaginationHelper(string isFiltered, int filterValue, string isSorted, string sortValue, int currentPage, int pageSize)
         //{
         //    List<Assignment> newList = new List<Assignment>();
