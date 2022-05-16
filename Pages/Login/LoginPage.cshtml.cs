@@ -33,35 +33,67 @@ namespace HOFORTaskPlanner.Pages.Login
 
         public async Task<IActionResult> OnPost()
         {
+            //List<Models.User> users = _userService.GetUsers();
+            //var tempUser = _userService.GetUserByUsername(Username);
+            //foreach (Models.User user in users)
+            //{
+            //    if (user.UserName.ToLower().Equals(Username.ToLower()))
+            //    {
+            //        var passwordHasher = new PasswordHasher<string>();
+            //        if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
+            //        {
+            //            var claims = new List<Claim>
+            //            {
+            //                new Claim(ClaimTypes.Name, tempUser.UserName)
+            //            };
+            //            if (user.UserType == Models.User.UserTypes.Admin) claims.Add(new Claim(ClaimTypes.Role, "admin"));
+            //            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            //            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            //                new ClaimsPrincipal(claimsIdentity));
+
+            //            //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
+            //            Response.Cookies.Append("AssignmentTypeSelect", "0");
+            //            Response.Cookies.Append("UserSearchDepartment", ((int)tempUser.UserDepartment).ToString());
+            //            Response.Cookies.Append("DashboardSearchDeparment", ((int)tempUser.UserDepartment).ToString());
+
+            //            //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
+            //            return RedirectToPage("/User/GetUsers");
+            //        }
+            //    }
+            //}
             List<Models.User> users = _userService.GetUsers();
-            var tempUser = _userService.GetUserByUsername(Username);
-            foreach (Models.User user in users)
+            if (Username != null && Password != null)
             {
-                if (user.UserName.ToLower().Equals(Username.ToLower()))
+                foreach (Models.User user in users)
                 {
-                    var passwordHasher = new PasswordHasher<string>();
-                    if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
+                    if (user.UserName.ToLower().Equals(Username.ToLower()))
                     {
-                        var claims = new List<Claim>
+                        var passwordHasher = new PasswordHasher<string>();
+                        if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
                         {
-                            new Claim(ClaimTypes.Name, tempUser.UserName)
-                        };
-                        if (user.UserType == Models.User.UserTypes.Admin) claims.Add(new Claim(ClaimTypes.Role, "admin"));
-                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                            new ClaimsPrincipal(claimsIdentity));
+                            var claims = new List<Claim>
+                            {
+                                new Claim(ClaimTypes.Name, user.UserName)
+                            };
+                            if (user.UserType == Models.User.UserTypes.Admin) claims.Add(new Claim(ClaimTypes.Role, "admin"));
+                            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                                new ClaimsPrincipal(claimsIdentity));
 
-                        //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
-                        Response.Cookies.Append("AssignmentTypeSelect", "0");
-                        Response.Cookies.Append("UserSearchDepartment", ((int)tempUser.UserDepartment).ToString());
-                        Response.Cookies.Append("DashboardSearchDeparment", ((int)tempUser.UserDepartment).ToString());
+                            //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
+                            Response.Cookies.Append("AssignmentTypeSelect", "0");
+                            Response.Cookies.Append("UserSearchDepartment", ((int)user.UserDepartment).ToString());
+                            Response.Cookies.Append("DashboardSearchDeparment", ((int)user.UserDepartment).ToString());
 
-                        //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
-                        return RedirectToPage("/User/GetUsers");
+                            //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
+                            return RedirectToPage("/User/GetUsers");
+                        }
                     }
                 }
             }
-            Message = "Invalid attempt";
+
+            
+            Message = "Ugyldigt login";
             return Page();
         }
     }
