@@ -16,7 +16,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         private UserService _userService;
         private ContactService _contactService;
 
-        public List<string> DescriptionList = new List<string>();
+        public List<string> DescriptionList;
 
         [BindProperty] public Models.Assignment Assignment { get; set; }
         public List<Models.User> Users { get; set; }
@@ -84,11 +84,10 @@ namespace HOFORTaskPlanner.Pages.Assignment
 
             if (!ModelState.IsValid)
             {
-                var test = ModelState;
                 return Page();
             }
             await _assignmentService.AddAssignmentAsync(Assignment);
-            return RedirectToPage("/GetAssignments");
+            return RedirectToPage("GetAssignments");
         }
     }
 }
