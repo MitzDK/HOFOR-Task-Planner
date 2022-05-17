@@ -19,11 +19,9 @@ namespace HOFORTaskPlanner.Pages.Admin
         private PasswordHasher<string> _passwordHasher = new PasswordHasher<string>();
 
         [BindProperty] public Models.User NewUser { get; set; }
-
-
-        [BindProperty] public Models.User.UserDepartments UserDepartments { get; set; }
-        [BindProperty] public Models.User.UserRoles UserRoles { get; set; }
-        [BindProperty] public Models.User.UserTypes UserTypes { get; set; }
+        [BindProperty] [Display(Name = "Afdeling")] public Models.User.UserDepartments UserDepartments { get; set; }
+        [BindProperty] [Display(Name = "Brugerrolle")] public Models.User.UserRoles UserRoles { get; set; }
+        [BindProperty] [Display(Name = "Brugertype")] public Models.User.UserTypes UserTypes { get; set; }
 
         public string Message { get; set; } = null;
 
