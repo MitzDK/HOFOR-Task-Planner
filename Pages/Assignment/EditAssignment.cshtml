@@ -47,19 +47,19 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label asp-for="@Model.Assignment.Area"></label>
-                                <input asp-for="@Model.Assignment.Area" class="form-control" />
+                                <input asp-for="@Model.Assignment.Area" class="form-control" placeholder="Område"/>
                                 <span asp-validation-for="Assignment.Area" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label asp-for="@Model.Assignment.Description"></label>
-                            <input asp-for="@Model.Assignment.Description" class="form-control" />
+                            <input asp-for="@Model.Assignment.Description" class="form-control" placeholder="Beskrivelse" />
                             <span asp-validation-for="Assignment.Description" class="text-danger"></span>
                         </div>
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label asp-for="@Model.Assignment.Estimate"></label>
-                                <input asp-for="@Model.Assignment.Estimate" class="form-control" />
+                                <input asp-for="@Model.Assignment.Estimate" class="form-control" placeholder="Estimat" />
                                 <span asp-validation-for="Assignment.Estimate" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
@@ -71,7 +71,7 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-6">
                                 <label asp-for="@Model.Assignment.Comment"></label>
-                                <input asp-for="@Model.Assignment.Comment" class="form-control" />
+                                <input asp-for="@Model.Assignment.Comment" class="form-control" placeholder="Kommentar" />
                                 <span asp-validation-for="Assignment.Comment" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
@@ -83,7 +83,7 @@
                         <div class="row gx-3 mb-3">
                             <div class="col-md-4">
                                 <label asp-for="AktionSearch"></label><br />
-                                <input type="text" list="datalist1" class="form-control" asp-for="AktionSearch" value="@Model.UserDisplayName(Model.Assignment.AktionUserId)">
+                                <input type="text" list="datalist1" class="form-control" asp-for="AktionSearch" value="@Model.UserDisplayName(Model.Assignment.AktionUserId)" placeholder="Aktion">
                                 <datalist id="datalist1">
                                     <optgroup label="DisplayName / First & Last Name">
                                         @foreach (var user in Model.Users)
@@ -95,7 +95,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label asp-for="ContactSearch"></label><br />
-                                <input type="text" list="datalist3" class="form-control"asp-for="ContactSearch" value="@Model.ContactName(Model.Assignment.ContactId)">
+                                <input type="text" list="datalist3" class="form-control"asp-for="ContactSearch" value="@Model.ContactName(Model.Assignment.ContactId)" placeholder="Kontakt">
                                 <datalist id="datalist3">
                                     <optgroup label="Email / First & Last Name /">
                                         @foreach (var contact in Model.Contacts)
@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label asp-for="ControllerSearch"></label><br />
-                                <input type="text" list="datalist2" class="form-control" asp-for="ControllerSearch" value="@Model.UserDisplayName(Model.Assignment.ControlUserId)">
+                                <input type="text" list="datalist2" class="form-control" asp-for="ControllerSearch" value="@Model.UserDisplayName(Model.Assignment.ControlUserId)" placeholder="Styring">
                                 <datalist id="datalist2">
                                     <optgroup label="DisplayName / First & Last Name">
                                         @foreach (var user in Model.Users)
