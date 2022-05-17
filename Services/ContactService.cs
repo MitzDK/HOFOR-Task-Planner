@@ -73,5 +73,14 @@ namespace HOFORTaskPlanner.Services
 
             return null;
         }
+
+        public List<Contact> GetPaginatedResultList(IEnumerable<Contact> contactList, int currentPage, int pageSize)
+        {
+            var data = contactList;
+            var test= data.OrderBy(contact => contact.ContactId).Skip((currentPage-1) * pageSize).Take(pageSize)
+                .ToList();
+            return test;
+
+        }
     }
 }
