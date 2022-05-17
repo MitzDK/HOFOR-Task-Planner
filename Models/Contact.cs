@@ -11,13 +11,16 @@ namespace HOFORTaskPlanner.Models
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ContactId { get; set; }
-        [Required][Display(Name = "Fornavn")]
+        [Required(ErrorMessage = "Indtast fornavn")][Display(Name = "Fornavn")]
         public string FirstName { get; set; }
-        [Required][Display(Name = "Efternavn")]
+        [Required(ErrorMessage = "Indtast efternavn")]
+        [Display(Name = "Efternavn")]
         public string LastName { get; set; }
-        [Required][Display(Name = "Telefon Nr")]
+        [Required(ErrorMessage = "Indtast telefon nr")]
+        [Display(Name = "Telefon Nr")]
         public string PhoneNumber { get; set; }
-        [Required][DataType(DataType.EmailAddress)][EmailAddress][Display(Name = "E-mail")]
+        [Required(ErrorMessage = "Indtast e-mail adresse")]
+        [DataType(DataType.EmailAddress)][EmailAddress][Display(Name = "E-mail")]
         public string Email { get; set; }
 
         public Contact()
