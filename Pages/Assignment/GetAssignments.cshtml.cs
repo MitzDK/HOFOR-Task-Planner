@@ -94,6 +94,20 @@ namespace HOFORTaskPlanner.Pages.Assignment
             if (string.IsNullOrWhiteSpace(Description))
             {
                 AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+                Count = _assignmentService.GetCounts();
+                Response.Cookies.Append("AssignmentIsTypeFiltered", "test", new CookieOptions
+                    { Expires = DateTime.Now.AddDays(-1D) }
+                );
+                Response.Cookies.Append("AssignmentFilterTypeValue", "test", new CookieOptions
+                    { Expires = DateTime.Now.AddDays(-1D) }
+                );
+                Response.Cookies.Append("AssignmentIsDescriptionFiltered", "test", new CookieOptions
+                    { Expires = DateTime.Now.AddDays(-1D) }
+                );
+                Response.Cookies.Append("AssignmentFilterDescriptionValue", "test", new CookieOptions
+                    { Expires = DateTime.Now.AddDays(-1D) }
+                );
+
             }
             else
             {
@@ -104,12 +118,9 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 Response.Cookies.Append("AssignmentFilterDescriptionValue", Description);
 
                 //Skal slettes
-                
-
                 Response.Cookies.Append("AssignmentIsTypeFiltered", "test", new CookieOptions
                     {Expires = DateTime.Now.AddDays(-1D)}
                 );
-                
                 Response.Cookies.Append("AssignmentFilterTypeValue", "test", new CookieOptions
                     { Expires = DateTime.Now.AddDays(-1D) }
                 );

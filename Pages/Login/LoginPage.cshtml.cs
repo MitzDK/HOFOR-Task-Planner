@@ -8,6 +8,7 @@ using HOFORTaskPlanner.Models;
 using HOFORTaskPlanner.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -33,34 +34,6 @@ namespace HOFORTaskPlanner.Pages.Login
 
         public async Task<IActionResult> OnPost()
         {
-            //List<Models.User> users = _userService.GetUsers();
-            //var tempUser = _userService.GetUserByUsername(Username);
-            //foreach (Models.User user in users)
-            //{
-            //    if (user.UserName.ToLower().Equals(Username.ToLower()))
-            //    {
-            //        var passwordHasher = new PasswordHasher<string>();
-            //        if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
-            //        {
-            //            var claims = new List<Claim>
-            //            {
-            //                new Claim(ClaimTypes.Name, tempUser.UserName)
-            //            };
-            //            if (user.UserType == Models.User.UserTypes.Admin) claims.Add(new Claim(ClaimTypes.Role, "admin"));
-            //            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            //            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-            //                new ClaimsPrincipal(claimsIdentity));
-
-            //            //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
-            //            Response.Cookies.Append("AssignmentTypeSelect", "0");
-            //            Response.Cookies.Append("UserSearchDepartment", ((int)tempUser.UserDepartment).ToString());
-            //            Response.Cookies.Append("DashboardSearchDeparment", ((int)tempUser.UserDepartment).ToString());
-
-            //            //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
-            //            return RedirectToPage("/User/GetUsers");
-            //        }
-            //    }
-            //}
             List<Models.User> users = _userService.GetUsers();
             if (Username != null && Password != null)
             {
@@ -83,7 +56,18 @@ namespace HOFORTaskPlanner.Pages.Login
                             //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
                             Response.Cookies.Append("UserSearchDepartment", ((int)user.UserDepartment).ToString());
                             Response.Cookies.Append("DashboardSearchDeparment", ((int)user.UserDepartment).ToString());
-
+                            Response.Cookies.Append("AssignmentIsTypeFiltered", "test", new CookieOptions
+                                { Expires = DateTime.Now.AddDays(-1D) }
+                            );
+                            Response.Cookies.Append("AssignmentFilterTypeValue", "test", new CookieOptions
+                                { Expires = DateTime.Now.AddDays(-1D) }
+                            );
+                            Response.Cookies.Append("AssignmentIsDescriptionFiltered", "test", new CookieOptions
+                                { Expires = DateTime.Now.AddDays(-1D) }
+                            );
+                            Response.Cookies.Append("AssignmentFilterDescriptionValue", "test", new CookieOptions
+                                { Expires = DateTime.Now.AddDays(-1D) }
+                            );
                             //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
                             return RedirectToPage("/User/GetUsers");
                         }
