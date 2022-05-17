@@ -1,4 +1,5 @@
 ﻿@page
+@using System.Security.Claims
 @model HOFORTaskPlanner.Pages.Assignment.DetailsModel
 @{
     ViewData["Title"] = "Bruger Opgaver";
@@ -7,7 +8,7 @@
     <tr class="table-hofor">
         <th colspan="6" scope="colgroup">@Model.CurrentUser.FirstName @Model.CurrentUser.LastName</th>
         <th colspan="12" scope="colgroup">@Model.Year</th>
-        <th colspan="1" scope="colgroup"><a class="btn-hofor" style="text-decoration: none"data-toggle="tooltip" title="Forrige side" href='javascript:history.go(-1)'><i class="fa fa-circle-left"></i> Tilbage</a>
+        <th colspan="1" scope="colgroup"><a class="btn-hofor" style="text-decoration: none"data-toggle="tooltip" title="Forrige side" asp-page="../User/GetUsers"><i class="fa fa-circle-left"></i> Tilbage</a>
         </th>
     </tr>
     <tr>
@@ -64,7 +65,16 @@
                     <td class="@(Model.IsCurrentMonth(11) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(11, Model.Year, Model.Assignments[i].AssignmentId)</td>
                     <td class="@(Model.IsCurrentMonth(12) ? @Model.GetClassForCurrentMonth(lastIteration) : "IsNotCurrentMonth")">@Model.TimeByMonth(12, Model.Year, Model.Assignments[i].AssignmentId)</td>
                 }
-                <td><a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Time Registration" asp-page="TimePlanning" asp-route-id="@Model.Assignments[i].AssignmentId">Planlæg Tid</a></td>
+                <td>
+                    @if (HttpContext.User.Identity.Name == Model.CurrentUser.UserName)
+                    {
+                        <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Time Registration" asp-page="TimePlanning" asp-route-id="@Model.Assignments[i].AssignmentId">Planlæg Tid</a>
+                    }
+                    else if (User.HasClaim(ClaimTypes.Role, "admin"))
+                    {
+                        <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Time Registration" asp-page="TimePlanning" asp-route-id="@Model.Assignments[i].AssignmentId">Planlæg Tid</a>
+                    }
+                </td>
             </tr>
         }
     }
