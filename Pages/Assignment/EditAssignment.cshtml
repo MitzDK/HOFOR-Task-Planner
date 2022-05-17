@@ -33,14 +33,14 @@
                             <div class="col-md-6">
                                 <label asp-for="Assignment.Status"class=""></label>:<br />
                                 <select asp-for="Assignment.Status" class="form-control"asp-items="Html.GetEnumSelectList<Models.Assignment.AssignmentStatus>()">
-                                    <option>Vælg en status</option>
+                                    <option>Vælg en Status</option>
                                 </select>
                                 <span asp-validation-for="Assignment.Status" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
                                 <label asp-for="Assignment.Type"></label>:<br />
                                 <select asp-for="Assignment.Type" class="form-control"asp-items="Html.GetEnumSelectList<Models.Assignment.AssignmentType>()">
-                                    <option>Vælg en type</option>
+                                    <option>Vælg en Type</option>
                                 </select>
                                 <span asp-validation-for="Assignment.Type" class="text-danger"></span>
                             </div>
