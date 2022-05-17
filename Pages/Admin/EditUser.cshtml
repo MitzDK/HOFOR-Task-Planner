@@ -16,7 +16,6 @@
 </head>
 <body>
     <div class="container-xl px-4 mt-4">
-        <hr class="mt-0 mb-4">
         <div class="row">
             <div class="col-xl-8">
                 <div class="card mb-4">
@@ -49,31 +48,31 @@
                                         <p style="color:red">@Model.Message</p>
                                     }
                                 </div>
-                            <div class="col-md-6">
-                                <label class="small mb-1" for="@Model.Password">Password</label>
-                                <input class="form-control" asp-for="@Model.Password" placeholder="Kodeord">
-                                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                            </div>
-                            <div class="row gx-3 mb-3">
-                                <div class="form-group">
-                                    <label asp-for="@Model.UserRoles"></label>:<br/>
-                                    <select asp-for="UserRoles" asp-items="Html.GetEnumSelectList<Models.User.UserRoles>()">
-                                        <option>Choose a role</option>
-                                    </select>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="@Model.Password">Password</label>
+                                    <input class="form-control" asp-for="@Model.Password" placeholder="Kodeord">
+                                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="@Model.UserDepartments"></label>:<br/>
-                                    <select asp-for="UserDepartments" asp-items="Html.GetEnumSelectList<Models.User.UserDepartments>()">
-                                        <option>Choose a department</option>
-                                    </select>
+                                <div class="row gx-3 mb-3">
+                                    <div class="form-group">
+                                        <label asp-for="@Model.UserRoles"></label>:<br />
+                                        <select asp-for="UserRoles" asp-items="Html.GetEnumSelectList<Models.User.UserRoles>()">
+                                            <option>Choose a role</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="@Model.UserDepartments"></label>:<br />
+                                        <select asp-for="UserDepartments" asp-items="Html.GetEnumSelectList<Models.User.UserDepartments>()">
+                                            <option>Choose a department</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Save changes button-->
-                            <div class="container" style="display: flex; justify-content: space-between">
-                                <button class="btn btn-hofor" type="submit">Submit</button>
-                                @*<a class="btn btn-danger" data-toggle="tooltip" title="Arkiver bruger" asp-route-id="@Model.UserToBeEdited.UserId" asp-page="../Admin/DeleteUser">Arkiver</a>*@
-                                <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#myModal">Arkiver</button>
-                            </div>
+                                <!-- Save changes button-->
+                                <div class="container" style="display: flex; justify-content: space-between">
+                                    <button class="btn btn-hofor" type="submit">Submit</button>
+                                    @*<a class="btn btn-danger" data-toggle="tooltip" title="Arkiver bruger" asp-route-id="@Model.UserToBeEdited.UserId" asp-page="../Admin/DeleteUser">Arkiver</a>*@
+                                    <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="#myModal">Arkiver</button>
+                                </div>
                         </form>
                     </div>
                 </div>
