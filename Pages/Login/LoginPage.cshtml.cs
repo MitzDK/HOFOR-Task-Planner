@@ -81,7 +81,6 @@ namespace HOFORTaskPlanner.Pages.Login
                                 new ClaimsPrincipal(claimsIdentity));
 
                             //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
-                            Response.Cookies.Append("AssignmentTypeSelect", "0");
                             Response.Cookies.Append("UserSearchDepartment", ((int)user.UserDepartment).ToString());
                             Response.Cookies.Append("DashboardSearchDeparment", ((int)user.UserDepartment).ToString());
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Services;
 using Microsoft.AspNetCore.Http;
@@ -22,43 +23,40 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
         [BindProperty(SupportsGet = true)] public Models.Assignment.AssignmentType AssignmentType { get; set; }
         [BindProperty(SupportsGet = true)] public string Description { get; set; }
+        public List<string> DescriptionList { get; set; }
         public bool ShowPrevious => CurrentPage > 1;
         public bool ShowNext => CurrentPage < TotalPages;
         public bool ShowFirst => CurrentPage != 1;
         public bool ShowLast => CurrentPage != TotalPages;
 
 
-        public List<string> DescriptionList { get; set; }
+
 
         public GetAssignmentsModel(AssignmentService assignmentService, UserService userService, ContactService contactService)
         {
             _assignmentService = assignmentService;
             _userService = userService;
             _contactService = contactService;
+            DescriptionList = _assignmentService.GetDescriptions();
         }
         public void OnGet()
         {
-            DescriptionList = new List<string>();
-            foreach (var description in _assignmentService.GetAssignments().Select(De => De.Description))
-            {
-                if (!DescriptionList.Contains(description))
-                {
-                    DescriptionList.Add(description);
-                }
-            }
-            var cookieIsFilteredValue = Request.Cookies["AssignmentFilterCookie"];
-            var cookieIsFilteredDescription = Request.Cookies["AssignmentDescriptionCookie"];
-            var cookiesFilterTypeValue = Request.Cookies["AssignmentTypeSelect"];
-            var cookiesFilterDescription = Request.Cookies["AssignmentFilterDescription"];
-            if (cookieIsFilteredValue == "true")
+            var cookieIsTypeFiltered = Request.Cookies["AssignmentIsTypeFiltered"];
+            var cookiesFilterTypeValue = Request.Cookies["AssignmentFilterTypeValue"];
+
+            var cookieIsDescriptionFiltered = Request.Cookies["AssignmentIsDescriptionFiltered"];
+            var cookiesFilterDescriptionValue = Request.Cookies["AssignmentFilterDescriptionValue"];
+
+
+            if (cookieIsTypeFiltered == "true")
             {
                 AssignmentType = (Models.Assignment.AssignmentType)Convert.ToInt32(cookiesFilterTypeValue);
                 AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType), CurrentPage, PageSize);
                 Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
             }
-            else if (cookieIsFilteredDescription == "true")
+            else if (cookieIsDescriptionFiltered == "true")
             {
-                Description = cookiesFilterDescription;
+                Description = cookiesFilterDescriptionValue;
                 AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentDescription(Description), CurrentPage, PageSize);
                 Count = _assignmentService.FilterAssignmentDescription(Description).Count();
             }
@@ -70,50 +68,56 @@ namespace HOFORTaskPlanner.Pages.Assignment
         }
         public IActionResult OnPost()
         {
-            DescriptionList = new List<string>();
-            foreach (var description in _assignmentService.GetAssignments().Select(De => De.Description))
-            {
-                if (!DescriptionList.Contains(description))
-                {
-                    DescriptionList.Add(description);
-                }
-            }
+            
             CurrentPage = 1;
+            DescriptionList = _assignmentService.GetDescriptionsByType(AssignmentType);
             AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentType(AssignmentType),CurrentPage, PageSize);
             Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
-            Response.Cookies.Append("AssignmentFilterCookie", "true");
-            Response.Cookies.Append("AssignmentTypeSelect", ((int)AssignmentType).ToString());
+            Response.Cookies.Append("AssignmentIsTypeFiltered", "true");
+            Response.Cookies.Append("AssignmentFilterTypeValue", ((int)AssignmentType).ToString());
+
+            //Skal slettes
+            Response.Cookies.Append("AssignmentIsDescriptionFiltered", "test", new CookieOptions
+                { Expires = DateTime.Now.AddDays(-1D) }
+            );
+            Response.Cookies.Append("AssignmentFilterDescriptionValue", "test", new CookieOptions
+                { Expires = DateTime.Now.AddDays(-1D) }
+            );
+
+
             CurrentPage = 1;
             return Page();
         }
 
-        //public IActionResult OnPostDescriptionFilter()
-        //{
-        //    DescriptionList = new List<string>();
-        //    foreach (var description in _assignmentService.GetAssignments().Select(De => De.Description))
-        //    {
-        //        if (!DescriptionList.Contains(description))
-        //        {
-        //            DescriptionList.Add(description);
-        //        }
-        //    }
+        public IActionResult OnPostDescriptionFilter()
+        {
+            if (string.IsNullOrWhiteSpace(Description))
+            {
+                AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
+            }
+            else
+            {
+                AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentDescription(Description),
+                    CurrentPage, PageSize);
+                Count = _assignmentService.FilterAssignmentDescription(Description).Count();
+                Response.Cookies.Append("AssignmentIsDescriptionFiltered", "true"); // NY
+                Response.Cookies.Append("AssignmentFilterDescriptionValue", Description);
 
-        //    if (string.IsNullOrWhiteSpace(Description))
-        //    {
-        //        AssignmentList = _assignmentService.GetPaginatedResult(CurrentPage, PageSize);
-        //    }
-        //    else
-        //    {
-        //        AssignmentList = _assignmentService.GetPaginatedResultTest(_assignmentService.FilterAssignmentDescription(Description),
-        //            CurrentPage, PageSize);
-        //        Count = _assignmentService.FilterAssignmentDescription(Description).Count();
-        //        Response.Cookies.Append("AssignmentDescriptionCookie", "true"); // NY
-        //        Response.Cookies.Append("AssignmentFilterDescription", ((string)Description).ToString());
-        //    }
-        //    CurrentPage = 1;
-        //    return Page();
-        //}
-        
+                //Skal slettes
+                
+
+                Response.Cookies.Append("AssignmentIsTypeFiltered", "test", new CookieOptions
+                    {Expires = DateTime.Now.AddDays(-1D)}
+                );
+                
+                Response.Cookies.Append("AssignmentFilterTypeValue", "test", new CookieOptions
+                    { Expires = DateTime.Now.AddDays(-1D) }
+                );
+            }
+            CurrentPage = 1;
+            return Page();
+        }
+
         public int GetHoursByAssignmentId(int id)
         {
             return _assignmentService.GetHoursByAssignmentId(id);

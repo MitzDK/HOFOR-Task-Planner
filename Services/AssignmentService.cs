@@ -181,7 +181,7 @@ namespace HOFORTaskPlanner.Services
 
         public IEnumerable<Assignment> FilterAssignmentType(Assignment.AssignmentType assignmentType)
         {
-            var result = _assignments.Where(Ass => Ass.Type == assignmentType);
+            var result = _assignments.Where(ass => ass.Type == assignmentType);
             if (result.Count() !=0)
             {
                 return result;
@@ -207,6 +207,34 @@ namespace HOFORTaskPlanner.Services
             return test;
         }
 
+        public List<string> GetDescriptions()
+        {
+            var tempList = new List<string>();
+            foreach (var description in GetAssignments().Select(de => de.Description))
+            {
+                if (!tempList.Contains(description))
+                {
+                    tempList.Add(description);
+                }
+            }
+            return tempList;
+        }
+        public List<string> GetDescriptionsByType(Assignment.AssignmentType descriptionType)
+        {
+            if (descriptionType != 0)
+            {
+                var tempList = new List<string>();
+                foreach (var description in GetAssignments().Where(de => de.Type == descriptionType).Select(de => de.Description))
+                {
+                    if (!tempList.Contains(description))
+                    {
+                        tempList.Add(description);
+                    }
+                }
+                return tempList;
+            }
+            return GetDescriptions();
+        }
         //public List<Assignment> SortPaginationHelper(string isFiltered, int filterValue, string isSorted, string sortValue, int currentPage, int pageSize)
         //{
         //    List<Assignment> newList = new List<Assignment>();
