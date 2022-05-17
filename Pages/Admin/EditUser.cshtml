@@ -29,12 +29,12 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" asp-for="@Model.FirstName">First name</label>
-                                    <input class="form-control" asp-for="@Model.FirstName">
+                                    <input class="form-control" asp-for="@Model.FirstName" placeholder="Fornavn">
                                     <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="@Model.LastName">Last name</label>
-                                    <input class="form-control" asp-for="@Model.LastName">
+                                    <input class="form-control" asp-for="@Model.LastName" placeholder="Efternavn">
                                     <span asp-validation-for="@Model.LastName" class="text-danger"></span>
 
                                 </div>
@@ -42,7 +42,7 @@
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="@Model.DisplayName">Display name</label>
-                                    <input class="form-control" asp-for="@Model.DisplayName">
+                                    <input class="form-control" asp-for="@Model.DisplayName" placeholder="Displaynavn">
                                     <span asp-validation-for="@Model.DisplayName" class="text-danger"></span>
                                     @if (Model.Message != null)
                                     {
@@ -51,7 +51,7 @@
                                 </div>
                             <div class="col-md-6">
                                 <label class="small mb-1" for="@Model.Password">Password</label>
-                                <input class="form-control" asp-for="@Model.Password">
+                                <input class="form-control" asp-for="@Model.Password" placeholder="Kodeord">
                                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
                             </div>
                             <div class="row gx-3 mb-3">

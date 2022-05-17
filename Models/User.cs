@@ -57,24 +57,24 @@ namespace HOFORTaskPlanner.Models
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "Du skal indtaste dit fornavn")]
-        [Display(Name = "Indtast dit fornavn")]
+        [Display(Name = "Fornavn")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Du skal indtaste dit efternavn")]
-        [Display(Name = "Indtast dit efternavn")]
+        [Display(Name = "Efternavn")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Du skal indtaste et brugernavn")]
-        [Display(Name = "Indtast dit brugernavn")]
+        [Display(Name = "Brugernavn")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Du skal indtaste et password")]
-        [Display(Name = "Indtast dit password")]
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Du skal indtaste et displayname")]
-        [Display(Name = "Indtast dit displayname")]
+        [Display(Name = "Displayname")]
         [StringLength(20)]
         public string DisplayName
         {
