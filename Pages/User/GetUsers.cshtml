@@ -57,35 +57,32 @@
         <thead class="table-hofor">
             <tr>
                 <th>
-                    UserID
+                    Fornavn
                 </th>
                 <th>
-                    First Name
+                    Efternavn
                 </th>
                 <th>
-                    Last Name
+                    Displaynavn
                 </th>
                 <th>
-                    DisplayName
+                    Brugertype
                 </th>
                 <th>
-                    UserType
-                </th>
-                <th>
-                    UserRole
+                    Brugerrolle
                 </th>
                 <th>
                     <form method="post" asp-page-handler="">
                         <select asp-for="@Model.UserDepartments" class="text-center" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
-                            <option>Vælg område</option>
+                            <option>Vælg enhed</option>
                         </select>
                     </form>
                 </th>
                 <th>
-                    LastUpdated
+                    Ajour pr.
                 </th>
                 <th>
-                    Action
+                    Aktion
                 </th>
 
             </tr>
@@ -94,9 +91,6 @@
             @foreach (var user in Model.UserList)
             {
                 <tr>
-                    <td>
-                        @user.UserId
-                    </td>
                     <td>
                         @user.FirstName
                     </td>
