@@ -16,7 +16,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                <a class="navbar-brand" asp-area="" asp-page="/User/GetUsers">
                     <img style="width: 9em; height: calc(9/4.4em)" src="/imgs/HoforTitel.png"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -58,7 +58,7 @@
                             if (Context.User.Identity.Name == null)
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/Index">Login</a>
+                                    <a class="nav-link" asp-area="" asp-page="/Index">Log ind</a>
                                 </li>
                             }
                             else
@@ -70,7 +70,7 @@
                                         </li>
                                 }
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-page="/Login/LogoutPage">Logout</a>
+                                    <a class="nav-link" asp-area="" asp-page="/Login/LogoutPage">Log ud</a>
                                 </li>
 
                             }
