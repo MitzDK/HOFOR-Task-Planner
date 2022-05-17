@@ -36,9 +36,18 @@ namespace HOFORTaskPlanner.Pages.User
         public void OnGet()
         {
             var cookieDepartmentValue = Request.Cookies["UserSearchDepartment"];
-            UserDepartments = (Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue);
-            UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments), CurrentPage, PageSize);
-            Count = _userService.FilterTeams(UserDepartments).Count();
+            if (cookieDepartmentValue != "0")
+            {
+                UserDepartments = (Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue);
+                UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments), CurrentPage, PageSize);
+                Count = _userService.FilterTeams(UserDepartments).Count();
+            }
+            else
+            {
+                UserDepartments = 0;
+                UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
+                Count = _userService.GetCount();
+            }
         }
 
         public IActionResult OnPost()
@@ -53,11 +62,13 @@ namespace HOFORTaskPlanner.Pages.User
 
         public IActionResult OnPostSearch()
         {
+            Response.Cookies.Append("UserSearchDepartment", "", new CookieOptions{Expires = DateTime.Now.AddDays(-1D)});
             if (string.IsNullOrWhiteSpace(UserSearch))
             {
                 //TODO Skal fikses med anden metode
-                //Response.Cookies.Delete("SearchUsername");
+                Response.Cookies.Append("UserSearchUsername", "", new CookieOptions{Expires = DateTime.Now.AddDays(-1D)});
                 UserList = _userService.GetPaginatedResult(CurrentPage, PageSize);
+                Count = _userService.GetCount();
             }
             else
             {
