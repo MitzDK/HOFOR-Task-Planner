@@ -30,72 +30,76 @@
         </li>
     </ul>
 </div>
-<table class="table table-striped text-center">
-    <ul class="nav table-hofor">
+<table class="table table-striped">
+    <tr>
         <th colspan="100%" class="table-hofor">
-            <p class="align-items-center">@Model.UserDepartment</p>
             <form method="post">
-                <select asp-for="@Model.UserDepartments" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<Models.User.UserDepartments>()">
-                    <option>Vælg afdeling</option>
-                </select>
+                <div style="display: flex; justify-content: space-between">
+                    <text></text>
+                    <text>
+                        @Model.UserDepartment
+                    </text>
+                    <select asp-for="@Model.UserDepartments" onchange="this.form.submit();" asp-items="Html.GetEnumSelectList<Models.User.UserDepartments>()">
+                        <option>Vælg afdeling</option>
+                    </select>
+                </div>
             </form>
         </th>
-
-    </ul>
+    </tr>
     <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
-    {
-        <th colspan="2" class="TableSeperator">@user.UserRole</th>
-    }
-</tr>
-<tr>
-    <th></th>
-    <th colspan="2" class="TableSeperator">I alt</th>
-    @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
-    {
-        <th colspan="2" class="TableSeperator">@user.DisplayName</th>
-    }
-</tr>
-<tr>
-    <th></th>
-    <th scope="col" class="TableSeperatorLeft Table-small">Opgaver</th>
-    <th scope="col" class="TableSeperatorRight Table-small">Timer</th>
-    @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
-    {
+        <th></th>
+        <th></th>
+        <th></th>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th colspan="2" class="TableSeperator">@user.UserRole</th>
+        }
+    </tr>
+    <tr>
+        <th></th>
+        <th colspan="2" class="TableSeperatorFull">I alt</th>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th colspan="2" class="TableSeperator">@user.DisplayName</th>
+        }
+    </tr>
+    <tr>
+        <th></th>
         <th scope="col" class="TableSeperatorLeft Table-small">Opgaver</th>
         <th scope="col" class="TableSeperatorRight Table-small">Timer</th>
-    }
-</tr>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th scope="col" class="TableSeperatorLeft Table-small">Opgaver</th>
+            <th scope="col" class="TableSeperatorRight Table-small">Timer</th>
+        }
+    </tr>
 
-@for (int yearint = DateTime.Now.Year; yearint < DateTime.Now.Year + 2; yearint++)
-{
-    @for (int i = 1; i < 13; i++)
+    @for (int yearint = DateTime.Now.Year; yearint < DateTime.Now.Year + 2; yearint++)
     {
-        <tr>
-            <th class="Table-small">@(Models.TimeReg.AbrMonthName(i))-@yearint</th>
-            <th scope="col" class="TableSeperatorLeft Table-small">@Model.AmountOfAssignmentsForYearAndMonthAndUserDepartment(yearint, i, Model.UserDepartments)</th>
-            <th scope="col" class="TableSeperatorRight Table-small">@Model.GetHoursByYearAndMonthAndList(yearint, i, Model.UserDepartments)</th>
-            @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
-            {
-                <th scope="col" class="TableSeperatorLeft Table-small">@Model.AmountOfAssignmentsWithHoursInList(yearint, i, user.UserId)</th>
-                <th scope="col" class="TableSeperatorRight Table-small" style="@Model.ColourByHours(Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId))">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
-            }
-        </tr>
+        @for (int i = 1; i < 13; i++)
+        {
+            <tr>
+                <th class="Table-small">@(Models.TimeReg.AbrMonthName(i))-@yearint</th>
+                <th scope="col" class="TableSeperatorLeft Table-small">@Model.AmountOfAssignmentsForYearAndMonthAndUserDepartment(yearint, i, Model.UserDepartments)</th>
+                <th scope="col" class="TableSeperatorRight Table-small">@Model.GetHoursByYearAndMonthAndList(yearint, i, Model.UserDepartments)</th>
+                @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+                {
+                    <th scope="col" class="TableSeperatorLeft Table-small">@Model.AmountOfAssignmentsWithHoursInList(yearint, i, user.UserId)</th>
+                    <th scope="col" class="TableSeperatorRight Table-small" style="@Model.ColourByHours(Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId))">@Model.GetTotalHoursByYearAndMonthAndUserid(yearint, i, user.UserId)</th>
+                }
+            </tr>
+        }
     }
-}
-<tr>
-    <th></th>
-    <th></th>
-    <th></th>
-    @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
-    {
-        <th scope="col" class="TableSeperatorLeft Table-small">Ajour pr:</th>
-        <th scope="col" class="TableSeperatorRight Table-small">@user.LastUpdated.Day/@user.LastUpdated.Month/@user.LastUpdated.Year</th>
-    }
-</tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        @foreach (var user in Model.Users.OrderBy(user => user.UserRole))
+        {
+            <th scope="col" class="TableSeperatorLeft Table-small">Ajour pr:</th>
+            <th scope="col" class="TableSeperatorRight Table-small">@user.LastUpdated.Day/@user.LastUpdated.Month/@user.LastUpdated.Year</th>
+        }
+    </tr>
 
 
 </table>
