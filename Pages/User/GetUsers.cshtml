@@ -75,7 +75,7 @@
                     UserRole
                 </th>
                 <th>
-                    <form method="post">
+                    <form method="post" asp-page-handler="">
                         <select asp-for="@Model.UserDepartments" class="text-center" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
                             <option>Vælg område</option>
                         </select>

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using HOFORTaskPlanner.Models;
 using HOFORTaskPlanner.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HOFORTaskPlanner.Pages.Admin
 {
+    [Authorize(Roles = "admin")]
     public class CreateUserModel : PageModel
     {
         private UserService _userService;
