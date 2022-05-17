@@ -1,53 +1,89 @@
 ﻿@page
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model HOFORTaskPlanner.Pages.Contact.GetContactsModel
 @{
     ViewData["Title"] = "Kontaktliste";
 }
-<a class="btn btn-hofor float-right" asp-page="CreateContact"><i class="fa-solid fa-plus"></i></a>
+@*<a class="btn btn-hofor float-right" asp-page="CreateContact"><i class="fa-solid fa-plus"></i></a>*@
 
-@if (Model.Contacts.Count != 0)
+<div style="display: flex; height: 35px; justify-content: space-between; width: 100%">
+    <ul class="pagination">
+        <li class="page-item @(!Model.ShowFirst ? "disabled" : "")">
+            <a asp-page="GetContacts" asp-route-CurrentPage="1" class="page-link"> <i class="fa fa-fast-backward"></i></a>
+        </li>
+
+        <li class="page-item @(!Model.ShowPrevious ? "disabled" : "")">
+            <a asp-page="GetContacts" asp-route-CurrentPage="@(Model.CurrentPage - 1)" class="page-link"><i class="fa fa-angle-left"></i></a>
+        </li>
+        <li class="page-item  @(!Model.ShowNext ? "disabled" : "")">
+            <a asp-page="GetContacts" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link"><i class="fa fa-angle-right"></i></a>
+        </li>
+
+        <li class="page-item  @(!Model.ShowLast ? "disabled" : "")">
+            <a asp-page="GetContacts" asp-route-CurrentPage="@Model.TotalPages" class="page-link"><i class="fa fa-fast-forward"></i></a>
+        </li>
+        <li class="page-item ml-2">
+            <a class="page-link">@Model.CurrentPage</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">of</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link">@Model.TotalPages pages</a>
+        </li>
+    </ul>
+
+
+    
+        <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Create user" asp-page="CreateContact"><i class="fa-solid fa-plus"></i></a>
+    
+</div>
+
+
+@if (Model.Contacts.Count() != 0)
 {
     <table class="table table-striped text-center">
         <thead class="table-hofor">
-            <tr>
-                <th>
-                    Fornavn
-                </th>
-                <th>
-                    Efternavn
-                </th>
-                <th>
-                    Telefon Nr.
-                </th>
-                <th>
-                    E-mail
-                </th>
-                <th>
+        <tr>
+            <th>
+                Fornavn
+            </th>
+            <th>
+                Efternavn
+            </th>
+            <th>
+                Telefon Nr.
+            </th>
+            <th>
+                E-mail
+            </th>
+            <th>
 
-                </th>
-            </tr>
+            </th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var contact in Model.Contacts)
-            {
-                <tr>
-                    <td>
-                        @contact.FirstName
-                    </td>
-                    <td>
-                        @contact.LastName
-                    </td>
-                    <td>
-                        @contact.PhoneNumber
-                    </td>
-                    <td>
-                        @contact.Email
-                    </td>
-                    <td>
-                        <a class="btn btn-sm btn-hofor" type="button" data-toggle="tooltip" title="Details" asp-page="EditContact" asp-route-id="@contact.ContactId"><i class="fa fa-edit"></i></a>
-                    </td>
-                </tr>
-            }
+        @foreach (var contact in Model.Contacts)
+        {
+            <tr>
+                <td>
+                    @contact.FirstName
+                </td>
+                <td>
+                    @contact.LastName
+                </td>
+                <td>
+                    @contact.PhoneNumber
+                </td>
+                <td>
+                    @contact.Email
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-hofor" type="button" data-toggle="tooltip" title="Details" asp-page="EditContact" asp-route-id="@contact.ContactId"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 }
