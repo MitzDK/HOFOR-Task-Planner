@@ -67,8 +67,10 @@ namespace HOFORTaskPlanner.Pages.Admin
             UserToBeEdited.FirstName = FirstName;
             UserToBeEdited.LastName = LastName;
 
+            
             var test = _userService.GetUsers().Where(user => user.DisplayName == DisplayName);
-            if(test.Count() == 0)
+            
+            if (DisplayName == UserToBeEdited.DisplayName || test.Count() == 0)
             {
                 UserToBeEdited.DisplayName = DisplayName;
             }
@@ -78,7 +80,6 @@ namespace HOFORTaskPlanner.Pages.Admin
                 return Page();
             }
             
-            UserToBeEdited.DisplayName = DisplayName;
             UserToBeEdited.UserRole = UserRoles;
             UserToBeEdited.UserDepartment = UserDepartments;
 
