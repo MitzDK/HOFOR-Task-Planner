@@ -31,7 +31,7 @@ namespace HOFORTaskPlanner.Pages.Login
         public string Password { get; set; }
 
         public string Message { get; set; }
-
+        //Hvis log-ind oplysninger er korrekte bliver der tilføjet ClaimTypes.Role hvis brugeren er admin. Uanset hvad bliver det tilføjet cookies for automatisk at kunne filtrere brugerlisten efter log-ind.
         public async Task<IActionResult> OnPost()
         {
             List<Models.User> users = _userService.GetUsers();

@@ -184,7 +184,7 @@ namespace HOFORTaskPlanner.Services
                 assignment.AktionUserId == userId);
             return tempList;
         }
-        //Bruges til at filtere en collection af Assignment efter AssignmentType inde på GetAssignments
+        //Bruges til at filtere en collection af Assignment efter AssignmentType inde på GetAssignments. Bruges blandt andet som argument i GetPaginatedResultTest.
         public IEnumerable<Assignment> FilterAssignmentType(Assignment.AssignmentType assignmentType)
         {
             var result = _assignments.Where(ass => ass.Type == assignmentType);
@@ -205,8 +205,8 @@ namespace HOFORTaskPlanner.Services
 
             return _assignments;
         }
-        //Ikke i brug. Ville blive brugt til pagination i GetAssignments-razorpage. Metoden tager en liste af Assignment-objekter og imod både en int, der repræsenterer den nuværende side af pagination og hvor mange objekter hver side skal bestå af som argumenter
 
+        //Ikke i brug. Ville blive brugt til pagination i GetAssignments-razorpage. Metoden tager en liste af Assignment-objekter og imod både en int, der repræsenterer den nuværende side af pagination og hvor mange objekter hver side skal bestå af som argumenter
         public IEnumerable<Assignment> GetPaginatedResultList(IEnumerable<Assignment> assignmentList, int currentPage, int pageSize)
         {
             var data = assignmentList;

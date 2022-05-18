@@ -39,6 +39,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
             _contactService = contactService;
             DescriptionList = _assignmentService.GetDescriptions();
         }
+        //Ved side kald bliver der tjekket for værdierne på diverse cookies, som gør det muligt at bevare filtrering under Pagination og selvom man navigerer væk fra siden.
+        //OnGet metoden bruges hver gang CurrentPage ændres.
         public void OnGet()
         {
             var cookieIsTypeFiltered = Request.Cookies["AssignmentIsTypeFiltered"];
@@ -66,6 +68,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 Count = _assignmentService.GetCounts();
             }
         }
+        //OnPost bruges til filtrering efter AssignmentType. Der oprettes cookies så filtreringen er bevaret i forbindelse med Pagination eller navigering væk fra siden.
         public IActionResult OnPost()
         {
             
@@ -89,6 +92,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             return Page();
         }
 
+        //Bruges til filtrering efter Description (beskrivelse). Der oprettes cookies så filtreringen er bevaret i forbindelse med Pagination eller navigering væk fra siden.
         public IActionResult OnPostDescriptionFilter()
         {
             if (string.IsNullOrWhiteSpace(Description))
