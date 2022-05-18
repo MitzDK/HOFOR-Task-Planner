@@ -11,6 +11,7 @@ namespace HOFORTaskPlanner.Pages.Login
 {
     public class LogoutPageModel : PageModel
     {
+        //Den nuværende bruger bliver logget ud i browseren.
         public async Task<IActionResult> OnGet()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

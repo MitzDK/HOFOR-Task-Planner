@@ -49,6 +49,7 @@ namespace HOFORTaskPlanner.Pages.User
                 Count = _userService.GetCount();
             }
         }
+        //OnPost bruges til filtrering efter Department (enhed). Der oprettes cookies så filtreringen er bevaret i forbindelse med Pagination eller navigering væk fra siden.
 
         public IActionResult OnPost()
         {
