@@ -19,6 +19,7 @@ namespace HOFORTaskPlanner.Services
         public List<User> PaginatedUsers { get; set; } = new List<User>();
         private DbGenericService<User> DbService { get; set; }
 
+
         public UserService(DbGenericService<User> dbService)
         {
             DbService = dbService;
@@ -56,18 +57,18 @@ namespace HOFORTaskPlanner.Services
             return _users.Find(user => user.UserName.ToLower().Equals(username.ToLower()));
         }
 
-        public IEnumerable<User> GetUsersByUserName(string username)
-        {
-            if (string.IsNullOrEmpty(username)) return _users;
-            var results = _users.FindAll(user => user.UserName.ToLower().Contains(username.ToLower()));
-            if (results.Count == 0)
-            {
-                return _users;
-            }
+        //public IEnumerable<User> GetUsersByUserName(string username)
+        //{
+        //    if (string.IsNullOrEmpty(username)) return _users;
+        //    var results = _users.FindAll(user => user.UserName.ToLower().Contains(username.ToLower()));
+        //    if (results.Count == 0)
+        //    {
+        //        return _users;
+        //    }
 
-            return results;
+        //    return results;
 
-        }
+        //}
 
         public IEnumerable<User> GetUsersBySearch(string search)
         {
@@ -84,6 +85,7 @@ namespace HOFORTaskPlanner.Services
         }
         public List<User> GetUsers()
         {
+
             return _users;
         }
         
@@ -148,6 +150,7 @@ namespace HOFORTaskPlanner.Services
 
             return data;
         }
+
 
     }
 }
