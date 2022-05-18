@@ -21,6 +21,7 @@ namespace HOFORTaskPlanner.Services
 
             _times = DbService.GetObjectsAsync().Result.ToList();
         }
+        //Initiliserer database med data. Det kunne eksempelvis være mockdata instanseret i kontruktøren.
         public async Task InitializeDB()
         {
             foreach (var timeReg in _times)
@@ -28,18 +29,19 @@ namespace HOFORTaskPlanner.Services
                 await DbService.AddObjectAsync(timeReg);
             }
         }
+        //Returnerer liste af TimeReg-objekter
         public List<TimeReg> GetTimes()
         {
             return _times;
         }
 
-
+        //tilføjer TimeReg objekt til database
         public async Task AddTimeAsync(TimeReg time)
         {
             _times.Add(time);
             await DbService.AddObjectAsync(time);
         }
-
+        //Bruges til at finde summen af alle TimeReg-objekter med et givent AssignmentId
         public int TotalTimeForAssignmentPlanned(int id)
         {
             if (GetTimeByAssignmentId(id) != null)
@@ -49,7 +51,7 @@ namespace HOFORTaskPlanner.Services
 
             return 0;
         }
-
+        //Finder alle TimeReg-objekter med et givent AssignmentId
         public List<TimeReg> GetTimeByAssignmentId(int id)
         {
             if (GetTimes() != null)
@@ -60,12 +62,12 @@ namespace HOFORTaskPlanner.Services
 
             return null;
         }
-
+        //Finder et TimeReg-objekt med et givent Id 
         public TimeReg GetTimeById(int id)
         {
             return GetTimes().Find(time => time.TimeId.Equals(id));
         }
-
+        //Opdaterer et TimeReg-objekt i database.
         public async Task UpdateTimeAsync(TimeReg time)
         {
             if (time != null)
@@ -73,7 +75,7 @@ namespace HOFORTaskPlanner.Services
                 await DbService.UpdateObjectAsync(time);
             }
         }
-
+        //Returnerer alle TimeReg-objekter for et givent år.
         public List<TimeReg> GetTimeByYear(int year)
         {
             if (_times != null)
@@ -84,7 +86,7 @@ namespace HOFORTaskPlanner.Services
 
             return null;
         }
-
+        //Finder TimeReg-objekter med det samme år og AssignmentId
         public List<TimeReg> GetTimeByYearAndAssignmentId(int year, int id)
         {
 
@@ -97,6 +99,7 @@ namespace HOFORTaskPlanner.Services
 
             return null;
         }
+        //
         public TimeReg GetTimeByYearAndMonthAndAssignmentId(int year, int month, int id)
         {
             if (_times.Exists(time =>
@@ -109,19 +112,20 @@ namespace HOFORTaskPlanner.Services
             }
             return new TimeReg();
         }
-
+        //Bruges til at highlighte den nuværende måned på diverse sider. Blandt andet på Assignment/Details.
         public bool IsCurrentMonth(int input)
         {
             if (Models.TimeReg.CurrentMonth() == (TimeReg.MonthName) input) return true;
             return false;
         }
 
+        //Bruges til at highlighte den nuværende måned på diverse sider. Blandt andet på Assignment/TimePlanning.
         public bool IsCurrentYear(int input)
         {
             if (DateTime.Now.Year == input) return true;
             return false;
         }
-
+        //Opdaterer TimeRegs for Assignment i database.
         public async Task AddAndUpdateTimes(List<TimeReg> timeList)
         {
             _times = DbService.GetObjectsAsync().Result.ToList();
@@ -138,16 +142,17 @@ namespace HOFORTaskPlanner.Services
                 }
             }
         }
-
+        //Bruges til at finde summen af alle TimeReg-objekter med et givent AssignmentId
         public int GetHoursByAssignmentId(int id)
         {
             return _times.FindAll(times => times.AssignmentId == id).Sum(times => times.Hours);
         }
-
+        //Bruges til at finde summen af en planlagte timer til en opgave ud fra måned,  år og AssignmmentId
         public int GetHoursByYearAndMonthAndAssignmentId(int year, int month, int id)
         {
             return GetTimeByYearAndMonthAndAssignmentId(year, month, id).Hours;
         }
+        //Bruges til at finde summen af en planlagte timer ud fra år, måned, og en samling opgave
         public int GetHoursByYearAndMonthAndList(int year, int month, List<Assignment> assignmentList)
         {
             int counter = 0;
@@ -159,7 +164,7 @@ namespace HOFORTaskPlanner.Services
             return counter;
         }
 
-
+        //Finder antallet af Opgaver, der har timer registreret, som ikke er 0.
         public int AmountOfAssignmentsWithHoursInList(List<Assignment> assignments, int year, int month)
         {
             int counter = 0;
