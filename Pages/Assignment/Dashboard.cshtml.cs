@@ -89,21 +89,25 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             return counter;
         }
-
+        //Returnerer hvor mange timer der er for den gældende department, ud fra årstallet og måned
         public int GetHoursByYearAndMonthAndList(int year, int month, Models.User.UserDepartments userDepartment)
         {
             return _timeService.GetHoursByYearAndMonthAndList(year, month,
                 _assignmentService.AssignmentsForYearAndMonthAndUserDepartment(year, month, userDepartment));
         }
+        //Returnerer den totale mængde af opgaver, for det gældende år og måned, for det specifikke brugerområde
         public int AmountOfAssignmentsForYearAndMonthAndUserDepartment(int year, int month,
             Models.User.UserDepartments department)
         {
             return _assignmentService.AmountOfAssignmentsForYearAndMonthAndUserDepartment(year, month, department);
         }
+        //Returnerer den totale mængde af opgaver, for det gældende år og måned, for det specifikke brugerid
         public int AmountOfAssignmentsForYearAndMonthAndUserId(int year, int month, int userId)
         {
             return _assignmentService.AmountOfAssignmentsForYearAndMonthAndUserId(year, month, userId);
         }
+        //En simpel metode som returnerer en string, som bliver brugt i HTMLen til at sætte en farve på timerne, baseret på inputtet 
+        //Denne metode skal senere laves om, så ledere kan ændre i tallene pr. bruger
         public string ColourByHours(int hours)
         {
             switch (hours)
@@ -120,6 +124,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
                     return "background-color: #fff2cc";
             }
         }
+        //En metoder som skaffer et total, for mængden af opgaver for en bruger, som har timer i sig
         public int AmountOfAssignmentsWithHoursInList(int year, int month, int userId)
         {
            return _timeService.AmountOfAssignmentsWithHoursInList(
