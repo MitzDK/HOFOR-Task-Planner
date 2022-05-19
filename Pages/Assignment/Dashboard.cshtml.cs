@@ -46,7 +46,8 @@ namespace HOFORTaskPlanner.Pages.Assignment
             UserDepartment = ((Models.User.UserDepartments)Convert.ToInt32(cookieDepartmentValue)).ToString();
             Users = _userService.GetUsersByDepartment(UserDepartments);
             Users = _userService.GetPaginatedNoLeaderRole(Users, CurrentPage, PageSize);
-            Count = _userService.GetUsersByDepartment(UserDepartments).Where(us => us.UserRole != Models.User.UserRoles.Leder && us.UserType != Models.User.UserTypes.Arkiveret).ToList().Count;
+            Count = _userService.GetUsersByDepartment(UserDepartments)
+                .Where(us => us.UserRole != Models.User.UserRoles.Leder && us.UserType != Models.User.UserTypes.Arkiveret).ToList().Count;
         }
         public IActionResult OnPost()
         {
@@ -59,12 +60,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 UserDepartments = user.UserDepartment;
             }
             Users = _userService.GetPaginatedNoLeaderRole(_userService.FilterTeams(UserDepartments).ToList(), CurrentPage, PageSize);
-            Count = _userService.GetUsersByDepartment(UserDepartments).Where(us => us.UserRole != Models.User.UserRoles.Leder && us.UserType != Models.User.UserTypes.Arkiveret).ToList().Count;
+            Count = _userService.GetUsersByDepartment(UserDepartments)
+                .Where(us => us.UserRole != Models.User.UserRoles.Leder && us.UserType != Models.User.UserTypes.Arkiveret).ToList().Count;
             Response.Cookies.Append("DashboardSearchDeparment", ((int)UserDepartments).ToString());
             return Page();
         }
         
-
+        //Returnerer værdien for det samlede antal af timer planlagt for den gældende bruger
         public int GetTotalHoursByUserId(int userId)
         {
             int counter = 0;
@@ -74,12 +76,13 @@ namespace HOFORTaskPlanner.Pages.Assignment
             }
             return counter;
         }
-
+        //Returnerer alle opgaver for den gældende bruger
         public List<Models.Assignment> UserAssignments(int userId)
         {
             return _assignmentService.GetAssignmentsByUserId(userId);
         }
 
+        //Returnerer en samlet mængde af planlagte timer for en gældende bruger, pr. år og måned
         public int GetTotalHoursByYearAndMonthAndUserid(int year, int month, int userId)
         {
             int counter = 0;
@@ -124,7 +127,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
                     return "background-color: #fff2cc";
             }
         }
-        //En metoder som skaffer et total, for mængden af opgaver for en bruger, som har timer i sig
+        //En metode som skaffer et total, for mængden af opgaver for en bruger, som har timer i sig
         public int AmountOfAssignmentsWithHoursInList(int year, int month, int userId)
         {
            return _timeService.AmountOfAssignmentsWithHoursInList(
