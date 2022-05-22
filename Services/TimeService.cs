@@ -147,11 +147,15 @@ namespace HOFORTaskPlanner.Services
         {
             return _times.FindAll(times => times.AssignmentId == id).Sum(times => times.Hours);
         }
+
+        //Kalder en anden metode, som returnerer et "Time" object, og blot henter Hours propertien derfra
         //Bruges til at finde summen af en planlagte timer til en opgave ud fra måned,  år og AssignmmentId
         public int GetHoursByYearAndMonthAndAssignmentId(int year, int month, int id)
         {
             return GetTimeByYearAndMonthAndAssignmentId(year, month, id).Hours;
         }
+
+        //Metoden tæller hvor mange timer der i alt er planlagt for en givent år og måned i den med-sendte liste af opgaver
         //Bruges til at finde summen af en planlagte timer ud fra år, måned, og en samling opgave
         public int GetHoursByYearAndMonthAndList(int year, int month, List<Assignment> assignmentList)
         {
@@ -160,11 +164,11 @@ namespace HOFORTaskPlanner.Services
             {
                 counter += GetTimeByYearAndMonthAndAssignmentId(year, month, assignment.AssignmentId).Hours;
             }
-
             return counter;
         }
 
-        //Finder antallet af Opgaver, der har timer registreret, som ikke er 0.
+        //En simpel metode til at tælle hvor mange af de opgaver, som bliver sendt videre som parameter, som har 
+        //timer knyttet til sig for et specifikt år og måned
         public int AmountOfAssignmentsWithHoursInList(List<Assignment> assignments, int year, int month)
         {
             int counter = 0;
