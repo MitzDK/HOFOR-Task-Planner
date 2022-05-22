@@ -56,16 +56,16 @@ namespace HOFORTaskPlanner.Pages.Login
                             //Tilføjer cookies, som bruges til at fremvise brugerlisten for brugerens afdeling til at starte med =)
                             Response.Cookies.Append("UserSearchDepartment", ((int)user.UserDepartment).ToString());
                             Response.Cookies.Append("DashboardSearchDeparment", ((int)user.UserDepartment).ToString());
-                            Response.Cookies.Append("AssignmentIsTypeFiltered", "test", new CookieOptions
+                            Response.Cookies.Append("AssignmentIsTypeFiltered", "expired", new CookieOptions
                                 { Expires = DateTime.Now.AddDays(-1D) }
                             );
-                            Response.Cookies.Append("AssignmentFilterTypeValue", "test", new CookieOptions
+                            Response.Cookies.Append("AssignmentFilterTypeValue", "expired", new CookieOptions
                                 { Expires = DateTime.Now.AddDays(-1D) }
                             );
-                            Response.Cookies.Append("AssignmentIsDescriptionFiltered", "test", new CookieOptions
+                            Response.Cookies.Append("AssignmentIsDescriptionFiltered", "expired", new CookieOptions
                                 { Expires = DateTime.Now.AddDays(-1D) }
                             );
-                            Response.Cookies.Append("AssignmentFilterDescriptionValue", "test", new CookieOptions
+                            Response.Cookies.Append("AssignmentFilterDescriptionValue", "expired", new CookieOptions
                                 { Expires = DateTime.Now.AddDays(-1D) }
                             );
                             //smider brugeren videre til Brugerlisten.. skal vi evt sende forskellige stedet alt efter Admin / Bruger?
@@ -74,8 +74,6 @@ namespace HOFORTaskPlanner.Pages.Login
                     }
                 }
             }
-
-            
             Message = "Ugyldigt login";
             return Page();
         }

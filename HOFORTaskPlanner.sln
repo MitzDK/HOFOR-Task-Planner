@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.32413.511
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HOFORTaskPlanner", "HOFORTaskPlanner.csproj", "{C827E21A-DBD2-4B76-B737-33EC4B636F30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOFORTaskPlanner.Test", "..\HOFORTaskPlannerTests1\HOFORTaskPlanner.Test.csproj", "{7AB63B45-FB1F-4E9E-9DB3-BEAB63407375}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOFORTaskPlannerTests", "..\HOFORTaskPlannerTests\HOFORTaskPlannerTests.csproj", "{07DB8083-76FB-4911-BCB1-8793E7062E08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C827E21A-DBD2-4B76-B737-33EC4B636F30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C827E21A-DBD2-4B76-B737-33EC4B636F30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C827E21A-DBD2-4B76-B737-33EC4B636F30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AB63B45-FB1F-4E9E-9DB3-BEAB63407375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AB63B45-FB1F-4E9E-9DB3-BEAB63407375}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AB63B45-FB1F-4E9E-9DB3-BEAB63407375}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AB63B45-FB1F-4E9E-9DB3-BEAB63407375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07DB8083-76FB-4911-BCB1-8793E7062E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07DB8083-76FB-4911-BCB1-8793E7062E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07DB8083-76FB-4911-BCB1-8793E7062E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07DB8083-76FB-4911-BCB1-8793E7062E08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

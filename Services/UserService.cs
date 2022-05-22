@@ -29,7 +29,7 @@ namespace HOFORTaskPlanner.Services
 
             _users = DbService.GetObjectsAsync().Result.ToList();
         }
-
+        //Bruges til at initialiserer databasen med data fra mockdata
         public async Task InitializeDB()
         {
             foreach (var user in _users)
@@ -37,21 +37,23 @@ namespace HOFORTaskPlanner.Services
                 await DbService.AddObjectAsync(user);
             }
         }
+        //Tilføjer en User til database
         public async Task AddUserAsync(User user)
         {
             _users.Add(user);
             await DbService.AddObjectAsync(user);
         }
-
+        //Returnerer en User med et givent Id
         public User GetUserById(int id)
         {
             return _users.Find(us => us.UserId.Equals(id));
         }
-
+        //Returnerer en User med det givent DisplayName
         public User GetUserByDisplayName(string displayName)
         {
             return _users.Find(user => user.DisplayName.ToLower().Equals(displayName.ToLower()));
         }
+        //Returnerer en User med det givne UserName
         public User GetUserByUsername(string username)
         {
             return _users.Find(user => user.UserName.ToLower().Equals(username.ToLower()));
@@ -69,7 +71,7 @@ namespace HOFORTaskPlanner.Services
         //    return results;
 
         //}
-
+        //Returnerer en collection af User-objekter, der opfylder søgekriteriet. Denne bruges i GetUsers søgefeltet.
         public IEnumerable<User> GetUsersBySearch(string search)
         {
             if (string.IsNullOrEmpty(search)) return _users;
@@ -83,13 +85,15 @@ namespace HOFORTaskPlanner.Services
 
             return _users;
         }
+        //Bruges i alle klasser, der har brug for en liste af Users. Dette gør at vi kan skifte fra data fra database til mockdata uden at skulle rette det alle steder,
+        //der har brug for en liste af User-objekter
         public List<User> GetUsers()
         {
 
             return _users;
         }
         
-
+        //Opdaterer User-objekt i database
         public async Task UpdateUserAsync(User user)
         {
             if (user != null)
@@ -97,13 +101,14 @@ namespace HOFORTaskPlanner.Services
                 await DbService.UpdateObjectAsync(user);
             }
         }
+        //Sletter bruger fra database. Bruges ikke da vi bevarer data ved at arkivere det i stedet.
         public async Task DeleteUserAsync(User user)
         {
             _users.Remove(user);
             await DbService.DeleteObjectAsync(user);
         }
 
-
+        //Filtrerer brugere efter enhed/department
         public IEnumerable<User> FilterTeams(User.UserDepartments department)
         {
             var results = _users.Where(De => De.UserDepartment == department);
@@ -113,11 +118,13 @@ namespace HOFORTaskPlanner.Services
             }
             return _users;
         }
-
+        //Henter alle brugere som er del af en enhed/department
         public List<User> GetUsersByDepartment(Models.User.UserDepartments userDepartment)
         {
             return _users.FindAll(user => user.UserDepartment == userDepartment);
         }
+
+        //Bruger currentPage og pageSize til at vise hvor mange User-objekter der skal fremgå på hver side, og for at dele listen af assignment op i flere dele. 
         public List<User> GetPaginatedResult(int currentPage, int pageSize = 10)
         {
             var data = _users;
@@ -130,18 +137,19 @@ namespace HOFORTaskPlanner.Services
             var test = data.OrderBy(Us => Us.UserId).Where(Us=>Us.UserType != User.UserTypes.Arkiveret).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return test;
         }
+        //Brugt til pagination i GetUsers-razorpage. Metoden tager en liste af Assignment-objekter og imod både en int, der repræsenterer den nuværende side af pagination og hvor mange objekter hver side skal bestå af som argumenter
         public List<User> GetPaginatedResultList(IEnumerable<User> userList, int currentPage, int pageSize)
         {
             var data = userList;
             var test = data.OrderBy(Us => Us.UserId).Where(User=>User.UserType != User.UserTypes.Arkiveret).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             return test;
         }
-
+        //Antallet User-objekter
         public int GetCount()
         {
             return _users.Count;
         }
-
+        //Filtrerer ledere fra GetUsers
         public List<User> GetPaginatedNoLeaderRole(List<User> users, int currentPage, int pageSize)
         {
             var data = users.Where(us => us.UserRole != User.UserRoles.Leder && us.UserType != Models.User.UserTypes.Arkiveret).ToList();
