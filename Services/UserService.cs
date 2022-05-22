@@ -158,6 +158,14 @@ namespace HOFORTaskPlanner.Services
 
             return data;
         }
+        public string UserDisplayName(int userId)
+        {
+            if (GetUserById(userId) != null)
+            {
+                return GetUserById(userId).DisplayName;
+            }
+            return "N/A";
+        }
 
 
     }

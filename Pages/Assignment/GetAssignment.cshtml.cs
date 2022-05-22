@@ -15,9 +15,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         private UserService _userService;
         private ContactService _contactService;
         public TimeService TimeService { get; set; }
-        [BindProperty]
         public Models.Assignment Assignment { get; set; }
-        public List<Models.User> Users { get; set; }
         public string AktionName { get; set; }
         public string ControlName { get; set; }
         public string ContactName { get; set; }
@@ -33,49 +31,32 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public void OnGet(int id)
         {
             Assignment = _assignmentService.GetAssignmentById(id);
-            Users = _userService.GetUsers();
-            AktionName = UserDisplayName(Assignment.AktionUserId);
-            ControlName = UserDisplayName(Assignment.ControlUserId);
-            ContactName = ContactDisplayName(Assignment.ContactId);
+            AktionName = _userService.UserDisplayName(Assignment.AktionUserId);
+            ControlName = _userService.UserDisplayName(Assignment.ControlUserId);
+            ContactName = _contactService.ContactDisplayName(Assignment.ContactId);
         }
 
 
-        public string UserDisplayName(int userId)
-        {
-            if (_userService.GetUserById(userId) != null)
-            {
-                return _userService.GetUserById(userId).DisplayName;
-            }
-            return "N/A";
-        }
-
-        public string ContactDisplayName(int contactId)
-        {
-            if (_contactService.GetContactById(contactId) != null)
-            {
-                return _contactService.GetContactById(contactId).FirstName + " " + _contactService.GetContactById(contactId).LastName;
-            }
-            return "N/A";
-        }
-
-        
-        public List<TimeReg> ShowList(int year, int id)
+        public List<TimeReg> ShowList(int id)
         {
             List<TimeReg> newList = new List<TimeReg>();
-            if (TimeService.GetTimeByYearAndAssignmentId(year, id) != null)
+            if (TimeService.GetTimeByYearAndAssignmentId(Year, id) != null)
             {
-                newList = TimeService.GetTimeByYearAndAssignmentId(year, id);
+                newList = TimeService.GetTimeByYearAndAssignmentId(Year, id);
                 return newList;
             }
             return null;
         }
 
-        public int TimeByMonth(int month, int year, int id)
+        public int TimeByMonth(int month, int id)
         {
-            if (ShowList(year, id) != null)
+            if (ShowList(id) != null)
             {
-                var list = ShowList(year, id);
-                if (ShowList(year, id).Find(time => time.Month == (TimeReg.MonthName)month) != null) return ShowList(year, id).Find(time => time.Month == (TimeReg.MonthName)month).Hours;
+                TimeReg tempReg = ShowList(id).Find(time => time.Month == (TimeReg.MonthName)month);
+                if (tempReg != null)
+                {
+                    return tempReg.Hours;
+                }
             }
             return 0;
         }

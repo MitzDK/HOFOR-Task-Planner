@@ -44,18 +44,10 @@
             <tr>
                 <td>@Model.Assignment.Estimate</td>
                 <td>@(Model.Assignment.Estimate -  Model.TimeService.TotalTimeForAssignmentPlanned(Model.Assignment.AssignmentId) )</td>
-                <td>@Model.TimeByMonth(1, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(2, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(3, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(4, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(5, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(6, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(7, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(8, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(9, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(10, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(11, Model.Year, Model.Assignment.AssignmentId)</td>
-                <td>@Model.TimeByMonth(12, Model.Year, Model.Assignment.AssignmentId)</td>
+                @for (int i = 1; i < 13; i++)
+                {
+                <td>@Model.TimeByMonth(i, Model.Assignment.AssignmentId)</td>
+                }
                 <td><a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit Time Registration" asp-page="TimePlanning" asp-route-id="@Model.Assignment.AssignmentId">Planlæg Tid</a></td>
             </tr>
         </table>

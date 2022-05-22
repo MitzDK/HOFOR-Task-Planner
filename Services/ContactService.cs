@@ -81,5 +81,13 @@ namespace HOFORTaskPlanner.Services
             return contactList.OrderBy(contact => contact.ContactId).Skip((currentPage-1) * pageSize).Take(pageSize)
                 .ToList();
         }
+        public string ContactDisplayName(int contactId)
+        {
+            if (GetContactById(contactId) != null)
+            {
+                return GetContactById(contactId).FirstName + " " + GetContactById(contactId).LastName;
+            }
+            return "N/A";
+        }
     }
 }
