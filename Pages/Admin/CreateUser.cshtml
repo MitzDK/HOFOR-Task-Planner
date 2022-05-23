@@ -29,31 +29,31 @@
                         <form method="post">
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <label class="small mb-1" asp-for="NewUser.UserName">Brugernavn</label>
+                                    <label class="small mb-1" asp-for="NewUser.UserName"></label>
                                     <input class="form-control" asp-for="NewUser.UserName" type="text" placeholder="Brugernavn">
                                     <span asp-validation-for="NewUser.UserName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="small mb-1" asp-for="NewUser.Password">Kodeord</label>
+                                    <label class="small mb-1" asp-for="NewUser.Password"></label>
                                     <input class="form-control" asp-for="NewUser.Password" type="text" placeholder="Kodeord">
                                     <span asp-validation-for="NewUser.Password" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <label class="small mb-1" asp-for="NewUser.FirstName">Fornavn</label>
+                                    <label class="small mb-1" asp-for="NewUser.FirstName"></label>
                                     <input class="form-control" asp-for="NewUser.FirstName" type="text" placeholder="Fornavn">
                                     <span asp-validation-for="NewUser.FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="small mb-1" asp-for="NewUser.LastName">Efternavn</label>
+                                    <label class="small mb-1" asp-for="NewUser.LastName"></label>
                                     <input class="form-control" asp-for="NewUser.LastName" type="text" placeholder="Efternavn">
                                     <span asp-validation-for="NewUser.LastName" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
-                                    <label class="small mb-1" asp-for="NewUser.DisplayName">Displaynavn</label>
+                                    <label class="small mb-1" asp-for="NewUser.DisplayName"></label>
                                     <input class="form-control" asp-for="NewUser.DisplayName"type="text" placeholder="Displaynavn">
                                     <h4 style="color: red">@Model.Message</h4>
                                     <span asp-validation-for="NewUser.DisplayName" class="text-danger"></span>
