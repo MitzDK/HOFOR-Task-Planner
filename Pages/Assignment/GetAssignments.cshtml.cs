@@ -79,7 +79,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Response.Cookies.Append("AssignmentIsTypeFiltered", "true");
             Response.Cookies.Append("AssignmentFilterTypeValue", ((int)AssignmentType).ToString());
 
-            //Skal slettes
+            
             Response.Cookies.Append("AssignmentIsDescriptionFiltered", "test", new CookieOptions
                 { Expires = DateTime.Now.AddDays(-1D) }
             );
@@ -121,7 +121,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 Response.Cookies.Append("AssignmentIsDescriptionFiltered", "true"); // NY
                 Response.Cookies.Append("AssignmentFilterDescriptionValue", Description);
 
-                //Skal slettes
                 Response.Cookies.Append("AssignmentIsTypeFiltered", "test", new CookieOptions
                     {Expires = DateTime.Now.AddDays(-1D)}
                 );
