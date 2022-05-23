@@ -78,8 +78,6 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Count = _assignmentService.FilterAssignmentType(AssignmentType).Count();
             Response.Cookies.Append("AssignmentIsTypeFiltered", "true");
             Response.Cookies.Append("AssignmentFilterTypeValue", ((int)AssignmentType).ToString());
-
-            
             Response.Cookies.Append("AssignmentIsDescriptionFiltered", "test", new CookieOptions
                 { Expires = DateTime.Now.AddDays(-1D) }
             );
