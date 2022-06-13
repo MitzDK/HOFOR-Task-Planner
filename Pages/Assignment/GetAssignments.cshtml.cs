@@ -207,6 +207,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             {
                 return _contactService.GetContactById(contactId).FirstName + " " + _contactService.GetContactById(contactId).LastName;
             }
+            
             return "N/A";
         }
 
