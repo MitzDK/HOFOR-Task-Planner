@@ -111,12 +111,22 @@ namespace HOFORTaskPlanner.Services
         //Filtrerer brugere efter enhed/department
         public IEnumerable<User> FilterTeams(User.UserDepartments department)
         {
-            var results = _users.Where(De => De.UserDepartment == department);
+            var results = _users.Where(De => De.UserDepartment == department && !(De.UserType == User.UserTypes.Arkiveret));
             if (results.Count() != 0)
             {
                 return results;
             }
-            return _users;
+
+            var hej = new List<User>();
+            foreach (var VARIABLE in _users)
+            {
+                if (VARIABLE.UserType != User.UserTypes.Arkiveret)
+                {
+                    hej.Add(VARIABLE);
+                }
+            }
+
+            return hej;
         }
         //Henter alle brugere som er del af en enhed/department
         public List<User> GetUsersByDepartment(Models.User.UserDepartments userDepartment)
@@ -147,7 +157,15 @@ namespace HOFORTaskPlanner.Services
         //Antallet User-objekter
         public int GetCount()
         {
-            return _users.Count;
+            var hej = new List<User>();
+            foreach (var VARIABLE in _users)
+            {
+                if (VARIABLE.UserType != User.UserTypes.Arkiveret)
+                {
+                    hej.Add(VARIABLE);
+                }
+            }
+            return hej.Count;
         }
         //Filtrerer ledere fra GetUsers
         public List<User> GetPaginatedNoLeaderRole(List<User> users, int currentPage, int pageSize)

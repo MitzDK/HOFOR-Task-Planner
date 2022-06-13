@@ -1,4 +1,4 @@
-﻿@page "{handler?}"
+﻿@page
 @using HOFORTaskPlanner.Models
 @using System.Security.Claims
 @model HOFORTaskPlanner.Pages.User.GetUsersModel
@@ -72,7 +72,7 @@
                     Brugerrolle
                 </th>
                 <th>
-                    <form method="post" asp-page-handler="">
+                    <form method="post" asp-page-handler="DepartmentFilter">
                         <select asp-for="@Model.UserDepartments" class="text-center" onchange="this.form.submit(); " asp-items="Html.GetEnumSelectList<User.UserDepartments>()">
                             <option>Vælg enhed</option>
                         </select>

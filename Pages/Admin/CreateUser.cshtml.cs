@@ -23,7 +23,9 @@ namespace HOFORTaskPlanner.Pages.Admin
         [BindProperty] [Display(Name = "Brugerrolle")] public Models.User.UserRoles UserRoles { get; set; }
         [BindProperty] [Display(Name = "Brugertype")] public Models.User.UserTypes UserTypes { get; set; }
 
-        public string Message { get; set; } = null;
+        public string Message1 { get; set; } = null;
+        public string Message2 { get; set; } = null;
+
 
         public CreateUserModel(UserService userService)
         {
@@ -46,9 +48,24 @@ namespace HOFORTaskPlanner.Pages.Admin
             NewUser.UserType = UserTypes;
             NewUser.LastUpdated = DateTime.Now;
             NewUser.Password = _passwordHasher.HashPassword(null, NewUser.Password);
+
+            if (_userService.GetUsers().Select(us => us.UserName.ToLower()).Contains(NewUser.UserName.ToLower()) &&
+                (_userService.GetUsers().Select(us => us.DisplayName.ToLower())
+                    .Contains(NewUser.DisplayName.ToLower())))
+            {
+                Message1 = "Displayname eksisterer allerede";
+                Message2 = "Username eksisterer allerede";
+                return Page();
+            }
             if (_userService.GetUsers().Select(us => us.DisplayName.ToLower()).Contains(NewUser.DisplayName.ToLower()))
             {
-                Message = "Displayname eksisterer allerede";
+                Message1 = "Displayname eksisterer allerede";
+                return Page();
+            }
+
+            if (_userService.GetUsers().Select(us => us.UserName.ToLower()).Contains(NewUser.UserName.ToLower()))
+            {
+                Message2 = "Username eksisterer allerede";
                 return Page();
             }
             await _userService.AddUserAsync(NewUser);
