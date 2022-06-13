@@ -29,7 +29,7 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1" asp-for="NewUser.UserName"></label>
                                     <input class="form-control" asp-for="NewUser.UserName" type="text" placeholder="Brugernavn">
-                                    <h4 style="color: red">@Model.Message2</h4>
+                                    <h6 style="color: red">@Model.Message2</h6>
                                     <span asp-validation-for="NewUser.UserName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
@@ -54,7 +54,7 @@
                                 <div class="col-md-6">
                                     <label class="small mb-1" asp-for="NewUser.DisplayName"></label>
                                     <input class="form-control" asp-for="NewUser.DisplayName"type="text" placeholder="Displaynavn">
-                                    <h4 style="color: red">@Model.Message1</h4>
+                                    <h6 style="color: red">@Model.Message1</h6>
                                     <span asp-validation-for="NewUser.DisplayName" class="text-danger"></span>
                                 </div>
                             </div>
