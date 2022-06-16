@@ -51,7 +51,7 @@ namespace HOFORTaskPlanner.Pages.User
         }
         //OnPost bruges til filtrering efter Department (enhed). Der oprettes cookies så filtreringen er bevaret i forbindelse med Pagination eller navigering væk fra siden.
 
-        public IActionResult OnPost()
+        public IActionResult OnPostDepartmentFilter()
         {
             CurrentPage = 1;
             UserList = _userService.GetPaginatedResultList(_userService.FilterTeams(UserDepartments),CurrentPage,PageSize);

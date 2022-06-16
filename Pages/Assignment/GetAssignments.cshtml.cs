@@ -80,6 +80,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             Response.Cookies.Append("AssignmentFilterTypeValue", ((int)AssignmentType).ToString());
             Response.Cookies.Append("AssignmentIsDescriptionFiltered", "test", new CookieOptions
                 { Expires = DateTime.Now.AddDays(-1D) }
+
             );
             Response.Cookies.Append("AssignmentFilterDescriptionValue", "test", new CookieOptions
                 { Expires = DateTime.Now.AddDays(-1D) }

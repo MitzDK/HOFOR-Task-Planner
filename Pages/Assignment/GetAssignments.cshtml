@@ -51,10 +51,8 @@
             </form>
         </div>
     </ul>
-    @if (User.HasClaim(ClaimTypes.Role, "admin"))
-    {
-        <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Create Assignment" asp-page="CreateAssignment"><i class="fa-solid fa-plus"></i></a>
-    }
+    <a class="btn btn-hofor" type="button" data-toggle="tooltip" title="Create Assignment" asp-page="CreateAssignment"><i class="fa-solid fa-plus"></i></a>
+
 </div>
 @if (Model.AssignmentList.Count() != 0)
 {
