@@ -20,7 +20,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         public string ControlName { get; set; }
         public string ContactName { get; set; }
         public int Year { get; set; } = DateTime.Now.Year;
-
+        public Models.User CurrentUser { get; set; }
         public GetAssignmentModel(AssignmentService assignmentService, UserService userService, ContactService contactService, TimeService timeService)
         {
             _assignmentService = assignmentService;
@@ -34,6 +34,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
             AktionName = _userService.UserDisplayName(Assignment.AktionUserId);
             ControlName = _userService.UserDisplayName(Assignment.ControlUserId);
             ContactName = _contactService.ContactDisplayName(Assignment.ContactId);
+            CurrentUser = AssignmentUser(Assignment.AktionUserId);
         }
 
 
@@ -59,6 +60,10 @@ namespace HOFORTaskPlanner.Pages.Assignment
                 }
             }
             return 0;
+        }
+        public Models.User AssignmentUser(int userId)
+        {
+            return _userService.GetUserById(userId);
         }
     }
 }
