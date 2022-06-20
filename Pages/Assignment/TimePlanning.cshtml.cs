@@ -36,7 +36,7 @@ namespace HOFORTaskPlanner.Pages.Assignment
         {
             Assignment = _assignmentService.GetAssignmentById(id);
             await FinishUpdatingAsync();
-            return RedirectToPage("GetAssignments");
+            return RedirectToPage("Details", "Username");
         }
         //Returnerer et tal for hvor mange timer der i alt er planlagt for en opgave, bruges hovedsageligt til at udregne "rest"
         public int TotalTimer(int id)
